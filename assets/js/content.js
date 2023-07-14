@@ -29,7 +29,7 @@ const avaResidences = `
                           </p>
                         </div>
                         <div class="mt-2">
-                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the [more]</p>
+                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the ...</p>
                         </div>
 
                         <div class="justify-center">
@@ -89,7 +89,7 @@ const avaResidences = `
                           </p>
                         </div>
                         <div class="mt-2">
-                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the [more]</p>
+                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the ...</p>
                         </div>
 
                         <div class="justify-center">
@@ -149,7 +149,7 @@ const avaResidences = `
                           </p>
                         </div>
                         <div class="mt-2">
-                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the [more]</p>
+                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the ...</p>
                         </div>
 
                         <div class="justify-center">
@@ -209,7 +209,7 @@ const avaResidences = `
                           </p>
                         </div>
                         <div class="mt-2">
-                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the [more]</p>
+                          <p class="line-clamp-1 mt-2 text-gray-800">6 bedrooms Architect designed Imported fixtures and fittings Full basement Top of the ...</p>
                         </div>
 
                         <div class="justify-center">
