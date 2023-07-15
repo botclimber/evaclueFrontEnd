@@ -11,9 +11,9 @@ map.addEventListener("click", (event) => {
 })
 
 map.addEventListener("dblclick", (event) => {
-    info.innerHTML = reviews
+    info.innerHTML = reviewsSearch + reviews
 })
 
-
-
-
+function showResidenceDetails(){
+    info.innerHTML = avaResidencesDetails
+}

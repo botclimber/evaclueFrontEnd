@@ -1,4 +1,4 @@
-const reviews =
+const reviewsSearch = 
 `
 <label
                   class="mb-5 relative bg-white  flex flex-col md:flex-row items-center justify-center border py-2 px-2 "
@@ -7,7 +7,11 @@ const reviews =
                       class="px-4 w-full rounded-md flex-1 outline-none bg-white">
                   <i class="fa fa-search mr-2 text-blue-900"></i>
                 </label>
+`
 
+
+const reviews =
+`
               <article class="relative mb-1 border rounded-md">
                 <div class="absolute bg-cover w-full h-[88px] bg-[url('https://www.rocketmortgage.com/resources-cmsassets/RocketMortgage.com/Article_Images/Large_Images/TypesOfHomes/types-of-homes-hero.jpg')] rounded-t-md"></div>
                 <div class="absolute w-full h-[88px] backdrop-brightness-50 rounded-t-md"></div>
