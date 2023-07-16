@@ -1,3 +1,61 @@
+const reviewsData = {
+  1: {
+    reviewTitle: "Braga, Fradelos, Rua do Louseiro, 162 | 1 esq - Dir",
+    reviewUserName: "Jese Leos",
+    reviewUserImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhXoW4UU8iZ7l3vYFqKpfsuwFb9j0WbTuiyA&usqp=CAU",
+    reviewBadge: "Legend",
+    reviewContributions: "61",
+    reviewCreatedAt: "January 20, 2022",
+    reviewRating: "3.8",
+    reviewContent: "The flat was spotless, very comfortable, and the host was amazing. I highly recommend this accommodation for anyone visiting New York city centre. It's quite a while since we are no longer using hotel facilities but self contained places. And the main reason is poor cleanliness and staff not being trained properly. This place exceeded our expectation and will return for sure. It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.",
+    //reviewImages:["https://i0.wp.com/heroisx.com/wp-content/uploads/2019/09/Sasuke-Uchiha-Jutsus-Magenkyou-Sharingan.jpg?resize=640%2C346&ssl=1", "https://i.pinimg.com/564x/83/5f/32/835f32065c0807f031514667e5a51432.jpg", "https://images6.alphacoders.com/415/thumb-1920-415519.jpg"]
+    reviewImages : []
+  },
+  2: {
+    reviewTitle: "Braga, Fradelos, Rua do Louseiro, 162 | 1 esq - Dir",
+    reviewUserName: "Jese Leos",
+    reviewUserImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhXoW4UU8iZ7l3vYFqKpfsuwFb9j0WbTuiyA&usqp=CAU",
+    reviewBadge: "Legend",
+    reviewContributions: "61",
+    reviewCreatedAt: "January 20, 2022",
+    reviewRating: "3.8",
+    reviewContent: "The flat was spotless, very comfortable, and the host was amazing. I highly recommend this accommodation for anyone visiting New York city centre. It's quite a while since we are no longer using hotel facilities but self contained places. And the main reason is poor cleanliness and staff not being trained properly. This place exceeded our expectation and will return for sure. It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.",
+    reviewImages:["https://i0.wp.com/heroisx.com/wp-content/uploads/2019/09/Sasuke-Uchiha-Jutsus-Magenkyou-Sharingan.jpg?resize=640%2C346&ssl=1", "https://i.pinimg.com/564x/83/5f/32/835f32065c0807f031514667e5a51432.jpg", "https://images6.alphacoders.com/415/thumb-1920-415519.jpg"]
+  },
+}
+
+function updateModalContent(reviewData){
+    const imgLimit = 5
+    const exceptions = ["reviewImages", "reviewUserImage"]
+
+    for (data in reviewData){
+        console.log(data)
+        if (!exceptions.includes(data)){
+            document.getElementById(data).innerHTML = reviewData[data]
+
+        }else{
+            if(data == "reviewUserImage") document.getElementById(data).src = reviewData[data]
+            else if (data == "reviewImages"){
+
+                const reviewImagesDiv = document.getElementById("reviewImagesContent")
+                const imgsLen = reviewData[data].length
+                if(imgsLen === 0) reviewImagesDiv.style.display = "none"
+                else{
+                    reviewImagesDiv.style.display = ""
+                    for(const index of Array(imgLimit).keys()){
+                        const imgDiv = document.getElementById(`img${index}`)
+                        const img = imgDiv.getElementsByTagName("img")[0]
+
+                        if(index < reviewData[data].length) img.src = reviewData[data][index]
+                        else img.src = "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
 const reviewsSearch = 
 `
 <label
@@ -42,7 +100,7 @@ const reviews =
                 </div>
                 <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400"><p>Reviewed in the United Kingdom on <time datetime="2017-03-03 19:00">March 3, 2017</time></p></footer>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">This is my third Invicta Pro Diver. They are just ...</p>
-                <a href="#" onclick="toggleModal('defaultModal')" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500" >Read more</a>
+                <a href="#" onclick="toggleModal('defaultModal', 1)" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500" >Read more</a>
               </div>
               </article>
 
@@ -76,7 +134,7 @@ const reviews =
                 </div>
                 <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400"><p>Reviewed in the United Kingdom on <time datetime="2017-03-03 19:00">March 3, 2017</time></p></footer>
                 <p class="mb-2 text-gray-500 dark:text-gray-400">This is my third Invicta Pro Diver. They are just ...</p>
-                <a href="#" onclick="toggleModal('defaultModal')" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Read more</a>
+                <a href="#" onclick="toggleModal('defaultModal', 2)" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Read more</a>
               </div>
               </article>
 
@@ -182,3 +240,17 @@ const reviews =
               </div>
               </article>
 `
+
+function toggleModal(modalID, reviewId){
+    updateModalContent(reviewsData[reviewId])
+
+    const modal = document.getElementById(modalID)
+
+    modal.style.width = "100%"
+    modal.style.height = "100%"
+
+    modal.style.backgroundColor = "rgba(0, 0, 0, 0.7)"
+
+    modal.classList.toggle("hidden");
+    modal.classList.toggle("flex");
+}
