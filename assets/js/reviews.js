@@ -16,7 +16,7 @@ const reviewsData = {
     reviewUserName: "Jese Leos",
     reviewUserImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhXoW4UU8iZ7l3vYFqKpfsuwFb9j0WbTuiyA&usqp=CAU",
     reviewBadge: "Legend",
-    reviewContributions: "61",
+    reviewContributions: "61 ",
     reviewCreatedAt: "January 20, 2022",
     reviewRating: "3.8",
     reviewContent: "The flat was spotless, very comfortable, and the host was amazing. I highly recommend this accommodation for anyone visiting New York city centre. It's quite a while since we are no longer using hotel facilities but self contained places. And the main reason is poor cleanliness and staff not being trained properly. This place exceeded our expectation and will return for sure. It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.",
