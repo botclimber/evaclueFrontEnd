@@ -3,8 +3,19 @@
  * 
  */
 
-const info = document.getElementById("info")
-//const map = document.getElementById("map")
+const infoSection = document.getElementById("info")
+const mapSection = document.getElementById("map")
+
+const search = document.getElementById("searchLocation")
+
+search.addEventListener("click", event => {
+  
+})
+
+const showContentSections = () => {
+  infoSection.style.display = "block"
+  mapSection.style.display = "block"
+}
 
 /*
 map.addEventListener("click", (event) => {
@@ -18,9 +29,12 @@ map.addEventListener("dblclick", (event) => {
 })
 */
 
-function showResidenceDetails(){
-    info.innerHTML = avaResidencesDetails
-}
+function showResidenceDetails(){ info.innerHTML = avaResidencesDetails }
+
+function newReviewForm (){ info.innerHTML= newReview }
+
+function claimResidenceForm (){ info.innerHTML= claimResidence }
+
 
 let map;
 
@@ -192,8 +206,8 @@ function initMap() {
             <li class="py-6">
                 <div class="flex items-center space-x-4">
                     <div class="flex-1 min-w-0">
-                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Add Review</button>
-                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Claim Residence</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "newReviewForm()">Add Review</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "claimResidenceForm()">Claim Residence</button>
                     </div>
                 </div>
             </li>
