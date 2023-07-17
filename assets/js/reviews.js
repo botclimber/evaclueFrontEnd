@@ -147,7 +147,7 @@ const reviews =
               </div>
               </article>
 
-              <article class="relative bg-[#111828] mb-1 border rounded-md">
+              <article class="relative bg-[#374152] mb-1 border rounded-md">
                 <div class="absolute bg-cover w-full h-[88px] bg-[url('https://miro.medium.com/v2/resize:fit:1200/1*dEOFpyaOeaofMsFKBLUH0w.jpeg')] rounded-t-md"></div>
                 <div class="absolute w-full h-[88px] backdrop-brightness-50 rounded-t-md"></div>
 
