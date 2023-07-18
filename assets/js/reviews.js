@@ -81,6 +81,7 @@ const reviewsSearch =
 
 const reviews =
 `
+<div class="grid grid-cols-2">
               <article class="relative bg-[#374152] mb-1 border rounded-md">
 
                 <div class="relative p-2">
@@ -248,6 +249,7 @@ const reviews =
                 <a href="#" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Read more</a>
               </div>
               </article>
+            </div>
 `
 
 function toggleModal(modalID, reviewId){
