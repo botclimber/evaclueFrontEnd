@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Evaclue</title>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" />
+
+<script src="assets/js/tailwind.js"></script>
+
+</head>
+<body>
+
+    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="#" class="flex items-center">
+            <img src="./assets/images/logo.png" class="h-8 mr-3" alt="Flowbite Logo">
+        </a>
+        <div class="flex md:order-2">
+            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+            <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+              <span class="sr-only">Open main menu</span>
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+              </svg>
+          </button>
+          <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+            <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="d"><g id="c"><g id="e"><g id="b"><path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#a" y="420"/><use xlink:href="#a" y="840"/><use xlink:href="#a" y="1260"/></g><use xlink:href="#a" y="1680"/></g><use xlink:href="#b" x="247" y="210"/></g><use xlink:href="#c" x="494"/></g><use xlink:href="#d" x="988"/><use xlink:href="#c" x="1976"/><use xlink:href="#e" x="2470"/></g></svg>
+            English (US)
+          </button>
+          <!-- Dropdown -->
+          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
+            <ul class="py-2 font-medium" role="none">
+              <li>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                  <div class="inline-flex items-center">
+                    <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/></svg>              
+                    English (US)
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                  <div class="inline-flex items-center">
+                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de" viewBox="0 0 512 512"><path fill="#ffce00" d="M0 341.3h512V512H0z"/><path d="M0 0h512v170.7H0z"/><path fill="#d00" d="M0 170.7h512v170.6H0z"/></svg>
+                    Deutsch
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                  <div class="inline-flex items-center">
+                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it" viewBox="0 0 512 512"><g fill-rule="evenodd" stroke-width="1pt"><path fill="#fff" d="M0 0h512v512H0z"/><path fill="#009246" d="M0 0h170.7v512H0z"/><path fill="#ce2b37" d="M341.3 0H512v512H341.3z"/></g></svg>              
+                    Italiano
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
+                  <div class="inline-flex items-center">
+                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512"><defs><path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z"/></defs><path fill="#de2910" d="M0 0h512v512H0z"/><use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a"/><use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a"/></svg>
+                    中文 (繁體)
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button data-collapse-toggle="navbar-language" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-language" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+        </button>
+        </div>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+            </li>
+            <li>
+              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+            </li>
+            <li>
+              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </nav>
+
+<div id="main" class="main mt-[70px] mb-[10px]">
+        <section>
+            <div class="bg-gray-100">
+                <div class="container mx-auto py-8">
+                    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+                        <div class="col-span-4 sm:col-span-3">
+                            <div class="bg-white shadow rounded-lg p-6">
+                                <div class="flex flex-col items-center">
+                                    <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+            
+                                    </img>
+                                    <h1 class="text-xl font-bold">John Doe</h1>
+                                    <!-- <p class="text-gray-600"></p>-->
+                                    <div class="mt-6 flex flex-wrap gap-4 justify-center">
+                                        <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Image</a>
+                                        <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Password</a>
+                                    </div>
+                                </div>
+                                <hr class="my-6 border-t border-gray-300">
+                                <div class="flex flex-col">
+                                    <span class="text-gray-600 uppercase font-bold tracking-wider mb-2">Setup Filters and get notified</span>
+                                    <form>
+                                        <div class="col-md-12"><label class="labels">By Cities</label>
+                                          <input type="text" id="byCities" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
+                                        <div class="col-md-12">
+                                          <label class="labels">By Rent Price</label><br>
+                                          <input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" id="byRentPriceMin" value="">
+                                          <input type="number" class="mt-2 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" id="byRentPriceMax" value="">
+                                        </div><br>
+                                        <div class="col-md-12">
+                                          <label class="labels">Enable Filter</label><br>
+                                          <input type="checkbox" id="enable" lass="mr-2 leading-tight">
+                                        </div>
+                                        <br>
+                                        <div class="d-flex justify-content-between align-items-center experience"><span style="color:#b8410d" id="responseMsg"></span></div><br>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-4 sm:col-span-9">
+                                         
+
+                            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                                    <li class="mr-2" role="presentation">
+                                        <button class="inline-block p-4 border-b-2 rounded-t-lg" id="residences-tab" data-tabs-target="#residences" type="button" role="tab" aria-controls="profile" aria-selected="false">Residences</button>
+                                    </li>
+                                    <li class="mr-2" role="presentation">
+                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Reviews</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="myTabContent" class="bg-gray-800 text-white shadow rounded-lg p-6">
+                                <div class="hidden p-4 rounded-lg" id="residences" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div data-te-datatable-init>
+                                        <table id="residencesDataTable" class="display" style="width:100%;text-wrap: wrap;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Location</th>
+                                                    <th>RentPrice</th>
+                                                    <th>Available</th>
+                                                    <th>Document</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td>400 e/mes</td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
+                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td>400 e/mes</td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight"><span class="text-red-500"> No</span></td>
+                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td>400 e/mes</td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
+                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Location</th>
+                                                    <th>RentPrice</th>
+                                                    <th>Available</th>
+                                                    <th>Document</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                      </div>
+                                </div>
+                                <div class="hidden p-4 rounded-lg "  id="reviews" role="tabpanel" aria-labelledby="dashboard-tab">
+                                    <div data-te-datatable-init>
+                                        <table id="reviewsDataTable" class="display responsive" style="width:100%;text-wrap: wrap;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Location</th>
+                                                    <th>Review</th>
+                                                    <th>Created At</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               <tr>
+                                                <td>1</td>
+                                                <td><p>Guimaraes, Creixomil, Rua do Pinheiro 260, 1 esq</p></td>
+                                                <td>Very good sta... <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> more</a></td>
+                                                <td>2023-09-11 18:01</td>
+                                                <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                    Delete
+                                                  </button></td>
+                                               </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Location</th>
+                                                    <th>Review</th>
+                                                    <th>Created At</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                      </div>
+                                </div>
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div>
+
+
+<footer class="bg-white shadow dark:bg-gray-900">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="#" class="flex items-center mb-4 sm:mb-0">
+                <img src="./assets/images/logo.png" class="h-8 mr-3" alt="Flowbite Logo" />
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                </li>
+                <li>
+                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
+    </div>
+</footer>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
+<script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
+
+<script>
+
+    $("#residencesDataTable").DataTable( {
+        responsive: true
+    });
+
+    const reviewsDataTable = $('#reviewsDataTable').DataTable();
+    new $.fn.dataTable.Responsive( reviewsDataTable, {
+        details: true
+    } );
+    
+</script>
+
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      defer
+    ></script>
+
+<script src="assets/js/createReview.js"></script>
+<script src="assets/js/reviews.js"></script>
+<script src="assets/js/residences.js"></script>
+<script src="assets/js/claimResidence.js"></script>
+<script src="assets/js/index.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+</body>
+</html>
