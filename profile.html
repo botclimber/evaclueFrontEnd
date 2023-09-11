@@ -97,6 +97,7 @@
                 <div class="container mx-auto py-8">
                     <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
                         <div class="col-span-4 sm:col-span-3">
+
                             <div class="bg-white shadow rounded-lg p-6">
                                 <div class="flex flex-col items-center">
                                     <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
@@ -105,28 +106,50 @@
                                     <h1 class="text-xl font-bold">John Doe</h1>
                                     <!-- <p class="text-gray-600"></p>-->
                                     <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                                        <a href="#" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Image</a>
-                                        <a href="#" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Password</a>
+
+                                        <form>
+                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+                                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50    dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"     aria-describedby="file_input_help" id="file_input" type="file">
+                                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                                        </form>
+
+                                        <a href="#" data-modal-target="passwordForm" data-modal-toggle="passwordForm" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Password</a>
                                     </div>
                                 </div>
                                 <hr class="my-6 border-t border-gray-300">
+
                                 <div class="flex flex-col">
-                                    <span class="text-gray-600 uppercase font-bold tracking-wider mb-2">Setup Filters and get notified</span>
-                                    <form>
-                                        <div class="col-md-12"><label class="labels">By Cities</label>
-                                          <input type="text" id="byCities" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
-                                        <div class="col-md-12">
-                                          <label class="labels">By Rent Price</label><br>
-                                          <input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" id="byRentPriceMin" value="">
-                                          <input type="number" class="mt-2 appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" id="byRentPriceMax" value="">
-                                        </div><br>
-                                        <div class="col-md-12">
-                                          <label class="labels">Enable Filter</label><br>
-                                          <input type="checkbox" id="enable" lass="mr-2 leading-tight">
+
+                                    <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+                                        <div>
+                                            <div class="text-sm text-gray-400 ">Review Contributions</div>
+                                            <div class="flex items-center pt-1">
+                                                <div class="text-xl font-medium text-indigo-400 ">1</div>
+                                            </div>
                                         </div>
-                                        <br>
-                                        <div class="d-flex justify-content-between align-items-center experience"><span style="color:#b8410d" id="responseMsg"></span></div><br>
-                                      </form>
+                                        <div class="text-gray-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                                              </svg>
+                                              
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+                                        <div>
+                                            <div class="text-sm text-gray-400 ">Claimed Residences</div>
+                                            <div class="flex items-center pt-1">
+                                                <div class="text-xl font-medium text-indigo-400 ">3</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-gray-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                                              </svg>
+                                              
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -136,73 +159,18 @@
                             <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                                 <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                                     <li class="mr-2" role="presentation">
+                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Reviews</button>
+                                    </li>
+                                    <li class="mr-2" role="presentation">
                                         <button class="inline-block p-4 border-b-2 rounded-t-lg" id="residences-tab" data-tabs-target="#residences" type="button" role="tab" aria-controls="profile" aria-selected="false">Residences</button>
                                     </li>
                                     <li class="mr-2" role="presentation">
-                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Reviews</button>
+                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="filters-tab" data-tabs-target="#filters" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Filters</button>
                                     </li>
                                 </ul>
                             </div>
                             <div id="myTabContent" class="bg-gray-800 text-white shadow rounded-lg p-6">
-                                <div class="hidden p-4 rounded-lg" id="residences" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div data-te-datatable-init>
-                                        <table id="residencesDataTable" class="display" style="width:100%;text-wrap: wrap;">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Location</th>
-                                                    <th>RentPrice</th>
-                                                    <th>Available</th>
-                                                    <th>Document</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
-                                                    <td>400 e/mes</td>
-                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
-                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
-                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-                                                        Release
-                                                      </button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
-                                                    <td>400 e/mes</td>
-                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight"><span class="text-red-500"> No</span></td>
-                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
-                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-                                                        Release
-                                                      </button></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
-                                                    <td>400 e/mes</td>
-                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
-                                                    <td><a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">File</a></td>
-                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-                                                        Release
-                                                      </button></td>
-                                                </tr>
-                                                
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Location</th>
-                                                    <th>RentPrice</th>
-                                                    <th>Available</th>
-                                                    <th>Document</th>
-                                                    <th></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                      </div>
-                                </div>
+                                
                                 <div class="hidden p-4 rounded-lg "  id="reviews" role="tabpanel" aria-labelledby="dashboard-tab">
                                     <div data-te-datatable-init>
                                         <table id="reviewsDataTable" class="display responsive" style="width:100%;text-wrap: wrap;">
@@ -219,7 +187,7 @@
                                                <tr>
                                                 <td>1</td>
                                                 <td><p>Guimaraes, Creixomil, Rua do Pinheiro 260, 1 esq</p></td>
-                                                <td>Very good sta... <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> more</a></td>
+                                                <td>Very good sta... <a href="#" data-modal-target="reviewReadMore" data-modal-toggle="reviewReadMore"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> more</a></td>
                                                 <td>2023-09-11 18:01</td>
                                                 <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
                                                     Delete
@@ -238,9 +206,72 @@
                                         </table>
                                       </div>
                                 </div>
+                                <div class="hidden p-4 rounded-lg" id="residences" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div data-te-datatable-init>
+                                        <table id="residencesDataTable" class="display" style="width:100%;text-wrap: wrap;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Location</th>
+                                                    <th>RentPrice (euros/month)</th>
+                                                    <th>Available</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td><input type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value="400"></td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td><input type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value="280"></td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight"><span class="text-red-500"> No</span></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>Braga, Fradelos, Rua do Louseiro nr 162</td>
+                                                    <td><input type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value="310"></td>
+                                                    <td><input type="checkbox" id="enable" lass="mr-2 leading-tight" checked><span class="text-green-500"> Yes</span></td>
+                                                    <td><button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
+                                                        Release
+                                                      </button></td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                      </div>
+                                </div>
+                                <div class="hidden p-4 rounded-lg" id="filters" role="tabpanel" aria-labelledby="dashboard-tab">
+                                    <p class="uppercase font-bold">Setup Filters and get notified</p>
+                                    <div class="mt-2">
+                                    <form>
+                                        <div class="col-md-12"><label class="labels">By Cities</label>
+                                          <input type="text" id="byCities" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
+                                        <div class="col-md-12">
+                                          <label class="labels">By Rent Price</label><br>
+                                          <input type="number" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" id="byRentPriceMin" value="">
+                                          <input type="number" class="mt-2 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" id="byRentPriceMax" value="">
+                                        </div><br>
+                                        <div class="col-md-12">
+                                          <label class="labels">Enable Filter</label><br>
+                                          <input type="checkbox" id="enable" lass="mr-2 leading-tight">
+                                        </div>
+                                        <br>
+                                        <div class="d-flex justify-content-between align-items-center experience"><span style="color:#b8410d" id="responseMsg"></span></div><br>
+                                      </form>
+                                    </div>
+                                </div>
                             </div>
-                            
-
                             
                         </div>
                     </div>
@@ -275,6 +306,161 @@
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
     </div>
 </footer>
+
+<!-- Password Modal -->
+<div id="passwordForm" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Change Password
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="passwordForm">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6 text-white">
+                <form class="w-full max-w-lg">
+
+                    <div class="flex flex-wrap -mx-3 mb-2">
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                          Old Password
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="*********">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                          New Password
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="*********">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                          Confirm Password
+                        </label>
+                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="*********">
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="passwordForm" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change</button>
+                <button data-modal-hide="passwordForm" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Review read more Modal -->
+<div id="reviewReadMore" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Review Details
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="reviewReadMore">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6 text-white">
+                
+<article>
+    <div >
+        <div class="flex items-start mb-5">
+            <div class="pr-4">
+                <footer>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Reviewed: <time datetime="2022-01-20 19:00">January 20, 2022</time></p>
+                </footer>
+                <h4 class="text-xl font-bold text-gray-900 dark:text-white">Spotless, good appliances, excellent layout, host was genuinely nice and helpful.</h4>
+            </div>
+            <div class="flex items-center">
+                <svg class="w-8 h-8 text-yellow-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                </svg>
+                <p class="fixed ml-[11px] mt-[2px] font-bold text-gray-900 dark:text-white">4</p>
+            </div>
+        </div>
+        <p class="mb-2 text-gray-500 dark:text-gray-400">The flat was spotless, very comfortable, and the host was amazing. I highly recommend this accommodation for anyone visiting New York city centre. It's quite a while since we are no longer using hotel facilities but self contained places. And the main reason is poor cleanliness and staff not being trained properly. This place exceeded our expectation and will return for sure.</p>
+        <p class="mb-5 text-gray-500 dark:text-gray-400">It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.</p>
+        <div>
+            <div class="container mx-auto px-5 py-2">
+                <div class="-m-1 flex flex-wrap md:-m-2">
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://m.economictimes.com/thumb/msid-102650347,width-1200,height-900,resizemode-4,imgsize-85186/jujutsu-kaisen-season-2-is-the-popular-manga-available-on-netflix.jpg" />
+                    </div>
+                  </div>
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(74).webp" />
+                    </div>
+                  </div>
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(75).webp" />
+                    </div>
+                  </div>
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(70).webp" />
+                    </div>
+                  </div>
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(76).webp" />
+                    </div>
+                  </div>
+                  <div class="flex w-1/3 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                      <img
+                        alt="gallery"
+                        class="block h-full w-full rounded-lg object-cover object-center"
+                        src="https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(72).webp" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</article>
+
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
