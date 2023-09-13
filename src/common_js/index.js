@@ -1,8 +1,11 @@
 /**
- * from content.js {avaResidences, reviews}
- * 
+ * TODO:
+ *  - check if token exists if yes, display Profile and Logout buttons instead of Login
+ *  - this script is only for definitions and "on start/load" checks
  */
 
+
+// TODO: move below code form here --------------------------
 const infoSection = document.getElementById("info")
 const mapSection = document.getElementById("map")
 
