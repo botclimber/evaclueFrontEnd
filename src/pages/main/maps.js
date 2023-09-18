@@ -3,17 +3,6 @@
 const infoSection = document.getElementById("info")
 const mapSection = document.getElementById("map")
 
-const search = document.getElementById("searchLocation")
-
-search.addEventListener("click", event => {
-  
-})
-
-const showContentSections = () => {
-  infoSection.style.display = "block"
-  mapSection.style.display = "block"
-}
-
 /*
 map.addEventListener("click", (event) => {
     //info.innerHTML = avaResidences
@@ -218,4 +207,4 @@ function initMap() {
   }
 }
 
-window.initMap = initMap;   
+window.initMap = initMap;  

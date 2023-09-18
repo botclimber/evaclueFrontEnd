@@ -1,7 +1,2 @@
-async function main () {
-    
-    await fillSrcs()
-    await pageMode()
-}
-
-main()
+async function profile_main () {}
+profile_main();

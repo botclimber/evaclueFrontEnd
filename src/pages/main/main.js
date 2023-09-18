@@ -1,6 +1,2 @@
-async function main () {
-    
-    await pageMode()
-}
-
-main()
+async function main () {}
+main();
