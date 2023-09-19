@@ -1,8 +1,8 @@
 async function common_main () {
     
-    await fillSrcs(srcs)
-    await fillHrefs(hrefs)
-    await pageMode()
+    await fillSrcs(srcs);
+    await fillHrefs(hrefs);
+    await pageMode();
 }
 
-common_main()
+common_main();

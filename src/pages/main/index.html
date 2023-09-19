@@ -129,10 +129,33 @@
 
             <div class="box pt-5">
                 <div class="box-wrapper">
-
-                    <div class=" bg-white rounded flex items-center w-full p-3 shadow-sm border border-gray-200">
-                      <button onclick="showContentSections()" class="outline-none focus:outline-none"><svg class=" w-5 text-gray-600 h-5 cursor-pointer" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
-                      <input type="search" name="" id="searchLocation"  placeholder="Location" x-model="q" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent">
+                    <div >
+                      <form method="GET" action="/src/pages/main/index.html" class="ml-[33%] w-[50%]">
+                      
+                        <div class="flex flex-wrap">
+                          <div class="w-[150px] ml-2">
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="searchCity" type="text" name="sCity" placeholder="City">
+                          </div>
+                          <div class="w-[150px] ml-2">
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="searchStreet" type="text" name="sStreet" placeholder="Street">
+                          </div>
+                          <div class="w-[150px] ml-2">
+                            <input
+                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                              id="searchNr" type="text" name="sNr" placeholder="Building Number">
+                          </div>
+                          <div class="w-[150px] ml-2">
+                            <button
+                              type="submit" class="bg-white hover:bg-gray-200 lock w-[100px]  text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                              Search
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   
                 </div>
@@ -283,12 +306,13 @@
 </div>
 
 <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq2YyQh70n_M6glKgr3U4a9vCmY5LU0xQ&callback=initMap"
       defer
     ></script>
 
 <script src="../../common_js/eva-functional-utils.js"></script>
 <script src="../../common_js/index.js"></script>
+<script src="../../common_js/load.js"></script>
 
 <script src="maps.js"></script>
 <script src="createReview.js"></script>

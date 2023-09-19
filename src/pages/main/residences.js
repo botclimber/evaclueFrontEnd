@@ -1,4 +1,6 @@
-const avaResidences = `
+function showResidenceDetails(){ info.innerHTML = avaResidencesDetails }
+
+const avaResidences = /*html */`
 <div class="m-4 text-sm relative mx-auto w-full">
                     <a href="#" onclick = "showResidenceDetails()" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
                       <div class="rounded-lg bg-white p-4 shadow">
@@ -242,7 +244,7 @@ const avaResidences = `
 `
 
 const avaResidencesDetails = 
-`
+/*html */`
 <div class="m-4 text-sm relative mx-auto w-full">
                     <a href="#" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
                       <div class="rounded-lg bg-white p-4 shadow">

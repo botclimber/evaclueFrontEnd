@@ -1,3 +1,15 @@
+const domain = "http://localhost"
+
+const apis = {
+  "reviews": `${domain}/reviews/v2/`,
+  "geoLocation": `${domain}/geo/v1/`,
+  "users": `${domain}/users/v1/`,
+  "fileHandler": `${domain}/fileHandler/v1/`,
+  "notification": `${domain}/notifications/v1/`,
+  "resowners": `${domain}/resowners/v1/`,
+  "support": `${domain}/support/v1/` // WARN: not implemented yet!
+}
+
 const token = localStorage.getItem("token") || false
 
 const loadingScreen = document.getElementById("eva_loadingScreen")

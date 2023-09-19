@@ -1,32 +1,29 @@
-// TODO: CODE BELOW MUST BE REVIEWD AND DECOUPLED
-
 const infoSection = document.getElementById("info")
 const mapSection = document.getElementById("map")
 
-/*
-map.addEventListener("click", (event) => {
-    //info.innerHTML = avaResidences
-    info.innerHTML = newReview
-})
-
-map.addEventListener("dblclick", (event) => {
-    //info.innerHTML = reviewsSearch + reviews
-    info.innerHTML = claimResidence
-})
-*/
-
-function showResidenceDetails(){ info.innerHTML = avaResidencesDetails }
-
-function newReviewForm (){ info.innerHTML= newReview }
-
-function claimResidenceForm (){ info.innerHTML= claimResidence }
-
-
 let map;
 
-function initMap() {
+const search = async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+
+  const sCity = urlParams.get("sCity") || "Braga"
+  const sStreet = urlParams.get("sStreet") || ""
+  const sNr = urlParams.get("sNr") || ""
+
+  const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&nr=${sNr}&onlyAppr=1`)
+  const response = await location.json()
+
+  console.log(response)
+  return response
+
+}
+
+async function initMap() {
+
+  const location = await search()
+
   map = new google.maps.Map(document.getElementById("map"), {
-    center: new google.maps.LatLng(-33.91722, 151.23064),
+    center: new google.maps.LatLng(location.lat, location.lng),
     zoom: 16,
   });
 
