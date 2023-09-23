@@ -1,2 +1,4 @@
-async function main () {}
+async function main () {
+    
+}
 main();
