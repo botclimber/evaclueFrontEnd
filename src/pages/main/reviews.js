@@ -12,6 +12,16 @@
         },
     }*/
 
+function getImgs(reviewId, nrImgs) {
+
+    const imgs = []
+    for (let x = 0; x < nrImgs; x++) {
+        imgs.push(`../../../assets/images/reviewImgs/review-${reviewId}/rImg-${x}.gif`)
+    }
+
+    return imgs
+}
+
 const buildReviewsData = async (data) => {
 
     const reviewsData = data.map(row => {
@@ -28,7 +38,7 @@ const buildReviewsData = async (data) => {
             reviewCreatedAt: row.rev.createdOn,
             reviewRating: row.rev.rating,
             reviewContent: row.rev.review,
-            reviewImages: [] // TODO: if row.rev.imgs > 0 get all imgs from folder id
+            reviewImages: (row.rev.imgs > 0)? getImgs(row.rev.id, row.rev.imgs) : []
         }
     })
 
@@ -93,7 +103,7 @@ function updateModalContent(revInput){
 
     const reviewData = revInput[0]
     console.log(reviewData)
-    const imgLimit = 5
+    const imgLimit = 3
     const exceptions = ["reviewImages", "reviewUserImage", "reviewRes"]
 
     for (data in reviewData){

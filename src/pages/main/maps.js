@@ -10,7 +10,7 @@ const search = async () => {
   const sStreet = urlParams.get("sStreet") || ""
   const sNr = urlParams.get("sNr") || ""
 
-  const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&nr=${sNr}&onlyAppr=1`)
+  const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&buildingNr=${sNr}&onlyAppr=1`)
   const response = await location.json()
 
   console.log(response)
@@ -24,7 +24,7 @@ async function initMap() {
 
   map = new google.maps.Map(document.getElementById("map"), {
     center: new google.maps.LatLng(location.lat, location.lng),
-    zoom: 4,
+    zoom: 19,
   });
 
   const infoWindow = new google.maps.InfoWindow();
@@ -34,7 +34,13 @@ async function initMap() {
   })
 
   map.addListener("dblclick", (event) => {
-    info.innerHTML = newReview
+    newReviewForm()
+
+    const coords = event.latLng.toJSON()
+    document.getElementById("rFlag").value = "fromMapClick"
+    document.getElementById("rLat").value = coords.lat
+    document.getElementById("rLng").value = coords.lng
+
   })
 
   //const iconBase =
@@ -57,7 +63,8 @@ async function initMap() {
   
   for (x in data.addrs){
 
-    const position = new google.maps.LatLng(data.addrs[x][0].location.addr.lat || 1, data.addrs[x][0].location.addr.lat) || 1;
+    const position = new google.maps.LatLng(data.addrs[x][0].location.addr.lat || 1, data.addrs[x][0].location.addr.lng || 1);
+    console.log(`CHEKCING IF POSITIOGN EXISTS ${position}`)
     const totalReviews = data.addrs[x].length;
 
     const sum = data.addrs[x].map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
