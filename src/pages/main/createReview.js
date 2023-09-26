@@ -10,6 +10,16 @@ function newReviewForm (){
 
   const ratingValue = document.getElementById("rRating")
 
+  const rAnon = document.getElementById("rAnon")
+  rAnon.addEventListener('change', (event) => {
+  
+    switch(parseInt(rAnon.value)){
+      case 0: rAnon.value = 1; break;
+      case 1: rAnon.value = 0; break;
+    }
+  
+  })
+
   st1.addEventListener('click', (event) => {
     ratingValue.value = 1
     starStatus({starsToCheck: [st1], starsToUncheck: [st2,st3,st4,st5]})
@@ -44,7 +54,29 @@ function newReviewForm (){
   }
 }
 
+function reviewFromMarker (address) {
+  newReviewForm()
+
+  console.log(address)
+
+  const city =  document.getElementById("rCity")
+  const street = document.getElementById("rStreet")
+  const nr = document.getElementById("rNr")
+  const lat = document.getElementById("rLat")
+  const lng = document.getElementById("rLng")
+  const flag = document.getElementById("rFlag")
+
+  city.value = address.city; city.disabled = true;
+  street.value = address.street; street.disabled = true;
+  nr.value = address.nr; nr.disabled = true;
+  lat.value = address.lat;
+  lng.value = address.lng;
+  flag.value = "fromMarker";
+
+}
+
 async function submitReview(){
+  console.log("Submitting review ...")
 
   const dataToSubmit = {
     type: "createReview",
@@ -54,14 +86,14 @@ async function submitReview(){
     city: document.getElementById("rCity").value || undefined,
     street: document.getElementById("rStreet").value || undefined,
     nr : document.getElementById("rNr").value || undefined,
-    nrFloor : document.getElementById("rFloor").value || "",
-    nrSide : document.getElementById("rDirection").value || "",
+    floor : document.getElementById("rFloor").value || "",
+    direction : document.getElementById("rDirection").value || "",
     rating : document.getElementById("rRating").value || 0,
     review : document.getElementById("rReview").value || undefined,
     anonymous : parseInt(document.getElementById("rAnon").value) || 0
   }
 
-  await fetch(`${apis.reviews}/create`,{
+  const response = await fetch(`${apis.reviews}create`,{
     method: 'POST',
     body: JSON.stringify(dataToSubmit),
     headers: {
@@ -70,29 +102,36 @@ async function submitReview(){
       // 'Content-Type': 'application/x-www-form-urlencoded',
     }
   })
-  .then(res => res.json())
-  .then(async (response) => {
-    console.log(response)
+
+  const data = await response.json();
+
+  console.log(response)
+
+  if(response.ok){
+    console.log(data)
 
     const mulFiles = document.getElementById("reviewImgs").files
     const dataWithImgs = new FormData()
 
     for(const file of mulFiles){ dataWithImgs.append("reviewImgs", file) }
-    dataWithImgs.append("reviewId", response.revId)
+    dataWithImgs.append("reviewId", data.revId)
 
     try{
-      const result = await fetch(`${apis.fileHandler}/addReviewImgs`, {
+      const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
         method: "POST",
         body: dataWithImgs
       });
+      const fileHandlerData = await fileHandlerResponse.json();
 
-      console.log(result)
+      console.log(fileHandlerData)
       // TODO: reload maps
 
     }catch(e){
       console.log(e)
     }
-  })
+  }else{
+    console.log(data.msg)
+  }
   
 }
 
@@ -192,7 +231,7 @@ const newReview =
             <div class="mt-6 space-y-6">
               <div class="relative flex gap-x-3">
                 <div class="flex h-6 items-center">
-                  <input id="rAnon" name="rAnon" type="checkbox"
+                  <input id="rAnon" name="rAnon" type="checkbox" value="0"
                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                 </div>
                 <div class="text-sm leading-6">

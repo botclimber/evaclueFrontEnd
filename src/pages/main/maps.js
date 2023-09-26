@@ -76,10 +76,12 @@ async function initMap() {
     markers.push({position, totalReviews, ratingAvg, addrData, type})
   }
 
+  console.log(`markers: `)
   console.log(markers)
 
   // Create markers.
   for (let i = 0; i < markers.length; i++) {
+    console.log(markers[i].addrData)
 
     const marker = new google.maps.Marker({
       position: markers[i].position,
@@ -121,7 +123,7 @@ ${buildStars(markers[i].ratingAvg)}
             <li class="py-6">
                 <div class="flex items-center space-x-4">
                     <div class="flex-1 min-w-0">
-                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "newReviewForm()">Add Review</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "reviewFromMarker(${serialize(markers[i].addrData[0].location.addr)})">Add Review</button>
                             <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "claimResidenceForm()">Claim Residence</button>
                     </div>
                 </div>

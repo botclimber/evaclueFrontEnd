@@ -48,13 +48,14 @@ const buildReviewsData = async (data) => {
 }
 
 const buildArticle = (element) => {
-    const eleAsParameter = JSON.stringify([element]).replaceAll('"','\'')
+    const eleAsParameter = serialize([element])
+    const bgImg = (element.reviewImages.length > 0)? element.reviewImages[0] : ""
     console.log(eleAsParameter)
 
     const article = /*html*/ 
     `
     <article class="relative bg-[#374152] mb-1 border rounded-md">
-        <div class="absolute bg-cover w-full h-[88px] bg-[url('https://i0.wp.com/heroisx.com/wp-content/uploads/2019/09/Sasuke-Uchiha-Jutsus-Magenkyou-Sharingan.jpg?resize=640%2C346&ssl=1')] rounded-t-md"></div>
+        <div class="absolute bg-cover w-full h-[88px] bg-[url('${bgImg}')] rounded-t-md"></div>
         <div class="absolute w-full h-[88px] backdrop-brightness-50 rounded-t-md"></div>
 
         <div class="relative p-2">

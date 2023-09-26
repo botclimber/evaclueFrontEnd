@@ -1,0 +1,7 @@
+# ignore all images
+**/reviewImgs/
+**/resImgs/
+**/proofDocs/
+
+# ignore all user images unless default.gif
+**/userImages/user-*.gif

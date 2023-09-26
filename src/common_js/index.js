@@ -96,3 +96,5 @@ function buildStars(starsNr){
 
   return stars
 }
+
+function serialize(data){ return JSON.stringify(data).replaceAll('"','\'') }
