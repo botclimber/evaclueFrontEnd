@@ -1,3 +1,6 @@
+const rImgMaxSize = 5e6 // bytes
+const rImgMaxFiles = 3
+const allowedExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
 function newReviewForm (){ 
   info.innerHTML= newReview 
@@ -78,59 +81,70 @@ function reviewFromMarker (address) {
 async function submitReview(){
   console.log("Submitting review ...")
 
-  const dataToSubmit = {
-    type: "createReview",
-    flag: document.getElementById("rFlag").value || undefined,
-    lat : document.getElementById("rLat").value || 0,
-    lng : document.getElementById("rLng").value || 0,
-    city: document.getElementById("rCity").value || undefined,
-    street: document.getElementById("rStreet").value || undefined,
-    nr : document.getElementById("rNr").value || undefined,
-    floor : document.getElementById("rFloor").value || "",
-    direction : document.getElementById("rDirection").value || "",
-    rating : document.getElementById("rRating").value || 0,
-    review : document.getElementById("rReview").value || undefined,
-    anonymous : parseInt(document.getElementById("rAnon").value) || 0
+  const mulFiles = document.getElementById("reviewImgs").files
+  const dataWithImgs = new FormData()
+
+  for(const file of mulFiles){ 
+    if(allowedExtensions.includes(file.type)) dataWithImgs.append("reviewImgs", file) 
+    else console.log(`file: ${file.name} contains not supported extension`)
   }
 
-  const response = await fetch(`${apis.reviews}create`,{
-    method: 'POST',
-    body: JSON.stringify(dataToSubmit),
-    headers: {
-      'authorization':'baer '+token,
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
+  const filesSize = dataWithImgs.getAll("reviewImgs").reduce( (total, value) => total + value.size ,0)
+
+  if(filesSize > rImgMaxSize){ console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return;}
+  if(dataWithImgs.getAll("reviewImgs").length > rImgMaxFiles) { console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return;}
+
+  if( (mulFiles.length == 0) || (mulFiles.length > 0 && dataWithImgs.getAll("reviewImgs").length > 0)) {
+    const dataToSubmit = {
+      type: "createReview",
+      flag: document.getElementById("rFlag").value || undefined,
+      lat : document.getElementById("rLat").value || 0,
+      lng : document.getElementById("rLng").value || 0,
+      city: document.getElementById("rCity").value || undefined,
+      street: document.getElementById("rStreet").value || undefined,
+      nr : document.getElementById("rNr").value || undefined,
+      floor : document.getElementById("rFloor").value || "",
+      direction : document.getElementById("rDirection").value || "",
+      rating : document.getElementById("rRating").value || 0,
+      review : document.getElementById("rReview").value || undefined,
+      anonymous : parseInt(document.getElementById("rAnon").value) || 0
     }
-  })
 
-  const data = await response.json();
+    const response = await fetch(`${apis.reviews}create`,{
+      method: 'POST',
+      body: JSON.stringify(dataToSubmit),
+      headers: {
+        'authorization':'baer '+token,
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
 
-  console.log(response)
+    const data = await response.json();
 
-  if(response.ok){
-    console.log(data)
+    console.log(response)
 
-    const mulFiles = document.getElementById("reviewImgs").files
-    const dataWithImgs = new FormData()
+    if(response.ok){
+      console.log(data)
 
-    for(const file of mulFiles){ dataWithImgs.append("reviewImgs", file) }
-    dataWithImgs.append("reviewId", data.revId)
+      dataWithImgs.append("reviewId", data.revId)
 
-    try{
-      const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
-        method: "POST",
-        body: dataWithImgs
-      });
-      const fileHandlerData = await fileHandlerResponse.json();
+      try{
+        const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
+          method: "POST",
+          body: dataWithImgs
+        });
+        const fileHandlerData = await fileHandlerResponse.json();
 
-      console.log(fileHandlerData)
-      // TODO: reload maps
+        console.log(fileHandlerData)
+        // TODO: reload maps
 
-    }catch(e){
-      console.log(e)
+      }catch(e){
+        console.log(e)
+      }
+    }else{
+      console.log(data.msg)
     }
-  }else{
-    console.log(data.msg)
   }
   
 }

@@ -68,7 +68,7 @@ async function initMap() {
     const totalReviews = data.addrs[x].length;
 
     const sum = data.addrs[x].map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
-    const ratingAvg = sum / totalReviews;
+    const ratingAvg = (sum / totalReviews).toFixed(2);
     
     const type = "info";
     const addrData = data.addrs[x] 
