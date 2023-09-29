@@ -29,18 +29,17 @@ async function initMap() {
 
   const infoWindow = new google.maps.InfoWindow();
 
-  map.addListener("click", (event) => {
+  map.addListener("click", (_) => {
     info.innerHTML = avaResidences
   })
 
   map.addListener("dblclick", (event) => {
-    newReviewForm()
-
     const coords = event.latLng.toJSON()
-    document.getElementById("rFlag").value = "fromMapClick"
-    document.getElementById("rLat").value = coords.lat
-    document.getElementById("rLng").value = coords.lng
-
+    localStorage.setItem("rLat", coords.lat)
+    localStorage.setItem("rLng", coords.lng)
+    localStorage.setItem("rFlag", "fromMapClick")
+    
+    newReviewForm()
   })
 
   //const iconBase =
@@ -123,8 +122,8 @@ ${buildStars(markers[i].ratingAvg)}
             <li class="py-6">
                 <div class="flex items-center space-x-4">
                     <div class="flex-1 min-w-0">
-                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "reviewFromMarker(${serialize(markers[i].addrData[0].location.addr)})">Add Review</button>
-                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "claimResidenceForm()">Claim Residence</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "fromMarker(newReviewForm, ${serialize(markers[i].addrData[0].location.addr)})">Add Review</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick = "fromMarker(claimResidenceForm, ${serialize(markers[i].addrData[0].location.addr)})">Claim Residence</button>
                     </div>
                 </div>
             </li>
@@ -135,12 +134,9 @@ ${buildStars(markers[i].ratingAvg)}
 
         infoWindow.open(map, marker)
 
-        // TODO: build function to handle reviews belong to clicked address and display it in the info separator
         const reviews = await buildHtml(markers[i].addrData) 
         info.innerHTML = reviewsSearch + reviews
     })
 
   }
 }
-
-window.initMap = initMap;  

@@ -306,5 +306,5 @@ const avaResidencesDetails =
                     </a>
                   </div>
 
-                  ${reviews}
+                  REVIEWS
 `

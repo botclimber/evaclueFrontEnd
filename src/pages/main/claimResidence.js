@@ -1,10 +1,29 @@
-//const claimExistingResidence = ???
+const imgsMaxSize = 5e6 // bytes
+const maxImgs = 3
+const allowedImgExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
-function claimResidenceForm (){ info.innerHTML= claimResidence }
+const allowedDocExtensions = ["application/pdf"]
+const maxFiles = 1
+const fileMaxSize = 5e6 // bytes
+
+function claimResidenceForm (){ info.innerHTML = claimResidence }
+
+async function submitClaim() {
+
+}
 
 const claimResidence = 
 /*html*/`
-<form>
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li class="mr-2">
+        <a href="#" onclick="newReviewForm()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">New Review</a>
+    </li>
+    <li class="mr-2">
+        <a href="#" onclick="claimResidenceForm()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">Claim Residence</a>
+    </li>
+</ul>
+
+<form class="mt-5">
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Claim Residence</h2>
@@ -13,7 +32,7 @@ const claimResidence =
         <div class="sm:col-span-2 sm:col-start-1">
           <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
           <div class="mt-2">
-            <input type="text" name="city" id="city" autocomplete="address-level2"
+            <input type="text" name="city" id="rCity"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -21,7 +40,7 @@ const claimResidence =
         <div class="sm:col-span-2">
           <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Street</label>
           <div class="mt-2">
-            <input type="text" name="region" id="region" autocomplete="address-level1"
+            <input type="text" name="region" id="rStreet"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -29,7 +48,7 @@ const claimResidence =
         <div class="sm:col-span-2">
           <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Residence Number</label>
           <div class="mt-2">
-            <input type="text" name="postal-code" id="postal-code" autocomplete="postal-code"
+            <input type="text" name="postal-code" id="rNr"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -37,7 +56,7 @@ const claimResidence =
         <div class="sm:col-span-3">
           <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Floor</label>
           <div class="mt-2">
-            <input type="text" name="first-name" id="first-name" placeholder=" (Optional)" autocomplete="given-name"
+            <input type="text" name="first-name" id="resFloor" placeholder=" (Optional)" 
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -45,28 +64,9 @@ const claimResidence =
         <div class="sm:col-span-3">
           <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Direction</label>
           <div class="mt-2">
-            <input type="text" name="last-name" id="last-name" placeholder=" (Optional) " autocomplete="family-name"
+            <input type="text" name="last-name" id="resDirection" placeholder=" (Optional)" 
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
-        </div>
-
-        <div class="sm:col-span-full">
-          <fieldset>
-            <legend class="text-sm font-semibold leading-6 text-gray-900">Is the property available for renting?
-            </legend>
-            <div class="mt-6 space-y-6">
-              <div class="flex items-center gap-x-3">
-                <input id="push-everything" name="push-notifications" type="radio"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                <label for="push-everything" class="block text-sm font-medium leading-6 text-gray-900">Yes</label>
-              </div>
-              <div class="flex items-center gap-x-3">
-                <input id="push-email" name="push-notifications" type="radio"
-                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                <label for="push-email" class="block text-sm font-medium leading-6 text-gray-900">No</label>
-              </div>
-            </div>
-          </fieldset>
         </div>
 
         <div class="col-span-full">
@@ -81,19 +81,16 @@ const claimResidence =
               <div class="mt-4 flex text-sm leading-6 text-gray-600">
                 <label for="file-upload"
                   class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                  <span>Upload a file</span>
-                  <input id="proofResidence" name="proofResidence" type="file">
+                  <input type="file" id="proofDocFiles">
                 </label>
-                <p class="pl-1">or drag and drop</p>
               </div>
-              <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+              <p class="text-xs leading-5 text-gray-600">.pdf up to 1 file</p>
             </div>
           </div>
         </div>
 
         <div class="col-span-full">
-          <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Property Images
-            (optional)</label>
+          <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Images (optional)</label>
           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div class="text-center">
               <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -104,12 +101,10 @@ const claimResidence =
               <div class="mt-4 flex text-sm leading-6 text-gray-600">
                 <label for="file-upload"
                   class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
-                  <span>Upload a file</span>
-                  <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple>
+                  <input type="file" id="resImgs" multiple>
                 </label>
-                <p class="pl-1">or drag and drop</p>
               </div>
-              <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+              <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 5 files</p>
             </div>
           </div>
         </div>
@@ -119,9 +114,8 @@ const claimResidence =
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="submit"
+    <button type="button" onclick="submitClaim()"
       class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim</button>
   </div>
 </form>
-
 `

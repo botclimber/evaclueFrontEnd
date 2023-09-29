@@ -3,7 +3,7 @@ const rImgMaxFiles = 3
 const allowedExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
 function newReviewForm (){ 
-  info.innerHTML= newReview 
+  info.innerHTML = newReview 
 
   const st1 = document.getElementById("str1")
   const st2 = document.getElementById("str2")
@@ -57,49 +57,19 @@ function newReviewForm (){
   }
 }
 
-function reviewFromMarker (address) {
-  newReviewForm()
-
-  console.log(address)
-
-  const city =  document.getElementById("rCity")
-  const street = document.getElementById("rStreet")
-  const nr = document.getElementById("rNr")
-  const lat = document.getElementById("rLat")
-  const lng = document.getElementById("rLng")
-  const flag = document.getElementById("rFlag")
-
-  city.value = address.city; city.disabled = true;
-  street.value = address.street; street.disabled = true;
-  nr.value = address.nr; nr.disabled = true;
-  lat.value = address.lat;
-  lng.value = address.lng;
-  flag.value = "fromMarker";
-
-}
-
 async function submitReview(){
   console.log("Submitting review ...")
-
+  
   const mulFiles = document.getElementById("reviewImgs").files
-  const dataWithImgs = new FormData()
+  const formData = await inputFilesValidator(mulFiles, "reviewImgs", rImgMaxSize, rImgMaxFiles, allowedExtensions)
+  console.log(formData.getAll("reviewImgs"))
 
-  for(const file of mulFiles){ 
-    if(allowedExtensions.includes(file.type)) dataWithImgs.append("reviewImgs", file) 
-    else console.log(`file: ${file.name} contains not supported extension`)
-  }
-
-  const filesSize = dataWithImgs.getAll("reviewImgs").reduce( (total, value) => total + value.size ,0)
-
-  if(filesSize > rImgMaxSize){ console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return;}
-  if(dataWithImgs.getAll("reviewImgs").length > rImgMaxFiles) { console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return;}
-
-  if( (mulFiles.length == 0) || (mulFiles.length > 0 && dataWithImgs.getAll("reviewImgs").length > 0)) {
+  if( (mulFiles.length == 0) || (mulFiles.length > 0 && formData)) {
     const dataToSubmit = {
       type: "createReview",
-      flag: document.getElementById("rFlag").value || undefined,
-      lat : document.getElementById("rLat").value || 0,
-      lng : document.getElementById("rLng").value || 0,
+      flag: localStorage.getItem("rFlag") || undefined,
+      lat : parseFloat(localStorage.getItem("rLat")) || 0,
+      lng : parseFloat(localStorage.getItem("rLng")) || 0,
       city: document.getElementById("rCity").value || undefined,
       street: document.getElementById("rStreet").value || undefined,
       nr : document.getElementById("rNr").value || undefined,
@@ -110,6 +80,7 @@ async function submitReview(){
       anonymous : parseInt(document.getElementById("rAnon").value) || 0
     }
 
+    console.log(dataToSubmit)
     const response = await fetch(`${apis.reviews}create`,{
       method: 'POST',
       body: JSON.stringify(dataToSubmit),
@@ -124,34 +95,47 @@ async function submitReview(){
 
     console.log(response)
 
-    if(response.ok){
-      console.log(data)
+    
+      if(response.ok){
+        console.log("asdasd")
+        if(formData.getAll("reviewImgs").length > 0){
+          console.log("asdjhasd jda hsdas")
+          console.log(data)
 
-      dataWithImgs.append("reviewId", data.revId)
+          formData.append("reviewId", data.revId)
 
-      try{
-        const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
-          method: "POST",
-          body: dataWithImgs
-        });
-        const fileHandlerData = await fileHandlerResponse.json();
+          try{
+            const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
+              method: "POST",
+              body: formData
+            });
+            const fileHandlerData = await fileHandlerResponse.json();
 
-        console.log(fileHandlerData)
-        // TODO: reload maps
+            console.log(fileHandlerData)
+            // TODO: reload maps
 
-      }catch(e){
-        console.log(e)
+          }catch(e){
+            console.log(e)
+          }
       }
-    }else{
-      console.log(data.msg)
-    }
+      }else{
+        console.log(data.msg)
+      }
   }
-  
 }
 
 const newReview = 
 /*html*/`
-<form>
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+    <li class="mr-2">
+        <a href="#" onclick="newReviewForm()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">New Review</a>
+    </li>
+    <li class="mr-2">
+        <a href="#" onclick="claimResidenceForm()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Claim Residence</a>
+    </li>
+</ul>
+
+<form class="mt-5">
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">New Review</h2>
@@ -261,12 +245,8 @@ const newReview =
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
-  <input type="hidden" id="rLat" value="0">
-  <input type="hidden" id="rLng" value="0">
-  <input type="hidden" id="rFlag" value="">
     <button type="button" onclick="submitReview()"
       class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Send</button>
   </div>
 </form>
-
 `
