@@ -1,7 +1,9 @@
+const resImgsKey = "resImgs"
 const imgsMaxSize = 5e6 // bytes
 const maxImgs = 3
 const allowedImgExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
+const pFileKey = "proofDocFiles"
 const allowedDocExtensions = ["application/pdf"]
 const maxFiles = 1
 const fileMaxSize = 5e6 // bytes
@@ -9,6 +11,75 @@ const fileMaxSize = 5e6 // bytes
 function claimResidenceForm (){ info.innerHTML = claimResidence }
 
 async function submitClaim() {
+  console.log("Claim residence ...")
+  
+  const resImgs = document.getElementById(resImgsKey).files
+  const pFiles = document.getElementById(pFileKey).files
+
+  const imgsFormData = await inputFilesValidator(resImgs, resImgsKey, imgsMaxSize, maxImgs, allowedImgExtensions)
+  const docFormData = await inputFilesValidator(pFiles, pFileKey, fileMaxSize, maxFiles, allowedDocExtensions)
+  console.log(docFormData)
+
+  if( (resImgs.length == 0) || (resImgs.length > 0 && imgsFormData)) {
+    if(docFormData){
+
+    const dataToSubmit = {
+      flag: localStorage.getItem("rFlag") || undefined,
+      lat : parseFloat(localStorage.getItem("rLat")) || 0,
+      lng : parseFloat(localStorage.getItem("rLng")) || 0,
+      city: document.getElementById("rCity").value || undefined,
+      street: document.getElementById("rStreet").value || undefined,
+      nr : document.getElementById("rNr").value || undefined,
+      floor : document.getElementById("rFloor").value || "",
+      direction : document.getElementById("rDirection").value || "",
+    }
+
+    console.log(dataToSubmit)
+    const response = await fetch(`${apis.resowners}create`,{
+      method: 'POST',
+      body: JSON.stringify(dataToSubmit),
+      headers: {
+        'authorization':'baer '+token,
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+
+    const data = await response.json();
+
+    console.log(response)
+    console.log(data)
+    
+      if(response.ok){
+
+        const submitFiles = async (paramFormData, endpoint) => { 
+          try{
+            if(!paramFormData) {console.log(`no request made to ${endpoint} because of empty formData`); return;}
+
+            paramFormData.append("resId", data.claimId)
+            const fileHandlerResponse = await fetch(`${apis.fileHandler}${endpoint}`, {
+              method: "POST",
+              body: paramFormData
+            });
+
+            const fileHandlerData = await fileHandlerResponse.json();
+            console.log(fileHandlerData)
+
+          }catch(e){
+            console.log(e)
+            throw e
+          }
+        }
+
+        Promise.all([submitFiles(imgsFormData, "addResImgs"), submitFiles(docFormData, "addResDoc")])
+        .then( res => console.log(res))
+        .catch(err => console.log(err))
+
+      }else{
+        console.log(data.msg)
+      }
+  }else console.log("Please ensure you attach a documentation to proof ownership!")
+}
 
 }
 
@@ -16,7 +87,7 @@ const claimResidence =
 /*html*/`
 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
     <li class="mr-2">
-        <a href="#" onclick="newReviewForm()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">New Review</a>
+        <a href="#" onclick="newReviewForm()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Review</a>
     </li>
     <li class="mr-2">
         <a href="#" onclick="claimResidenceForm()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">Claim Residence</a>
@@ -46,7 +117,7 @@ const claimResidence =
         </div>
 
         <div class="sm:col-span-2">
-          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Residence Number</label>
+          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Number</label>
           <div class="mt-2">
             <input type="text" name="postal-code" id="rNr"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -56,7 +127,7 @@ const claimResidence =
         <div class="sm:col-span-3">
           <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Floor</label>
           <div class="mt-2">
-            <input type="text" name="first-name" id="resFloor" placeholder=" (Optional)" 
+            <input type="text" name="first-name" id="rFloor" placeholder=" (Optional)" 
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>
@@ -64,7 +135,7 @@ const claimResidence =
         <div class="sm:col-span-3">
           <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Direction</label>
           <div class="mt-2">
-            <input type="text" name="last-name" id="resDirection" placeholder=" (Optional)" 
+            <input type="text" name="last-name" id="rDirection" placeholder=" (Optional)" 
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
         </div>

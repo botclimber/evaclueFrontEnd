@@ -19,19 +19,19 @@ function fromMarker (func, address) {
 }
 
 async function inputFilesValidator(files, objectKey, rImgMaxSize, rImgMaxFiles, allowedExtensions){
-    const imgsFormData = new FormData()
+    const filesFormData = new FormData()
 
     for(const file of files){ 
         console.log(file)
-        if(allowedExtensions.includes(file.type)) imgsFormData.append(objectKey, file) 
+        if(allowedExtensions.includes(file.type)) filesFormData.append(objectKey, file) 
         else console.log(`file: ${file.name} contains not supported extension`)
     }
 
-    const filesSize = imgsFormData.getAll(objectKey).reduce( (total, value) => total + value.size ,0)
+    const filesSize = filesFormData.getAll(objectKey).reduce( (total, value) => total + value.size ,0)
 
-    if(imgsFormData.getAll(objectKey).length > rImgMaxFiles){ console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return false}
+    if(filesFormData.getAll(objectKey).length > rImgMaxFiles){ console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return false}
     if(filesSize > rImgMaxSize){ console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return false;}
     
-
-    return imgsFormData
+    if(filesFormData.getAll(objectKey).length === 0) return false;
+    return filesFormData;
 }

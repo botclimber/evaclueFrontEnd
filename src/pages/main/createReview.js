@@ -62,7 +62,6 @@ async function submitReview(){
   
   const mulFiles = document.getElementById("reviewImgs").files
   const formData = await inputFilesValidator(mulFiles, "reviewImgs", rImgMaxSize, rImgMaxFiles, allowedExtensions)
-  console.log(formData.getAll("reviewImgs"))
 
   if( (mulFiles.length == 0) || (mulFiles.length > 0 && formData)) {
     const dataToSubmit = {
@@ -97,9 +96,6 @@ async function submitReview(){
 
     
       if(response.ok){
-        console.log("asdasd")
-        if(formData.getAll("reviewImgs").length > 0){
-          console.log("asdjhasd jda hsdas")
           console.log(data)
 
           formData.append("reviewId", data.revId)
@@ -117,7 +113,6 @@ async function submitReview(){
           }catch(e){
             console.log(e)
           }
-      }
       }else{
         console.log(data.msg)
       }
@@ -128,7 +123,7 @@ const newReview =
 /*html*/`
 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
     <li class="mr-2">
-        <a href="#" onclick="newReviewForm()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">New Review</a>
+        <a href="#" onclick="newReviewForm()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">Review</a>
     </li>
     <li class="mr-2">
         <a href="#" onclick="claimResidenceForm()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Claim Residence</a>
@@ -160,7 +155,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-2">
-          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Residence Number</label>
+          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Number</label>
           <div class="mt-2">
             <input type="text" name="postal-code" id="rNr" autocomplete="postal-code"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
