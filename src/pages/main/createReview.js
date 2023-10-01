@@ -95,7 +95,7 @@ async function submitReview(){
     console.log(response)
 
     
-      if(response.ok){
+      if(response.ok && formData){
           console.log(data)
 
           formData.append("reviewId", data.revId)

@@ -20,8 +20,8 @@ async function getAllReviews () {
  */
 async function getAllAddresses () {
     console.log("Fetching GeoLocation API and getting all addresses ... ")
-    const reviews = await fetch(`${apis.geoLocation}/addresses`)
-    const response = await reviews.json()
+    const addresses = await fetch(`${apis.geoLocation}/addresses`)
+    const response = await addresses.json()
 
     console.log(response)
 
@@ -34,12 +34,29 @@ async function getAllAddresses () {
  */
 async function getAllResidences () {
     console.log("Fetching GeoLocation API and getting all residences ... ")
-    const reviews = await fetch(`${apis.geoLocation}/residences`)
-    const response = await reviews.json()
+    const residences = await fetch(`${apis.geoLocation}/residences`)
+    const response = await residences.json()
 
     console.log(response)
 
     return response.residences
+}
+
+async function aggrAddrRes(){
+    const residences = await getAllResidences()
+    const addresses = await getAllAddresses()
+    const grouppedResidences = groupBy(residences, v => v.addressId)
+
+    const resPerAddress = addresses.map( e => {     
+        return {res: grouppedResidences[e.id], addr: e} 
+    })
+
+    const grouppedAddresses = groupBy(resPerAddress, v => v.addr.id)
+
+    // from array to object
+    for(y in grouppedAddresses) grouppedAddresses[y] = Object.assign({}, grouppedAddresses[y][0]);
+
+    return grouppedAddresses
 }
 
 /**
@@ -49,15 +66,7 @@ async function getAllResidences () {
  */
 async function aggrData(){
     const reviews = await getAllReviews()
-    const residences = await getAllResidences()
-    const addresses = await getAllAddresses()
-
-    const resPerAddress = residences.map( e => {
-        const addr = getOrElse("???", addresses, e.addressId, "id")
-        return {res: e, addr: addr}
-    })
-
-    const groupRes = groupBy(resPerAddress, v => v.res.id)
+    const groupRes = await aggrAddrRes()
 
     const revs = reviews.map( e => {
         return {rev: e, location: groupRes[e.residenceId][0]}
@@ -69,3 +78,5 @@ async function aggrData(){
 
     return {addrs: addrs, revs: revs}
 }
+
+//async function getAllAvailableResidences(location){}
