@@ -11,6 +11,7 @@ const apis = {
 }
 
 const token = localStorage.getItem("token") || false
+const userId = parseInt(localStorage.getItem("userId")) || undefined
 
 const loadingScreen = document.getElementById("eva_loadingScreen")
 const loginBtn = document.getElementById("eva_loginBtn")

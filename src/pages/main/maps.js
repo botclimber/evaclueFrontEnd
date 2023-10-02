@@ -59,18 +59,21 @@ async function initMap() {
 
   const markers = []
   const data = await aggrData()
+  console.log("data")
+  console.log(data)
   
-  for (x in data.addrs){
+  for (let x in data.addrs){
+    console.log(data.addrs[x])
 
-    const position = new google.maps.LatLng(data.addrs[x][0].location.addr.lat || 1, data.addrs[x][0].location.addr.lng || 1);
+    const position = new google.maps.LatLng(data.addrs[x].addr.lat || 1, data.addrs[x].addr.lng || 1);
     console.log(`CHEKCING IF POSITIOGN EXISTS ${position}`)
-    const totalReviews = data.addrs[x].length;
+    const totalReviews = data.revs[x].length;
 
-    const sum = data.addrs[x].map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
+    const sum = data.revs[x].map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
     const ratingAvg = (sum / totalReviews).toFixed(2);
     
     const type = "info";
-    const addrData = data.addrs[x] 
+    const addrData = data.revs[x] 
 
     markers.push({position, totalReviews, ratingAvg, addrData, type})
   }
@@ -88,7 +91,7 @@ async function initMap() {
       map: map,
     });
 
-    marker.addListener("click", async event => {
+    marker.addListener("click", async _ => {
         //info.innerHTML = avaResidences
         infoWindow.setContent(/*html*/`
         <div class="w-full max-w-md bg-white">

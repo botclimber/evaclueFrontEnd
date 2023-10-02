@@ -68,15 +68,20 @@ async function aggrData(){
     const reviews = await getAllReviews()
     const groupRes = await aggrAddrRes()
 
+    console.log(reviews)
+
     const revs = reviews.map( e => {
-        return {rev: e, location: groupRes[e.residenceId][0]}
+        for(let x in groupRes){
+            const revResidence = getOrElse(undefined, groupRes[x].res, e.residenceId, "id")
+            console.log("revResidence")
+            console.log(revResidence)
+            if(revResidence) return {rev: e, location: {res: revResidence, addr: groupRes[revResidence.addressId].addr}}
+        }
     })
 
-    const addrs = groupBy(revs, v => v.location.res.addressId)
+    const groupRevs = groupBy(revs, v => v.location.res.addressId)
 
-    console.log(revs, addrs)
-
-    return {addrs: addrs, revs: revs}
+    return {addrs: groupRes, revs: groupRevs}
 }
 
 //async function getAllAvailableResidences(location){}
