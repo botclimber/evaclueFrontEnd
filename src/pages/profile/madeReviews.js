@@ -1,7 +1,36 @@
+/*<div class="flex w-1/3 flex-wrap">
+                          <div class="w-full p-1 md:p-2">
+                            <img
+                              alt="gallery"
+                              class="block h-full w-full rounded-lg object-cover object-center"
+                              src="https://m.economictimes.com/thumb/msid-102650347,width-1200,height-900,resizemode-4,imgsize-85186/jujutsu-kaisen-season-2-is-the-popular-manga-available-on-netflix.jpg" />
+                          </div>
+                        </div>*/
+const totalReviews = document.getElementById("totalReviews")
+const modalReview = document.getElementById("modal-review")
+const modalRating = document.getElementById("modal-rating")
+const modalCreatedOn = document.getElementById("modal-createdOn")
+const modalImgs= document.getElementById("modal-imgs")
+
 function toggleModalReviews(modalID, reviewData = undefined){
 
     if(reviewData){
-        // TODO: update modal data
+        modalReview.innerHTML = reviewData.rev.review
+        modalRating.innerHTML = reviewData.rev.rating
+        modalCreatedOn.innerHTML = reviewData.rev.createdOn
+        modalImgs.innerHTML = ""
+
+        for(let x = 0; x < reviewData.rev.imgs; x++){
+            modalImgs.innerHTML += /*html */
+            `<div class="flex w-1/3 flex-wrap">
+            <div class="w-full p-1 md:p-2">
+              <img
+                alt="gallery"
+                class="block h-full w-full rounded-lg object-cover object-center"
+                src="../../../assets/images/reviewImgs/review-${reviewData.rev.id}/rImg-${x}.gif" />
+            </div>
+          </div>`
+        }
     }
 
     document.getElementById(modalID).classList.toggle("hidden");
@@ -13,9 +42,6 @@ function toggleModalReviews(modalID, reviewData = undefined){
 
 aggrData()
 .then(response => {
-
-    console.log(response)
-    console.log("asjdkhas dbask jd")
     
     const ownedRevs = []
     Object.values(response.revs).forEach(element => {
@@ -24,23 +50,25 @@ aggrData()
         })
     })
 
+    totalReviews.innerHTML = ownedRevs.length
+
     console.log("Owned Reviews: ")
     console.log(ownedRevs)
 
-    // TODO: list reviews
-    /* {address, residences, residenceData} */
-    /* const rows = residences.map(r => {
+    ownedRevs.map(
+        // {rev, location}
+        r => {
 
-        return[ //html 
-        `${r.address.city}, ${r.address.street} ${r.address.nr} ${r.residence.floor} ${r.residence.direction}`,
-         `<input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value="${r.residenceData.rentPrice}" onchange="updateResidence('rentPrice', ${r.residenceData.id}, this.value)">`,
-         `<div id="resStatus${r.residenceData.id}">${free(r.residenceData.free, "resStatus"+r.residenceData.id)}</div>`,
-         `<button onclick="toggleModal('modal-id', ${serialize(r.residenceData)})" class="bg-transparent hover:bg-orange-700 float-right font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
-         Details
+       const row = [ //html 
+        `${r.location.addr.city}, ${r.location.addr.street} ${r.location.addr.nr}. ${r.location.res.floor} ${r.location.res.direction}`,
+         `${takeLeft(r.rev.review, 15)} ...<a href="#" onclick="toggleModalReviews('reviewDetails', ${serialize(r)})"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> more</a>`,
+         r.rev.createdOn,
+         `<button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" disabled>
+         Delete
        </button>`]
-     });
- 
-     resDataTable.row.add(rows.flat())
-     .draw(false); */
+
+        revDataTable.row.add(row)
+        .draw(false);
+    });
 
 })
