@@ -233,15 +233,15 @@
                                     <div class="mt-2">
                                     <form>
                                         <div class="col-md-12"><label class="labels">By Cities</label>
-                                          <input type="text" id="byCities" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
+                                          <input type="text" onchange="setFilters()" id="byCities" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
                                         <div class="col-md-12">
                                           <label class="labels">By Rent Price</label><br>
-                                          <input type="number" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" id="byRentPriceMin" value="">
-                                          <input type="number" class="mt-2 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" id="byRentPriceMax" value="">
+                                          <input type="number" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" onchange="setFilters()" id="byRentPriceMin" value="">
+                                          <input type="number" class="mt-2 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" onchange="setFilters()" id="byRentPriceMax" value="">
                                         </div><br>
                                         <div class="col-md-12">
                                           <label class="labels">Enable Filter</label><br>
-                                          <input type="checkbox" id="enable" lass="mr-2 leading-tight">
+                                          <input type="checkbox" onclick="setFilters()" id="enable" lass="mr-2 leading-tight">
                                         </div>
                                         <br>
                                         <div class="d-flex justify-content-between align-items-center experience"><span style="color:#b8410d" id="responseMsg"></span></div><br>
@@ -506,6 +506,7 @@
 <script src="profile.js"></script>
 <script src="ownedResidences.js"></script>
 <script src="madeReviews.js"></script>
+<script src="filters.js"></script>
 <script src="main.js"></script>
 
 <script src="../../common_js/main.js"></script>
