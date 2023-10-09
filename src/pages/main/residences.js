@@ -13,7 +13,7 @@ const singResHTML = (r, revsPerResidence) => {
   console.log(r)
 
   const totalRevs = revsPerResidence.length
-  const thumb = r.resData.imgs ? "../../../assets/images/resImgs/residence-${r.id}/img-0.gif" : "";
+  const thumb = r.resData.imgs ? `../../../assets/images/resImgs/residence-${r.resData.id}/img-0.gif` : "";
 
   return /*html*/`
   <div class="m-4 text-sm relative mx-auto w-full">
@@ -67,10 +67,6 @@ const singResHTML = (r, revsPerResidence) => {
                           <p class="line-clamp-1 ml-2 text-gray-800">??? ???</p>
                         </div>
               
-                        <div class="flex justify-end">
-                          <button><i class="fa fa-envelope mx-1 rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button>
-                          <!-- <button><i class="fa fa-phone rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button> -->
-                        </div>
                       </div>
                     </div>
                   </a>
@@ -121,6 +117,8 @@ async function listAvaResidences(city){
   }catch(e) {
     console.log(e)
   }
+
+  return "No available residences found for this location."
 }
 
 function toggleModalAvaResidences(modalID, data = undefined){
@@ -148,7 +146,7 @@ function toggleModalAvaResidences(modalID, data = undefined){
       imgDetails.innerHTML = /*html*/
       `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
       <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
-        <img src="../../../assets/images/resImgs/residence-${r.resData.id}/img-0.gif" alt="" />
+        <img style="cursor:pointer" onclick="nextImg(${data.resData.id}, 0, ${data.resData.imgs})" src="../../../assets/images/resImgs/residence-${data.resData.id}/img-0.gif" alt="" />
       </div>
 
       <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white"> Available </span>
@@ -163,4 +161,19 @@ function toggleModalAvaResidences(modalID, data = undefined){
   document.getElementById(modalID).classList.toggle("flex");
   document.getElementById(modalID + "-backdrop").classList.toggle("flex");
       
+}
+
+function nextImg(id, currentImg, totalImgs){
+
+  const next = (currentImg < (totalImgs - 1))? parseInt(currentImg) + 1 : 0;
+
+  imgDetails.innerHTML = /*html*/
+      `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
+      <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
+        <img style="cursor:pointer" onclick="nextImg(${id}, ${next}, ${totalImgs})" src="../../../assets/images/resImgs/residence-${id}/img-${next}.gif" alt="" />
+      </div>
+
+      <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white"> Available </span>
+    </div>
+    `
 }

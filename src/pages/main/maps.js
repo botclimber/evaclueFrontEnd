@@ -29,11 +29,27 @@ async function initMap() {
 
   const infoWindow = new google.maps.InfoWindow();
 
-  map.addListener("click", (_) => {
+  map.addListener("dblclick", (event) => {
+    const coords = event.latLng.toJSON()
+    localStorage.setItem("rLat", coords.lat)
+    localStorage.setItem("rLng", coords.lng)
+    localStorage.setItem("rFlag", "fromMapClick")
+    
+    newReviewForm()
+  })
+
+  map.addListener("dragend", (_) => {
     const geocoder = new google.maps.Geocoder();
 
+    // Get the current center coordinates
+    const center = map.getCenter();
+    const coords = {
+      lat: center.lat(),
+      lng: center.lng(),
+    };
+
     geocoder.geocode({
-      location: _.latLng
+      location: coords
     }, (results, status) => {
       if(status === 'OK') {
         if(results && results.length > 0) {
@@ -44,7 +60,7 @@ async function initMap() {
                 addressResult.address_components.forEach( async (component) => {
 
                     if(component.types.includes('locality')) {
-                      console.log(component.long_name)
+                      console.log(`Checking for available residences on ${component.long_name} ...`)
                       info.innerHTML = await listAvaResidences(component.long_name)
                     }
                     
@@ -53,15 +69,6 @@ async function initMap() {
         }else console.log("No result found!")
       }else console.log("didnt worked")
     })
-  })
-
-  map.addListener("dblclick", (event) => {
-    const coords = event.latLng.toJSON()
-    localStorage.setItem("rLat", coords.lat)
-    localStorage.setItem("rLng", coords.lng)
-    localStorage.setItem("rFlag", "fromMapClick")
-    
-    newReviewForm()
   })
 
   //const iconBase =
