@@ -93,6 +93,7 @@ async function updateResidence(params, id = currentResDetailsId.value, ...others
         ; break;
     }
 }
+
 async function releaseResidence(){}
 
 async function updateAvailabity(status, id){

@@ -30,7 +30,29 @@ async function initMap() {
   const infoWindow = new google.maps.InfoWindow();
 
   map.addListener("click", (_) => {
-    info.innerHTML = avaResidences
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({
+      location: _.latLng
+    }, (results, status) => {
+      if(status === 'OK') {
+        if(results && results.length > 0) {
+            var filtered_array = results.filter(result => result.types.includes("locality")); 
+            var addressResult = filtered_array.length ? filtered_array[0]: results[0];
+
+            if(addressResult.address_components) {
+                addressResult.address_components.forEach( async (component) => {
+
+                    if(component.types.includes('locality')) {
+                      console.log(component.long_name)
+                      info.innerHTML = await listAvaResidences(component.long_name)
+                    }
+                    
+                });
+            }else console.log("something went wrong when filtering!")
+        }else console.log("No result found!")
+      }else console.log("didnt worked")
+    })
   })
 
   map.addListener("dblclick", (event) => {

@@ -60,6 +60,20 @@ async function aggrAddrRes(){
 }
 
 /**
+ * Reviews per residence composition
+ * 
+ * @param {*} addrId 
+ * @param {*} resId 
+ * @returns [{rev, location}] // location is a bit rendundant 
+ */
+async function revsPerResidenceComp(res){
+    const allData = await aggrData()
+  
+    const revsPerAddress = allData.revs[res.addressId]
+    return revsPerAddress.filter(_ => {return _.location.res.id == res.id})
+  }
+
+/**
  * return reviews and detailed info about each review and same for addresses
  * 
  * @returns {addrs, revs}

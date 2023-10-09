@@ -1,17 +1,3 @@
-/*const reviewsData = {
-        2: {
-          reviewTitle: "Braga, Fradelos, Rua do Louseiro, 162 | 1 esq - Dir",
-          reviewUserName: "Lionel Messi",
-          reviewUserImage: "https://constructionlinks.ca/wp-content/uploads/2023/03/Continental.jpg",
-          reviewBadge: "Legend",
-          reviewContributions: "61 ",
-          reviewCreatedAt: "January 20, 2022",
-          reviewRating: "3.8",
-          reviewContent: "The flat was spotless, very comfortable, and the host was amazing. I highly recommend this accommodation for anyone visiting New York city centre. It's quite a while since we are no longer using hotel facilities but self contained places. And the main reason is poor cleanliness and staff not being trained properly. This place exceeded our expectation and will return for sure. It is obviously not the same build quality as those very expensive watches. But that is like comparing a Citroën to a Ferrari. This watch was well under £100! An absolute bargain.",
-          reviewImages:["https://i0.wp.com/heroisx.com/wp-content/uploads/2019/09/Sasuke-Uchiha-Jutsus-Magenkyou-Sharingan.jpg?resize=640%2C346&ssl=1", "https://i.pinimg.com/564x/83/5f/32/835f32065c0807f031514667e5a51432.jpg", "https://images6.alphacoders.com/415/thumb-1920-415519.jpg"]
-        },
-    }*/
-
 function getImgs(reviewId, nrImgs) {
 
     const imgs = []
