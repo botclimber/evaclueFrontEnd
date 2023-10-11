@@ -28,11 +28,8 @@ async function sendMessageToOwner(){
             })
             const json = await response.json()
 
-            if(response.ok){
-                // TODO
-                console.log(json)
-
-            }else console.log(json)
+            if(response.ok) window.location.href = "index.html";
+            else console.log(json)
 
         }
     }else console.log("Please write something ...") 

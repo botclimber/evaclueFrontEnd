@@ -108,11 +108,12 @@ async function submitReview(){
             const fileHandlerData = await fileHandlerResponse.json();
 
             console.log(fileHandlerData)
-            // TODO: reload maps
 
           }catch(e){
             console.log(e)
           }
+
+          window.location.href = "index.html"
       }else{
         console.log(data.msg)
       }

@@ -75,6 +75,7 @@ async function submitClaim() {
         .then( res => console.log(res))
         .catch(err => console.log(err))
 
+        window.location.href = "index.html"
       }else{
         console.log(data.msg)
       }

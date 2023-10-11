@@ -4,18 +4,30 @@ const mapSection = document.getElementById("map")
 let map;
 
 const search = async () => {
+
+  const fromServer = async (sCity, sStreet, sNr) => {
+    const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&buildingNr=${sNr}&onlyAppr=1`)
+    const response = await location.json()
+  
+    console.log(response)
+    return response
+  }
+
   const urlParams = new URLSearchParams(window.location.search)
 
-  const sCity = urlParams.get("sCity") || "Braga"
+  const sCity = urlParams.get("sCity") || ""
   const sStreet = urlParams.get("sStreet") || ""
   const sNr = urlParams.get("sNr") || ""
 
-  const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&buildingNr=${sNr}&onlyAppr=1`)
-  const response = await location.json()
+  if(isEmpty(sCity) && isEmpty(sStreet) && isEmpty(sNr)){
+    const location = {lat: localStorage.getItem("rLat"), lng: localStorage.getItem("rLng")}
 
-  console.log(response)
-  return response
+    if(location.lat && location.lng) return location
+    else return await fromServer(sCity, sStreet, sNr)
 
+  }else{
+    return await fromServer(sCity, sStreet, sNr)
+  }
 }
 
 async function initMap() {
