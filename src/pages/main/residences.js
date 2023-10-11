@@ -1,3 +1,7 @@
+var persistAvaResidences // global var to persist fetched data, so we dont need to always get it from server
+
+const msgOwnerId = document.getElementById("msgOwnerId");
+
 const bedroomDetails = document.getElementById("bedroomDetails")
 const bathroomDetails = document.getElementById("bathroomDetails")
 const resDetails = document.getElementById("resDetails")
@@ -10,14 +14,12 @@ const imgDetails = document.getElementById("imgDetails")
 
 const singResHTML = (r, revsPerResidence) => {
 
-  console.log(r)
-
   const totalRevs = revsPerResidence.length
   const thumb = r.resData.imgs ? `../../../assets/images/resImgs/residence-${r.resData.id}/img-0.gif` : "";
 
   return /*html*/`
   <div class="m-4 text-sm relative mx-auto w-full">
-                  <a href="#" onclick = "showResidenceDetails(${serialize(r)})" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                  <a href="#" onclick = "showResidenceDetails(${r.resData.id})" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
                     <div class="rounded-lg bg-white p-4 shadow">
                       <div class="relative flex h-24 justify-center overflow-hidden rounded-lg">
                         <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
@@ -75,10 +77,18 @@ const singResHTML = (r, revsPerResidence) => {
   `
 }
 
-async function showResidenceDetails(input){ 
+async function showResidenceDetails(resDataId){ 
   var html = ""
 
+  const input = persistAvaResidences[resDataId][0]
+  console.log("input")
+  console.log(input)
+
   revsPerResidence = await revsPerResidenceComp(input.res)
+
+  console.log("revsPerResidence")
+  console.log(revsPerResidence)
+
   html += singResHTML(input, revsPerResidence)
   html += await buildHtml(revsPerResidence)
   
@@ -91,8 +101,6 @@ async function buildResidencesHtml(avResidences){
 
   var html = ""
   for(let r of avResidences){
-    console.log("trace27")
-    console.log(r)
     const revsPerResidence = await revsPerResidenceComp(r.res)
     
     html += singResHTML(r, revsPerResidence)
@@ -109,6 +117,11 @@ async function listAvaResidences(city){
     const data = await response.json()
 
     if(response.ok){
+      persistAvaResidences = groupBy(data, r => r.resData.id)
+
+      console.log("persistAvaResidences")
+      console.log(persistAvaResidences)
+
       const bHtml = await buildResidencesHtml(data)
 
       return bHtml
@@ -124,14 +137,6 @@ async function listAvaResidences(city){
 function toggleModalAvaResidences(modalID, data = undefined){
 
   if(data){
-    /*const bedroomDetails = document.getElementById("bedroomDetails")
-    const bathroomDetails = document.getElementById("bathroomDetails")
-    const resDetails = document.getElementById("resDetails")
-    const locationDetails = document.getElementById("locationDetails")
-    const rentPriceDetails = document.getElementById("rentPriceDetails")
-    const noteDetails = document.getElementById("noteDetails")
-    const flatSizeDetails = document.getElementById("flatSizeDetails")
-    const buildingAgeDetails =document.getElementById("buildingAgeDetails")*/
 
     bedroomDetails.innerHTML = data.resData.bedRooms
     bathroomDetails.innerHTML = data.resData.bathRooms
@@ -141,6 +146,7 @@ function toggleModalAvaResidences(modalID, data = undefined){
     noteDetails.innerHTML = data.resData.notes
     flatSizeDetails.innerHTML = data.resData.flatSize
     buildingAgeDetails.innerHTML = data.resData.buildingAge
+    msgOwnerId.value = data.resData.userId
 
     if(data.resData.imgs){
       imgDetails.innerHTML = /*html*/

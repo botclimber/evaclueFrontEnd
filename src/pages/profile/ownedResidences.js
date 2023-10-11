@@ -1,3 +1,5 @@
+var persistOwnedResidences // global var to persist fetched data, so we dont need to always get it from server
+
 const totalResidences = document.getElementById("totalResidences")
 
 const flatSize = document.getElementById("flatSize")
@@ -44,6 +46,11 @@ async function getOwnedResidences(){
     totalResidences.innerHTML = ownedResidences.length
 
     console.log(ownedResidences)
+    persistOwnedResidences = groupBy(ownedResidences, r => r.residenceData.id)
+
+    console.log("persistOwnedResidences")
+    console.log(persistOwnedResidences)
+
     return ownedResidences
 }
 
@@ -106,9 +113,11 @@ async function updateAvailabity(status, id){
 
 }
 
-function toggleModal(modalID, residenceData = undefined){
+async function toggleModal(modalID, residenceDataId = undefined){
 
-    if(residenceData){
+    if(residenceDataId){
+        const residenceData = persistOwnedResidences[residenceDataId][0].residenceData
+
         flatSize.value = residenceData.flatSize
         bedRooms.value = residenceData.bedRooms
         bathRooms.value = residenceData.bathRooms
@@ -129,12 +138,12 @@ function toggleModal(modalID, residenceData = undefined){
 getOwnedResidences()
 .then( residences => {
 
-    const rows = residences.map(r /* {address, residences, residenceData} */=> {
+    residences.map(r /* {address, residences, residenceData} */=> {
 
        const row = [ /*html */ `${r.address.city}, ${r.address.street} ${r.address.nr} ${r.residence.floor} ${r.residence.direction}`,
         `<input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" value="${r.residenceData.rentPrice}" onchange="updateResidence('rentPrice', ${r.residenceData.id}, this.value)">`,
         `<div id="resStatus${r.residenceData.id}">${free(r.residenceData.free, "resStatus"+r.residenceData.id)}</div>`,
-        `<button onclick="toggleModal('modal-id', ${serialize(r.residenceData)})" class="bg-transparent hover:bg-orange-700 float-right font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
+        `<button onclick="toggleModal('modal-id', ${r.residenceData.id})" class="bg-transparent hover:bg-orange-700 float-right font-semibold hover:text-white py-2 px-4 border border-orange-500 hover:border-transparent rounded">
         Details
       </button>`]
 

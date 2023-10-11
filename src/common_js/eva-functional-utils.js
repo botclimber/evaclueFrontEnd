@@ -14,7 +14,6 @@ const clean = (data) => data.filter(v => Boolean(v));
 
 const groupBy = (data, fn) => data.map(fn)
     .reduce((dict, val, i) => {
-    console.log(val)
     const param = val.toString();
     dict[param] = (dict[param] || []).concat(data[i]);
     return dict;
