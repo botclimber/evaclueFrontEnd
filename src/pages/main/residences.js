@@ -62,11 +62,11 @@ const singResHTML = (r, revsPerResidence) => {
                       <div class="mt-2 grid grid-cols-2">
                         <div class="flex items-center">
                           <div class="relative">
-                            <div class="h-6 w-6 rounded-full bg-gray-200 md:h-8 md:w-8"></div>
+                            <div class="h-6 w-6 rounded-full bg-cover bg-center bg-[url('../../../assets/images/userImages/${r.resData.userImage}')] md:h-8 md:w-8"></div>
                             <span class="bg-primary-red absolute top-0 right-0 inline-block h-3 w-3 rounded-full"></span>
                           </div>
               
-                          <p class="line-clamp-1 ml-2 text-gray-800">??? ???</p>
+                          <p class="line-clamp-1 ml-2 text-gray-800">${r.resData.userName}</p>
                         </div>
               
                       </div>
