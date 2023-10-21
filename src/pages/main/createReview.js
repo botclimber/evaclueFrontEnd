@@ -1,7 +1,3 @@
-const rImgMaxSize = 5e6 // bytes
-const rImgMaxFiles = 3
-const allowedExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-
 function newReviewForm (){ 
   info.innerHTML = newReview 
 
@@ -61,7 +57,7 @@ async function submitReview(){
   console.log("Submitting review ...")
   
   const mulFiles = document.getElementById("reviewImgs").files
-  const formData = await inputFilesValidator(mulFiles, "reviewImgs", rImgMaxSize, rImgMaxFiles, allowedExtensions)
+  const formData = await inputFilesValidator(mulFiles, fileParams.reviews.key, fileParams.reviews.maxSize, fileParams.reviews.maxFiles, fileParams.reviews.allowedExtensions)
 
   if( (mulFiles.length == 0) || (mulFiles.length > 0 && formData)) {
     const dataToSubmit = {

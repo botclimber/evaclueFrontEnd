@@ -1,8 +1,3 @@
-const resImgsKey = "resImgs"
-const imgsMaxSize = 5e6 // bytes
-const maxImgs = 3
-const allowedImgExtensions = ["image/jpg", "image/jpeg", "image/png", "image/gif"]
-
 const pFileKey = "proofDocFiles"
 const allowedDocExtensions = ["application/pdf"]
 const maxFiles = 1
@@ -13,10 +8,10 @@ function claimResidenceForm (){ info.innerHTML = claimResidence }
 async function submitClaim() {
   console.log("Claim residence ...")
   
-  const resImgs = document.getElementById(resImgsKey).files
+  const resImgs = document.getElementById(fileParams.residences.key).files
   const pFiles = document.getElementById(pFileKey).files
 
-  const imgsFormData = await inputFilesValidator(resImgs, resImgsKey, imgsMaxSize, maxImgs, allowedImgExtensions)
+  const imgsFormData = await inputFilesValidator(resImgs, fileParams.residences.key, fileParams.residences.maxSize, fileParams.residences.maxFiles, fileParams.residences.allowedExtensions)
   const docFormData = await inputFilesValidator(pFiles, pFileKey, fileMaxSize, maxFiles, allowedDocExtensions)
   console.log(docFormData)
 

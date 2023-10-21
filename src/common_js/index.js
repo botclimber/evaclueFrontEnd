@@ -24,6 +24,22 @@ const pageMode = async () => {
   loadingScreen.style.display = "none";
 }
 
+const fileParams = {
+  "reviews":{
+    "key": "reviewImgs",
+    "maxSize": 5e6,
+    "maxFiles": 3,
+    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"] 
+
+  },
+  "residences" : {
+    "key": "resImgs",
+    "maxSize": 5e6,
+    "maxFiles": 5,
+    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"],
+  }
+}
+
 /**
  * Common page IDs
  */
@@ -99,3 +115,32 @@ function buildStars(starsNr){
 }
 
 function serialize(data){ return JSON.stringify(data).replaceAll('"','\'') }
+
+async function inputFilesValidator(files, objectKey, rImgMaxSize, rImgMaxFiles, allowedExtensions){
+  const filesFormData = new FormData()
+
+  for(const file of files){ 
+      console.log(file)
+      if(allowedExtensions.includes(file.type)) filesFormData.append(objectKey, file) 
+      else console.log(`file: ${file.name} contains not supported extension`)
+  }
+
+  const filesSize = filesFormData.getAll(objectKey).reduce( (total, value) => total + value.size ,0)
+
+  if(filesFormData.getAll(objectKey).length > rImgMaxFiles){ console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return false}
+  if(filesSize > rImgMaxSize){ console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return false;}
+  
+  if(filesFormData.getAll(objectKey).length === 0) return false;
+  return filesFormData;
+}
+
+const characters ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+function generateString(length) {
+    let result = "";
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}

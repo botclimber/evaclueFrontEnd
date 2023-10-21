@@ -68,7 +68,7 @@ async function aggrAddrRes(){
  */
 async function revsPerResidenceComp(res){
     const allData = await aggrData()  
-    const revsPerAddress = allData.revs[res.addressId]
+    const revsPerAddress = allData.revs[res.addressId] ?? []
 
     return revsPerAddress.filter(_ => {return _.location.res.id == res.id})
   }

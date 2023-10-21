@@ -116,6 +116,8 @@ async function listAvaResidences(city){
     const response = await fetch(`${apis.resowners}/getByCity?city=${city}`)
     const data = await response.json()
 
+    console.log("Response from listAvaResidences")
+    console.log(data)
     if(response.ok){
       persistAvaResidences = groupBy(data, r => r.resData.id)
 
