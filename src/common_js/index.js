@@ -144,3 +144,8 @@ function generateString(length) {
 
     return result;
 }
+
+function logout() {
+  localStorage.clear()
+  location.reload()
+}
