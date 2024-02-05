@@ -10,6 +10,41 @@ const apis = {
   "support": `${domain}/support/v1/` // WARN: not implemented yet!
 }
 
+function googleAuth() {
+
+  const params = new URLSearchParams(window.location.hash.substr(1));
+  const idToken = params.get('access_token');
+
+  if (idToken) {
+    console.log(idToken)
+    fetch(`${apis.users}/googleAuth`, {
+      method: 'POST',
+      body: JSON.stringify({access_token: idToken}),
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+      .then(r => r.json())
+      .then(data => {
+        // send access_token to server
+        // recieve new token and add it to localStorage
+        console.log(data)
+      })
+      .catch(e => console.log(e))
+  }
+}
+googleAuth()
+
+function setToken() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const tk = urlParams.get("token")
+  console.log(tk)
+
+  if (tk) localStorage.setItem("token", tk);
+}
+setToken()
+
 const token = localStorage.getItem("token") || false
 const userId = parseInt(localStorage.getItem("userId")) || undefined
 
@@ -18,21 +53,21 @@ const loginBtn = document.getElementById("eva_loginBtn")
 const profileBtn = document.getElementById("eva_profileBtn")
 
 const pageMode = async () => {
-  loginBtn.style.display = (token)? "none" : "";
-  profileBtn.style.display = (token)? "" : "none";
+  loginBtn.style.display = (token) ? "none" : "";
+  profileBtn.style.display = (token) ? "" : "none";
 
   loadingScreen.style.display = "none";
 }
 
 const fileParams = {
-  "reviews":{
+  "reviews": {
     "key": "reviewImgs",
     "maxSize": 5e6,
     "maxFiles": 3,
-    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"] 
+    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   },
-  "residences" : {
+  "residences": {
     "key": "resImgs",
     "maxSize": 5e6,
     "maxFiles": 5,
@@ -45,27 +80,27 @@ const fileParams = {
  */
 const hrefs = [
   {
-      "element": document.getElementById("href_logo_navbar"),
-      "href":  "../../../index.html"
+    "element": document.getElementById("href_logo_navbar"),
+    "href": "../../../index.html"
   },
   {
-      "element": document.getElementById("href_logo_footer"),
-      "href":  "../../../index.html"
+    "element": document.getElementById("href_logo_footer"),
+    "href": "../../../index.html"
   },
   {
-      "element": document.getElementById("href_profile"),
-      "href": "../profile/index.html"
+    "element": document.getElementById("href_profile"),
+    "href": "../profile/index.html"
   }
 ]
 
 const srcs = [
   {
-      "element": document.getElementById("src_logo_navbar"),
-      "src": "../../../assets/images/logo.png"
+    "element": document.getElementById("src_logo_navbar"),
+    "src": "../../../assets/images/logo.png"
   },
   {
-      "element": document.getElementById("src_logo_footer"),
-      "src": "../../../assets/images/logo.png"
+    "element": document.getElementById("src_logo_footer"),
+    "src": "../../../assets/images/logo.png"
   }
 ]
 
@@ -75,8 +110,8 @@ const srcs = [
  * @param [{element, src}] srcs 
  */
 async function fillSrcs(srcs) {
-  for(let x of srcs){
-      x.element.src = x.src
+  for (let x of srcs) {
+    x.element.src = x.src
   }
 }
 
@@ -85,8 +120,8 @@ async function fillSrcs(srcs) {
  * @param [{element, href}] hrefs 
  */
 async function fillHrefs(hrefs) {
-  for(let x of hrefs){
-      x.element.href = x.href
+  for (let x of hrefs) {
+    x.element.href = x.href
   }
 }
 
@@ -96,7 +131,7 @@ async function fillHrefs(hrefs) {
  * @param {*} starsNr 
  * @returns 
  */
-function buildStars(starsNr){
+function buildStars(starsNr) {
   const yellowStar = `<svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
   <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
 </svg>`
@@ -106,46 +141,50 @@ function buildStars(starsNr){
 
   var stars = ``
 
-  for(let x = 1; x <= 5; x++){
+  for (let x = 1; x <= 5; x++) {
 
-    stars += (x <= starsNr)? yellowStar : greyStar;
+    stars += (x <= starsNr) ? yellowStar : greyStar;
   }
 
   return stars
 }
 
-function serialize(data){ return JSON.stringify(data).replaceAll('"','\'') }
+function serialize(data) { return JSON.stringify(data).replaceAll('"', '\'') }
 
-async function inputFilesValidator(files, objectKey, rImgMaxSize, rImgMaxFiles, allowedExtensions){
+async function inputFilesValidator(files, objectKey, rImgMaxSize, rImgMaxFiles, allowedExtensions) {
   const filesFormData = new FormData()
 
-  for(const file of files){ 
-      console.log(file)
-      if(allowedExtensions.includes(file.type)) filesFormData.append(objectKey, file) 
-      else console.log(`file: ${file.name} contains not supported extension`)
+  for (const file of files) {
+    console.log(file)
+    if (allowedExtensions.includes(file.type)) filesFormData.append(objectKey, file)
+    else console.log(`file: ${file.name} contains not supported extension`)
   }
 
-  const filesSize = filesFormData.getAll(objectKey).reduce( (total, value) => total + value.size ,0)
+  const filesSize = filesFormData.getAll(objectKey).reduce((total, value) => total + value.size, 0)
 
-  if(filesFormData.getAll(objectKey).length > rImgMaxFiles){ console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return false}
-  if(filesSize > rImgMaxSize){ console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return false;}
-  
-  if(filesFormData.getAll(objectKey).length === 0) return false;
+  if (filesFormData.getAll(objectKey).length > rImgMaxFiles) { console.log(`Max files exceeded, please submit at maximum ${rImgMaxFiles} images`); return false }
+  if (filesSize > rImgMaxSize) { console.log(`Files are too large (${filesSize} bytes). Max allowed is (${rImgMaxSize} bytes)`); return false; }
+
+  if (filesFormData.getAll(objectKey).length === 0) return false;
   return filesFormData;
 }
 
-const characters ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 function generateString(length) {
-    let result = "";
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+  let result = "";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
 
-    return result;
+  return result;
 }
 
 function logout() {
-  localStorage.clear()
-  location.reload()
+  window.localStorage.clear()
+  window.location.reload()
+}
+
+function login() {
+  window.location.href = `http://localhost/login/user/login`
 }
