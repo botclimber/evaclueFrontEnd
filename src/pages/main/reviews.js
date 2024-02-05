@@ -10,8 +10,6 @@ function getImgs(reviewId, nrImgs) {
 
 const buildReviewsData = async (data) => {
     const allReviews = await getAllReviews()
-    console.log("buildReviewsData")
-    console.log(allReviews)
     const userContributions = (id) => {
         return allReviews.filter(review => review.userId === id).length
     }
