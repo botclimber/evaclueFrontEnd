@@ -11,6 +11,7 @@ const apis = {
 }
 
 var token = undefined
+var userId = undefined
 
 async function googleAuth() {
 
@@ -30,7 +31,9 @@ async function googleAuth() {
         }
       })
       const data = await response.json()
-      localStorage.setItem("token", data)
+      console.log(data)
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("userId", data.userId)
 
     }catch(e){
       console.log(e)
@@ -41,9 +44,11 @@ async function googleAuth() {
 async function setToken() {
   const urlParams = new URLSearchParams(window.location.search)
   const tk = urlParams.get("token")
-  console.log(tk)
+  const userId = urlParams.get("userId")
+  console.log(tk, userId)
 
   if (tk) localStorage.setItem("token", tk);
+  if (userId) localStorage.setItem("userId", userId);
 }
 
 const loadingScreen = document.getElementById("eva_loadingScreen")
@@ -55,6 +60,7 @@ const pageMode = async () => {
   await setToken()
 
   token = localStorage.getItem("token") || false
+  userId = parseInt(localStorage.getItem("userId")) || undefined
   
   loginBtn.style.display = (token) ? "none" : "";
   profileBtn.style.display = (token) ? "" : "none";
