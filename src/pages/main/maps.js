@@ -105,17 +105,20 @@ async function initMap() {
   
   for (let x in data.addrs){
     console.log(data.addrs[x])
+    const revs = data.revs[x].filter(row => row.rev.approved)
+    console.log(revs)
 
     const position = new google.maps.LatLng(data.addrs[x].addr.lat || 1, data.addrs[x].addr.lng || 1);
-    console.log(`CHEKCING IF POSITIOGN EXISTS ${position}`)
-    const totalReviews = data.revs[x].length;
+    console.log(`CHEKCING IF POSITION EXISTS ${position}`)
+    const totalReviews = revs.length;
 
-    const sum = data.revs[x].map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
+    const sum =revs.map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
     const ratingAvg = (sum / totalReviews).toFixed(2);
     
     const type = "info";
-    const addrData = data.revs[x] 
+    const addrData = revs
 
+    if(revs.length > 0)
     markers.push({position, totalReviews, ratingAvg, addrData, type})
   }
 
