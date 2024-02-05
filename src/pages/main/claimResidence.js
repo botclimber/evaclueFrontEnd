@@ -1,3 +1,5 @@
+//TODO: if no token when clicking to claim residence inform user to login first
+
 const pFileKey = "proofDocFiles"
 const allowedDocExtensions = ["application/pdf"]
 const maxFiles = 1

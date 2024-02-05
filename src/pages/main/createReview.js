@@ -1,3 +1,5 @@
+
+//TODO: if no token when clicking to add new review inform user to login first
 function newReviewForm (){ 
   info.innerHTML = newReview 
 

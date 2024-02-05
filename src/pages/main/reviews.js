@@ -9,10 +9,16 @@ function getImgs(reviewId, nrImgs) {
 }
 
 const buildReviewsData = async (data) => {
+    const allReviews = await getAllReviews()
+    console.log("buildReviewsData")
+    console.log(allReviews)
+    const userContributions = (id) => {
+        return allReviews.filter(review => review.userId === id).length
+    }
 
     const reviewsData = data.map(row => {
-        const residence =(!isEmpty(row.location.res.floor))? `${row.location.res.floor} - ${row.location.res.direction}` : ""
-        const residenceForModal =  (residence)? `| ${residence}` : ""
+        const residence = (!isEmpty(row.location.res.floor)) ? `${row.location.res.floor} - ${row.location.res.direction}` : ""
+        const residenceForModal = (residence) ? `| ${residence}` : ""
 
         return {
             reviewTitle: `${row.location.addr.city}, ${row.location.addr.street}, ${row.location.addr.nr} ${residenceForModal}`,
@@ -20,11 +26,11 @@ const buildReviewsData = async (data) => {
             reviewUserName: row.rev.userName,
             reviewUserImage: row.rev.userImg,
             reviewBadge: "Legend",
-            reviewContributions: 27,
+            reviewContributions: userContributions(row.rev.userId),
             reviewCreatedAt: row.rev.createdOn,
             reviewRating: row.rev.rating,
             reviewContent: row.rev.review,
-            reviewImages: (row.rev.imgs > 0)? getImgs(row.rev.id, row.rev.imgs) : []
+            reviewImages: (row.rev.imgs > 0) ? getImgs(row.rev.id, row.rev.imgs) : []
         }
     })
 
@@ -35,11 +41,11 @@ const buildReviewsData = async (data) => {
 
 const buildArticle = (element) => {
     const eleAsParameter = serialize([element])
-    const bgImg = (element.reviewImages.length > 0)? element.reviewImages[0] : ""
+    const bgImg = (element.reviewImages.length > 0) ? element.reviewImages[0] : ""
     console.log(eleAsParameter)
 
-    const article = /*html*/ 
-    `
+    const article = /*html*/
+        `
     <article class="relative bg-[#374152] mb-1 border rounded-md">
         <div class="absolute bg-cover w-full h-[88px] bg-[url('${bgImg}')] rounded-t-md"></div>
         <div class="absolute w-full h-[88px] backdrop-brightness-50 rounded-t-md"></div>
@@ -54,7 +60,7 @@ const buildArticle = (element) => {
         <div class="flex items-center mb-1">
             ${buildStars(element.reviewRating)}
         </div>
-        <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400"><p>Reviewed in ${element.reviewTitle.split(',')[0]} on <time datetime="${element.reviewCreatedAt}">${element. reviewCreatedAt}</time></p></footer>
+        <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400"><p>Reviewed in ${element.reviewTitle.split(',')[0]} on <time datetime="${element.reviewCreatedAt}">${element.reviewCreatedAt}</time></p></footer>
         <p class="mb-2 text-white">${takeLeft(element.reviewContent, 15)} ...</p>
         <a href="#" onclick="toggleModal('defaultModal', ${eleAsParameter})" class="mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500" >Read more</a>
         </div>
@@ -65,18 +71,18 @@ const buildArticle = (element) => {
 
 }
 
-async function buildHtml(data){
+async function buildHtml(data) {
     const reviewsData = await buildReviewsData(data)
 
     var html = `<div class="grid grid-cols-2">`
-    await reviewsData.forEach( element => html += buildArticle(element));
+    await reviewsData.forEach(element => html += buildArticle(element));
     html += `</div>`
 
     return html
 }
 
-const reviewsSearch = 
-`
+const reviewsSearch =
+    `
 <label
                   class="mb-5 relative bg-white  flex flex-col md:flex-row items-center justify-center border py-2 px-2 "
                   for="search-bar">
@@ -86,42 +92,42 @@ const reviewsSearch =
                 </label>
 `
 
-function updateModalContent(revInput){
+function updateModalContent(revInput) {
 
     const reviewData = revInput[0]
     console.log(reviewData)
     const imgLimit = 3
     const exceptions = ["reviewImages", "reviewUserImage", "reviewRes"]
 
-    for (data in reviewData){
+    for (data in reviewData) {
         console.log(data)
-        if (!exceptions.includes(data)){
+        if (!exceptions.includes(data)) {
             document.getElementById(data).innerHTML = reviewData[data]
 
-        }else{
-            if(data == "reviewUserImage") document.getElementById(data).src = `../../../assets/images/userImages/${reviewData[data]}`
-            else if (data == "reviewImages"){
+        } else {
+            if (data == "reviewUserImage") document.getElementById(data).src = `../../../assets/images/userImages/${reviewData[data]}`
+            else if (data == "reviewImages") {
 
                 const reviewImagesDiv = document.getElementById("reviewImagesContent")
                 const imgsLen = reviewData[data].length
-                if(imgsLen === 0) reviewImagesDiv.style.display = "none"
-                else{
+                if (imgsLen === 0) reviewImagesDiv.style.display = "none"
+                else {
                     reviewImagesDiv.style.display = ""
-                    for(const index of Array(imgLimit).keys()){
+                    for (const index of Array(imgLimit).keys()) {
                         const imgDiv = document.getElementById(`img${index}`)
                         const img = imgDiv.getElementsByTagName("img")[0]
 
-                        if(index < reviewData[data].length) img.src = reviewData[data][index]
+                        if (index < reviewData[data].length) img.src = reviewData[data][index]
                         else img.src = "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"
                     }
                 }
             }
         }
     }
-    
+
 }
 
-function toggleModal(modalID, reviewData){
+function toggleModal(modalID, reviewData) {
     updateModalContent(reviewData)
 
     const modal = document.getElementById(modalID)
