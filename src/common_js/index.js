@@ -10,49 +10,52 @@ const apis = {
   "support": `${domain}/support/v1/` // WARN: not implemented yet!
 }
 
-function googleAuth() {
+var token = undefined
 
-  const params = new URLSearchParams(window.location.hash.substr(1));
+async function googleAuth() {
+
+  const params = new URLSearchParams(window.location.hash.slice(1));
   const idToken = params.get('access_token');
 
   if (idToken) {
     console.log(idToken)
-    fetch(`${apis.users}/googleAuth`, {
-      method: 'POST',
-      body: JSON.stringify({access_token: idToken}),
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    })
-      .then(r => r.json())
-      .then(data => {
-        // send access_token to server
-        // recieve new token and add it to localStorage
-        console.log(data)
+
+    try{
+      const response = await fetch(`${apis.users}/googleAuth`, {
+        method: 'POST',
+        body: JSON.stringify({access_token: idToken}),
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        }
       })
-      .catch(e => console.log(e))
+      const data = await response.json()
+      localStorage.setItem("token", data)
+
+    }catch(e){
+      console.log(e)
+    }
   }
 }
-googleAuth()
 
-function setToken() {
+async function setToken() {
   const urlParams = new URLSearchParams(window.location.search)
   const tk = urlParams.get("token")
   console.log(tk)
 
   if (tk) localStorage.setItem("token", tk);
 }
-setToken()
-
-const token = localStorage.getItem("token") || false
-const userId = parseInt(localStorage.getItem("userId")) || undefined
 
 const loadingScreen = document.getElementById("eva_loadingScreen")
 const loginBtn = document.getElementById("eva_loginBtn")
 const profileBtn = document.getElementById("eva_profileBtn")
 
 const pageMode = async () => {
+  await googleAuth()
+  await setToken()
+
+  token = localStorage.getItem("token") || false
+  
   loginBtn.style.display = (token) ? "none" : "";
   profileBtn.style.display = (token) ? "" : "none";
 
@@ -182,7 +185,7 @@ function generateString(length) {
 
 function logout() {
   window.localStorage.clear()
-  window.location.reload()
+  window.location.href = domain
 }
 
 function login() {
