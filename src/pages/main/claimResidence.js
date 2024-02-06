@@ -50,6 +50,7 @@ async function submitClaim() {
       if(response.ok){
 
         const submitFiles = async (paramFormData, endpoint) => { 
+          console.log(`Making request to ${endpoint} endpoint ...`)
           try{
             if(!paramFormData) {console.log(`no request made to ${endpoint} because of empty formData`); return;}
 
@@ -72,7 +73,7 @@ async function submitClaim() {
         .then( res => console.log(res))
         .catch(err => console.log(err))
 
-        window.location.href = "index.html"
+        //window.reload()
       }else{
         console.log(data.msg)
       }

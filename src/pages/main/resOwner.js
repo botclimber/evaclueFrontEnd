@@ -10,7 +10,7 @@ function toggleModalContactResOwner(modalID){
 }
 
 async function sendMessageToOwner(){
-    if(!isEmpty(msgOwnerId.value) || !isEmpty(msgToOwner.value) ) {
+    if(!isEmpty(msgOwnerId.value) && !isEmpty(msgToOwner.value) ) {
         if(confirm("In order to avoid spam you are only allowed to send one message, be sure you have written all you expect!")){
 
             const data = {

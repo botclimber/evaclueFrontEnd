@@ -94,11 +94,11 @@ const fileParams = {
 const hrefs = [
   {
     "element": document.getElementById("href_logo_navbar"),
-    "href": "../../../index.html"
+    "href": domain
   },
   {
     "element": document.getElementById("href_logo_footer"),
-    "href": "../../../index.html"
+    "href": domain
   },
   {
     "element": document.getElementById("href_profile"),
