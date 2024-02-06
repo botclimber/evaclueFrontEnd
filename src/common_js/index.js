@@ -19,7 +19,6 @@ async function googleAuth() {
   const idToken = params.get('access_token');
 
   if (idToken) {
-    console.log(idToken)
 
     try{
       const response = await fetch(`${apis.users}/googleAuth`, {
@@ -31,8 +30,8 @@ async function googleAuth() {
         }
       })
       const data = await response.json()
-      console.log(data)
-      localStorage.setItem("token", data.token)
+      console.log(data.accessToken, data.userId)
+      localStorage.setItem("token", data.accessToken)
       localStorage.setItem("userId", data.userId)
 
     }catch(e){
@@ -45,7 +44,6 @@ async function setToken() {
   const urlParams = new URLSearchParams(window.location.search)
   const tk = urlParams.get("token")
   const userId = urlParams.get("userId")
-  console.log(tk, userId)
 
   if (tk) localStorage.setItem("token", tk);
   if (userId) localStorage.setItem("userId", userId);
@@ -55,12 +53,18 @@ const loadingScreen = document.getElementById("eva_loadingScreen")
 const loginBtn = document.getElementById("eva_loginBtn")
 const profileBtn = document.getElementById("eva_profileBtn")
 
-const pageMode = async () => {
+const assignTokenValue = async () => {
   await googleAuth()
   await setToken()
 
   token = localStorage.getItem("token") || false
   userId = parseInt(localStorage.getItem("userId")) || undefined
+}
+
+assignTokenValue()
+
+const pageMode = async () => {
+  await assignTokenValue()
   
   loginBtn.style.display = (token) ? "none" : "";
   profileBtn.style.display = (token) ? "" : "none";

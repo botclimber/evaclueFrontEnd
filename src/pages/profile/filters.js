@@ -28,6 +28,7 @@ async function getFilters(){
 
 async function setFilters(){  
     console.log(enable.checked)
+    console.log(token)
 
     if(enable.checked){
         const data = {

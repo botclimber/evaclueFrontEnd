@@ -42,7 +42,10 @@ function toggleModalReviews(modalID, reviewData = undefined){
 
 aggrData()
 .then(response => {
-    
+  
+    console.log("response")
+    console.log(response)
+
     const ownedRevs = []
     Object.values(response.revs).forEach(element => {
         element.map(row => {
