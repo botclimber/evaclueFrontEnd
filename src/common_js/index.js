@@ -11,63 +11,124 @@ const apis = {
 }
 
 var token = undefined
-var userId = undefined
+var userInfo = {
+  userId: undefined,
+  userEmail: undefined,
+  userName: undefined,
+  userImage: undefined
+}
 
 async function googleAuth() {
+  console.log("running google atuh post computation assignment")
 
   const params = new URLSearchParams(window.location.hash.slice(1));
-  const idToken = params.get('access_token');
+  const idToken = params.get('access_token') || undefined;
 
-  if (idToken) {
+  if (idToken !== undefined && token === undefined) {
+    console.log("googleAuth: creating local token variable");
 
-    try{
+    try {
       const response = await fetch(`${apis.users}/googleAuth`, {
         method: 'POST',
-        body: JSON.stringify({access_token: idToken}),
+        body: JSON.stringify({ access_token: idToken }),
         headers: {
           'Content-Type': 'application/json'
           // 'Content-Type': 'application/x-www-form-urlencoded',
         }
       })
       const data = await response.json()
-      console.log(data.accessToken, data.userId)
+      console.log(data.accessToken)
+      await getProfile(data.accessToken)
       localStorage.setItem("token", data.accessToken)
-      localStorage.setItem("userId", data.userId)
 
-    }catch(e){
+    } catch (e) {
       console.log(e)
     }
-  }
+  } else console.log("googleAuth: Nothing to be assigned!");
 }
 
 async function setToken() {
-  const urlParams = new URLSearchParams(window.location.search)
-  const tk = urlParams.get("token")
-  const userId = urlParams.get("userId")
+  console.log("running native application atuh post computation assignment")
 
-  if (tk) localStorage.setItem("token", tk);
-  if (userId) localStorage.setItem("userId", userId);
+  const urlParams = new URLSearchParams(window.location.search);
+  const tk = urlParams.get("token") || undefined;
+
+  if (tk !== undefined && token === undefined) { console.log("setToken: creating local token variable"); await getProfile(tk); localStorage.setItem("token", tk); }
+  else console.log("setToken: Nothing to be assigned!");
+}
+
+function setGlobalVars() {
+
+  token = localStorage.getItem("token") || undefined
+
+  userInfo.userId = localStorage.getItem("userId") || undefined
+  userInfo.userEmail = localStorage.getItem("userEmail") || undefined
+  userInfo.userName = localStorage.getItem("userName") || undefined
+  userInfo.userImage = localStorage.getItem("userImage") || undefined
+}
+
+async function getProfile(freshToken) {
+
+  console.log("Getting user profile information from server ...")
+
+  try {
+    const res = await fetch(apis.users + '/profile', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json',
+        'authorization': `baer ${freshToken}`,
+      },
+
+    }).catch(err => console.log(err))
+
+    const data = await res.json()
+
+    localStorage.setItem("userId", data.id)
+    localStorage.setItem("userEmail", data.email)
+    localStorage.setItem("userName", `${data.firstName} ${data.lastName}`)
+    localStorage.setItem("userImage", data.image)
+
+  } catch (e) {
+    console.log(e)
+
+  }
 }
 
 const loadingScreen = document.getElementById("eva_loadingScreen")
 const loginBtn = document.getElementById("eva_loginBtn")
 const profileBtn = document.getElementById("eva_profileBtn")
+const userMenuImg = document.getElementById("userMenuImg")
+const userMenuName = document.getElementById("userMenuName")
 
 const assignTokenValue = async () => {
+  console.log("Assign values to global variables ...")
   await googleAuth()
   await setToken()
 
-  token = localStorage.getItem("token") || false
-  userId = parseInt(localStorage.getItem("userId")) || undefined
+  setGlobalVars()
+
 }
 
 assignTokenValue()
 
 const pageMode = async () => {
-  await assignTokenValue()
-  
-  loginBtn.style.display = (token) ? "none" : "";
-  profileBtn.style.display = (token) ? "" : "none";
+  if (token === undefined) await assignTokenValue();
+
+  if (token) {
+    console.log(userInfo)
+
+    userMenuName.textContent = userInfo.userName
+    userMenuImg.src = `${userMenuImg.src}${userInfo.userImage}`
+
+    loginBtn.style.display = "none";
+    profileBtn.style.display = "";
+
+  } else {
+
+    loginBtn.style.display = "";
+    profileBtn.style.display = "none";
+
+  }
 
   loadingScreen.style.display = "none";
 }
@@ -84,7 +145,13 @@ const fileParams = {
     "key": "resImgs",
     "maxSize": 5e6,
     "maxFiles": 5,
-    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"],
+    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  },
+  "profileImg":{
+    "key": "profileImg",
+    "maxSize": 5e6,
+    "maxFiles": 1,
+    "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   }
 }
 
@@ -199,5 +266,5 @@ function logout() {
 }
 
 function login() {
-  window.location.href = `http://localhost/login/user/login`
+  window.location.href = `${domain}/login/user/login`
 }

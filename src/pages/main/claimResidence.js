@@ -70,10 +70,12 @@ async function submitClaim() {
         }
 
         Promise.all([submitFiles(imgsFormData, "addResImgs"), submitFiles(docFormData, "addResDoc")])
-        .then( res => console.log(res))
+        .then( res => {
+          console.log(res);
+          //window.location.reload()
+        })
         .catch(err => console.log(err))
 
-        //window.reload()
       }else{
         console.log(data.msg)
       }

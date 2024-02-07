@@ -49,7 +49,8 @@ aggrData()
     const ownedRevs = []
     Object.values(response.revs).forEach(element => {
         element.map(row => {
-            if(row.rev.userId === userId) ownedRevs.push(row) 
+            console.log(userInfo.userId)
+            if(row.rev.userId == userInfo.userId) ownedRevs.push(row); 
         })
     })
 

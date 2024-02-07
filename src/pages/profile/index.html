@@ -52,8 +52,8 @@
             
             <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
               <span class="sr-only">Open user menu</span>
-              <img class="w-8 h-8 mr-2 rounded-full" src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="user photo">
-              Daniel Silva
+              <img id = "userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/" alt="user photo">
+              <span id = "userMenuName"></span>
               <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
@@ -147,16 +147,16 @@
 
                             <div class="bg-white shadow rounded-lg p-6">
                                 <div class="flex flex-col items-center">
-                                    <img src="https://randomuser.me/api/portraits/men/94.jpg" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                                    <img id = "profileImg" src="#" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
             
                                     </img>
-                                    <h1 class="text-xl font-bold">John Doe</h1>
+                                    <h1 class="text-xl font-bold" id = "profileName"></h1>
                                     <!-- <p class="text-gray-600"></p>-->
                                     <div class="mt-6 flex flex-wrap gap-4 justify-center">
 
                                         <form>
                                             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50    dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"     aria-describedby="file_input_help" id="file_input" type="file">
+                                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="profileImgInput" type="file" onchange="changeProfileImg()">
                                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                                         </form>
 

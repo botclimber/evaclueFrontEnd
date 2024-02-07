@@ -106,12 +106,12 @@ async function submitReview(){
             const fileHandlerData = await fileHandlerResponse.json();
 
             console.log(fileHandlerData)
+            //window.location.reload()
 
           }catch(e){
             console.log(e)
           }
 
-          window.location.href = "index.html"
       }else{
         console.log(data.msg)
       }
