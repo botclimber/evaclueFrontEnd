@@ -15,7 +15,8 @@ var userInfo = {
   userId: undefined,
   userEmail: undefined,
   userName: undefined,
-  userImage: undefined
+  userImage: undefined,
+  userAuthType: undefined
 }
 
 async function googleAuth() {
@@ -65,6 +66,7 @@ function setGlobalVars() {
   userInfo.userEmail = localStorage.getItem("userEmail") || undefined
   userInfo.userName = localStorage.getItem("userName") || undefined
   userInfo.userImage = localStorage.getItem("userImage") || undefined
+  userInfo.userAuthType = localStorage.getItem("userAuthType") || undefined
 }
 
 async function getProfile(freshToken) {
@@ -79,14 +81,17 @@ async function getProfile(freshToken) {
         'authorization': `baer ${freshToken}`,
       },
 
-    }).catch(err => console.log(err))
+    })
 
     const data = await res.json()
 
-    localStorage.setItem("userId", data.id)
-    localStorage.setItem("userEmail", data.email)
-    localStorage.setItem("userName", `${data.firstName} ${data.lastName}`)
-    localStorage.setItem("userImage", data.image)
+    if(data.id != undefined){
+      localStorage.setItem("userId", data.id)
+      localStorage.setItem("userEmail", data.email)
+      localStorage.setItem("userName", `${data.firstName} ${data.lastName}`)
+      localStorage.setItem("userImage", data.image)
+      localStorage.setItem("userAuthType", data.authType)
+    }
 
   } catch (e) {
     console.log(e)
