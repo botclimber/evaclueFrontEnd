@@ -144,17 +144,28 @@ async function getOwnedResidences() {
 async function updateResidence(params, id = currentResDetailsId.value, ...others) {
     const submit = async (data) => {
 
-        const response = await (await fetch(`${apis.resowners}update/${id}`, {
-            method: "PATCH",
-            headers: {
-                'authorization': 'baer ' + token,
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(data)
-        })).json()
+        try{
+            const response = await (await fetch(`${apis.resowners}update/${id}`, {
+                method: "PATCH",
+                headers: {
+                    'authorization': 'baer ' + token,
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data)
+            })).json()
+    
+            if (params === "form") window.location.reload();
+            else if(params === "free"){
+                if (data.free) dialog.success("Residence set to Available!");
+                else dialog.warn("Residence set to Unavailable!");
+            }
+            else if (params === "rentPrice") dialog.info("Rent Price updated!")
 
-        if (params === "form") window.location.reload();
+        }catch(e){
+            console.log(e)
+            dialog.err(e.msg)
+        }
     }
 
     switch (params) {

@@ -49,8 +49,10 @@ async function setFilters() {
             if (!response.ok) throw new Error((await response.json()).msg.message);
 
             console.log(response)
+            if(data.enable) dialog.success("Filters Active!");
+            else dialog.warn("Filters Inactive!");
         })
-        .catch(e => console.log(e))
+        .catch(e => {console.log(e); dialog.err(e.msg)})
 }
 
 getFilters()
