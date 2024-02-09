@@ -1,7 +1,7 @@
 
 //TODO: if no token when clicking to add new review inform user to login first
-function newReviewForm (){ 
-  info.innerHTML = newReview 
+function newReviewForm() {
+  info.innerHTML = newReview
 
   const st1 = document.getElementById("str1")
   const st2 = document.getElementById("str2")
@@ -13,112 +13,126 @@ function newReviewForm (){
 
   const rAnon = document.getElementById("rAnon")
   rAnon.addEventListener('change', (event) => {
-  
-    switch(parseInt(rAnon.value)){
+
+    switch (parseInt(rAnon.value)) {
       case 0: rAnon.value = 1; break;
       case 1: rAnon.value = 0; break;
     }
-  
+
   })
 
   st1.addEventListener('click', (event) => {
     ratingValue.value = 1
-    starStatus({starsToCheck: [st1], starsToUncheck: [st2,st3,st4,st5]})
+    starStatus({ starsToCheck: [st1], starsToUncheck: [st2, st3, st4, st5] })
   })
 
   st2.addEventListener('click', (event) => {
     ratingValue.value = 2
-    starStatus({starsToCheck: [st1, st2], starsToUncheck: [st3,st4,st5]})
+    starStatus({ starsToCheck: [st1, st2], starsToUncheck: [st3, st4, st5] })
   })
-  
+
   st3.addEventListener('click', (event) => {
     ratingValue.value = 3
-    starStatus({starsToCheck: [st1,st2,st3], starsToUncheck: [st4,st5]})
+    starStatus({ starsToCheck: [st1, st2, st3], starsToUncheck: [st4, st5] })
   })
 
   st4.addEventListener('click', (event) => {
     ratingValue.value = 4
-    starStatus({starsToCheck: [st1,st2,st3,st4], starsToUncheck: [st5]})
+    starStatus({ starsToCheck: [st1, st2, st3, st4], starsToUncheck: [st5] })
   })
 
   st5.addEventListener('click', (event) => {
     ratingValue.value = 5
-    starStatus({starsToCheck: [st1,st2,st3,st4,st5], starsToUncheck: []})
+    starStatus({ starsToCheck: [st1, st2, st3, st4, st5], starsToUncheck: [] })
   })
 
   // obj = {starsToCheck: [], starsToUncheck: []}
-  function starStatus(v){
+  function starStatus(v) {
 
-    for(let element of v.starsToCheck) element.classList.add("starCheck");
-    for(let element of v.starsToUncheck) element.classList.remove("starCheck");
-    
+    for (let element of v.starsToCheck) element.classList.add("starCheck");
+    for (let element of v.starsToUncheck) element.classList.remove("starCheck");
+
   }
 }
 
-async function submitReview(){
+async function submitReview() {
+  var inputValidator = true
   console.log("Submitting review ...")
-  
+
+  const city = document.getElementById("rCity").value
+  const street = document.getElementById("rStreet").value
+  const nr = document.getElementById("rNr").value
+  const review = document.getElementById("rReview").value
+
+  if (!city || city.trim() === ''){ dialog.err("City field is required!"); inputValidator = false; }
+  if (!street || street.trim() === ''){ dialog.err("Street field is required!"); inputValidator = false; }
+  if (!nr || nr.trim() === ''){ dialog.err("Number field is required!"); inputValidator = false; }
+  if (!review || review.trim() === ''){ dialog.err("Review field is required!"); inputValidator = false; }
+
   const mulFiles = document.getElementById("reviewImgs").files
   const formData = await inputFilesValidator(mulFiles, fileParams.reviews.key, fileParams.reviews.maxSize, fileParams.reviews.maxFiles, fileParams.reviews.allowedExtensions)
 
-  if( (mulFiles.length == 0) || (mulFiles.length > 0 && formData)) {
+  if (inputValidator && ((mulFiles.length == 0) || (mulFiles.length > 0 && formData))) {
     const dataToSubmit = {
       type: "createReview",
       flag: localStorage.getItem("rFlag") || undefined,
-      lat : parseFloat(localStorage.getItem("rLat")) || 0,
-      lng : parseFloat(localStorage.getItem("rLng")) || 0,
-      city: document.getElementById("rCity").value || undefined,
-      street: document.getElementById("rStreet").value || undefined,
-      nr : document.getElementById("rNr").value || undefined,
-      floor : document.getElementById("rFloor").value || "",
-      direction : document.getElementById("rDirection").value || "",
-      rating : document.getElementById("rRating").value || 0,
-      review : document.getElementById("rReview").value || undefined,
-      anonymous : parseInt(document.getElementById("rAnon").value) || 0
+      lat: parseFloat(localStorage.getItem("rLat")) || 0,
+      lng: parseFloat(localStorage.getItem("rLng")) || 0,
+      city: city || undefined,
+      street: street || undefined,
+      nr: nr || undefined,
+      floor: document.getElementById("rFloor").value || "",
+      direction: document.getElementById("rDirection").value || "",
+      rating: document.getElementById("rRating").value || 0,
+      review: review || undefined,
+      anonymous: parseInt(document.getElementById("rAnon").value) || 0  
     }
 
     console.log(dataToSubmit)
-    const response = await fetch(`${apis.reviews}create`,{
+    await fetch(`${apis.reviews}create`, {
       method: 'POST',
       body: JSON.stringify(dataToSubmit),
       headers: {
-        'authorization':'baer '+token,
+        'authorization': 'baer ' + token,
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
     })
+    .then(response => response.json())
+    .then( async (data) => {
+      console.log(data)
+      window.location.reload()
+      dialog.success(data.msg)
 
-    const data = await response.json();
-
-    console.log(response)
-
-    
-      if(response.ok && formData){
-          console.log(data)
-
-          formData.append("reviewId", data.revId)
-
-          try{
-            const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
-              method: "POST",
-              body: formData
-            });
-            const fileHandlerData = await fileHandlerResponse.json();
-
-            console.log(fileHandlerData)
-            //window.location.reload()
-
-          }catch(e){
-            console.log(e)
-          }
-
-      }else{
-        console.log(data.msg)
+      if (formData) {
+  
+        formData.append("reviewId", data.revId)
+  
+        try {
+          const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
+            method: "POST",
+            body: formData
+          });
+          const fileHandlerData = await fileHandlerResponse.json();
+  
+          console.log(fileHandlerData)
+          dialog.success(fileHandlerData.msg) // we may need to change this to a "review created!"
+          //window.location.reload()
+  
+        } catch (e) {
+          console.log(e)
+          dialog.err(e.msg)
+        }
+  
       }
+
+    })
+    .catch(err =>{ console.log(err); dialog.err(err.msg)})
+
   }
 }
 
-const newReview = 
+const newReview =
 /*html*/`
 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
     <li class="mr-2">

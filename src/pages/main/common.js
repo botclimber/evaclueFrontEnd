@@ -1,4 +1,6 @@
 function fromMarker (func, address) {
+    if(token === undefined) dialog.info("Login required to perform this action!");
+    else{
     console.log(func)
     console.log(address)
 
@@ -15,5 +17,5 @@ function fromMarker (func, address) {
     localStorage.setItem("rFlag", "fromMarker")
     localStorage.setItem("rLat", address.lat)
     localStorage.setItem("rLng", address.lng)
-
+    }
 }

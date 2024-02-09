@@ -1,477 +1,617 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Evaclue</title>
+  <title>Evaclue</title>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
-<link rel="stylesheet" href="../../../assets/css/loadingScreen.css" />
-<script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+  <link rel="stylesheet" href="../../../assets/css/loadingScreen.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-#map {
-  height: 700px;
-}
+  <style>
+    #map {
+      height: 700px;
+    }
 
-.starCheck {
-  color: orange;
-}
+    .starCheck {
+      color: orange;
+    }
 
-.center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-</style>
+    .center-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
-<body>
-    <div id="eva_loadingScreen" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
 
-        <div class="screen">
-          <div class="loader">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-          </div>
-        </div>
-    
+<body>
+  <div id="eva_loadingScreen" wire:loading
+    class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
+
+    <div class="screen">
+      <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-    
-        <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a id="href_logo_navbar" href="#" class="flex items-center">
-                <img id="src_logo_navbar" src="#" class="h-8 mr-3" alt="Flowbite Logo">
-            </a>
-            <div class="flex md:order-2">
-                <button type="button" onclick="login()" id="eva_loginBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-                
-                <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
-                  <span class="sr-only">Open user menu</span>
-                  <img id = "userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/" alt="user photo">
-                  <span id = "userMenuName"></span>
-                  <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                </svg>
-              </button>
-              
-              
-              <!-- Dropdown menu -->
-              <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                  <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+    </div>
+
+  </div>
+
+  <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a id="href_logo_navbar" href="#" class="flex items-center">
+        <img id="src_logo_navbar" src="#" class="h-8 mr-3" alt="Flowbite Logo">
+      </a>
+      <div class="flex md:order-2">
+        <button type="button" onclick="login()" id="eva_loginBtn"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName"
+          class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+          type="button">
+          <span class="sr-only">Open user menu</span>
+          <img id="userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/"
+            alt="user photo">
+          <span id="userMenuName"></span>
+          <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 4 4 4-4" />
+          </svg>
+        </button>
+
+
+        <!-- Dropdown menu -->
+        <div id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+          <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                     <div class="font-medium ">Pro User</div>
                     <div class="truncate">name@flowbite.com</div>
                   </div> -->
-                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                    <li>
-                      <a id="href_profile" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
-                    </li>
-                  </ul>
-                  <div class="py-2">
-                    <a href="#" onclick = "logout()"  class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+            <li>
+              <a id="href_profile" href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+            </li>
+          </ul>
+          <div class="py-2">
+            <a href="#" onclick="logout()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+              out</a>
+          </div>
+        </div>
+
+        <button type="button" data-dropdown-toggle="language-dropdown-menu"
+          class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
+          <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900">
+            <path fill="#b22234" d="M0 0h7410v3900H0z" />
+            <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300" />
+            <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+            <g fill="#fff">
+              <g id="d">
+                <g id="c">
+                  <g id="e">
+                    <g id="b">
+                      <path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                      <use xlink:href="#a" y="420" />
+                      <use xlink:href="#a" y="840" />
+                      <use xlink:href="#a" y="1260" />
+                    </g>
+                    <use xlink:href="#a" y="1680" />
+                  </g>
+                  <use xlink:href="#b" x="247" y="210" />
+                </g>
+                <use xlink:href="#c" x="494" />
+              </g>
+              <use xlink:href="#d" x="988" />
+              <use xlink:href="#c" x="1976" />
+              <use xlink:href="#e" x="2470" />
+            </g>
+          </svg>
+          English (US)
+        </button>
+        <!-- Dropdown -->
+        <div
+          class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+          id="language-dropdown-menu">
+          <ul class="py-2 font-medium" role="none">
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-us" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd">
+                      <g stroke-width="1pt">
+                        <path fill="#bd3d44"
+                          d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                        <path fill="#fff"
+                          d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                      </g>
+                      <path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)" />
+                  </svg>
+                  English (US)
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-de" viewBox="0 0 512 512">
+                    <path fill="#ffce00" d="M0 341.3h512V512H0z" />
+                    <path d="M0 0h512v170.7H0z" />
+                    <path fill="#d00" d="M0 170.7h512v170.6H0z" />
+                  </svg>
+                  Deutsch
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-it" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd" stroke-width="1pt">
+                      <path fill="#fff" d="M0 0h512v512H0z" />
+                      <path fill="#009246" d="M0 0h170.7v512H0z" />
+                      <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
+                    </g>
+                  </svg>
+                  Italiano
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512">
+                    <defs>
+                      <path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                    </defs>
+                    <path fill="#de2910" d="M0 0h512v512H0z" />
+                    <use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a" />
+                    <use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a" />
+                  </svg>
+                  中文 (繁體)
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+        <ul
+          class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <li>
+            <a href="#"
+              class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+              aria-current="page">Home</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+          </li>
+          <li>
+            <a href="#"
+              class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="main" class="main mt-[70px]">
+    <div class="px-4 mx-auto">
+      <div class="hero">
+
+        <div class="box pt-5">
+          <div class="box-wrapper">
+            <div>
+              <form method="GET" action="/src/pages/main/index.html" class="ml-[33%] w-[50%]">
+
+                <div class="flex flex-wrap">
+                  <div class="w-[150px] ml-2">
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="searchCity" type="text" name="sCity" placeholder="City">
                   </div>
-              </div>
-                
-              <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
-                <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="d"><g id="c"><g id="e"><g id="b"><path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#a" y="420"/><use xlink:href="#a" y="840"/><use xlink:href="#a" y="1260"/></g><use xlink:href="#a" y="1680"/></g><use xlink:href="#b" x="247" y="210"/></g><use xlink:href="#c" x="494"/></g><use xlink:href="#d" x="988"/><use xlink:href="#c" x="1976"/><use xlink:href="#e" x="2470"/></g></svg>
-                English (US)
-              </button>
-              <!-- Dropdown -->
-              <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
-                <ul class="py-2 font-medium" role="none">
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                      <div class="inline-flex items-center">
-                        <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/></svg>              
-                        English (US)
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                      <div class="inline-flex items-center">
-                        <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de" viewBox="0 0 512 512"><path fill="#ffce00" d="M0 341.3h512V512H0z"/><path d="M0 0h512v170.7H0z"/><path fill="#d00" d="M0 170.7h512v170.6H0z"/></svg>
-                        Deutsch
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                      <div class="inline-flex items-center">
-                        <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it" viewBox="0 0 512 512"><g fill-rule="evenodd" stroke-width="1pt"><path fill="#fff" d="M0 0h512v512H0z"/><path fill="#009246" d="M0 0h170.7v512H0z"/><path fill="#ce2b37" d="M341.3 0H512v512H341.3z"/></g></svg>              
-                        Italiano
-                      </div>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                      <div class="inline-flex items-center">
-                        <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512"><defs><path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z"/></defs><path fill="#de2910" d="M0 0h512v512H0z"/><use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a"/><use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a"/></svg>
-                        中文 (繁體)
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-    
+                  <div class="w-[150px] ml-2">
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="searchStreet" type="text" name="sStreet" placeholder="Street">
+                  </div>
+                  <div class="w-[150px] ml-2">
+                    <input
+                      class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="searchNr" type="text" name="sNr" placeholder="Building Number">
+                  </div>
+                  <div class="w-[150px] ml-2">
+                    <button type="submit"
+                      class="bg-white hover:bg-gray-200 lock w-[100px]  text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-              <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                  <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+
+          </div>
+        </div>
+
+        <section class="my-5 grid gap-4 grid-cols-3">
+          <div id="info" class="max-h-[700px] overflow-auto"></div>
+
+          <div id="map" class="col-span-2 max-h-[700px] overflow-auto">
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="bg-white shadow dark:bg-gray-900">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <a id="href_logo_footer" href="#" class="flex items-center mb-4 sm:mb-0">
+          <img id="src_logo_footer" src="#" class="h-8 mr-3" alt="Flowbite Logo" />
+        </a>
+        <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+          </li>
+          <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#"
+          class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
+    </div>
+  </footer>
+
+
+
+  <span data-modal-target="defaultModal"></span>
+  <div id="defaultModal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Review Details
+            </h3>
+            <p id="reviewTitle" class="flex items-center text-sm dark:text-white"></p>
+          </div>
+
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="defaultModal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+
+          <article class="md:gap-3 md:grid md:grid-cols-3">
+            <div>
+              <div class="flex items-center mb-6 space-x-4">
+                <img id="reviewUserImage" class="w-10 h-10 rounded-full" src="" alt="">
+                <div class="space-y-1 font-medium dark:text-white">
+                  <p id="reviewUserName"></p>
+                  <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+
+                    <span id="reviewBadge"
+                      class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"></span>
+                  </div>
+                </div>
+              </div>
+              <ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400">
+                <li class="flex items-center"><i class="fa fa-comment mr-1"></i><span id="reviewContributions"></span>
                 </li>
               </ul>
             </div>
-            </div>
-          </nav>
-
-<div id="main" class="main mt-[70px]">
-    <div class="px-4 mx-auto">
-        <div class="hero">
-
-            <div class="box pt-5">
-                <div class="box-wrapper">
-                    <div >
-                      <form method="GET" action="/src/pages/main/index.html" class="ml-[33%] w-[50%]">
-                      
-                        <div class="flex flex-wrap">
-                          <div class="w-[150px] ml-2">
-                            <input
-                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="searchCity" type="text" name="sCity" placeholder="City">
-                          </div>
-                          <div class="w-[150px] ml-2">
-                            <input
-                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="searchStreet" type="text" name="sStreet" placeholder="Street">
-                          </div>
-                          <div class="w-[150px] ml-2">
-                            <input
-                              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                              id="searchNr" type="text" name="sNr" placeholder="Building Number">
-                          </div>
-                          <div class="w-[150px] ml-2">
-                            <button
-                              type="submit" class="bg-white hover:bg-gray-200 lock w-[100px]  text-gray-700 border border-gray-200 rounded py-2 px-2 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                              Search
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  
+            <div class=" relative col-span-2 mt-6 md:mt-0">
+              <div class="flex items-start mb-5">
+                <div class="pr-4">
+                  <footer>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Reviewed: <time
+                        id="reviewCreatedAt"></time></p>
+                  </footer>
                 </div>
-            </div>
-
-            <section class="my-5 grid gap-4 grid-cols-3">
-              <div id="info" class="max-h-[700px] overflow-auto"></div>
-              
-              <div id="map" class="col-span-2 max-h-[700px] overflow-auto"> 
+                <!-- <p class="absolute right-0 bg-orange-400 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" id="reviewRating"></p> -->
+                <div class="absolute right-0">
+                  <svg class="w-8 h-8 text-yellow-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    <text x="49%" y="61%" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="white"
+                      id="reviewRating"></text>
+                  </svg>
+                </div>
               </div>
-            </section>
-        </div>
-    </div>    
-</div>
+              <p class="mb-2 text-gray-500 dark:text-gray-400" id="reviewContent"></p>
+              <aside class="flex items-center mt-2 space-x-5">
+                <a href="#"
+                  class="inline-flex items-center text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                  <i class=" fa fa-flag text-red-600 mr-1"></i>
+                  Report
+                </a>
+              </aside>
+            </div>
 
-
-<footer class="bg-white shadow dark:bg-gray-900">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a id="href_logo_footer" href="#" class="flex items-center mb-4 sm:mb-0">
-                <img id="src_logo_footer" src="#" class="h-8 mr-3" alt="Flowbite Logo" />
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
-    </div>
-</footer>
-
-
-    
-<span data-modal-target = "defaultModal"></span>
-<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <div>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Review Details
-                </h3>
-                <p id="reviewTitle" class="flex items-center text-sm dark:text-white"></p>
+            <div id="reviewImagesContent" class="col-span-3">
+              <div id="default-carousel" class="relative w-full" data-carousel="static">
+                <!-- Carousel wrapper  -->
+                <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                  <div id="img0" class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="">
+                  </div>
+                  <div id="img1" class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="...">
+                  </div>
+                  <div id="img2" class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                      alt="...">
+                  </div>
                 </div>
-
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                <!-- Slider indicators -->
+                <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"></div>
+                <!-- Slider controls -->
+                <button type="button"
+                  class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                  data-carousel-prev>
+                  <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 1 1 5l4 4" />
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span class="sr-only">Previous</span>
+                  </span>
                 </button>
+                <button type="button"
+                  class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                  data-carousel-next>
+                  <span
+                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                    <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="sr-only">Next</span>
+                  </span>
+                </button>
+              </div>
             </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                
-            <article class="md:gap-3 md:grid md:grid-cols-3">
-                <div>
-                    <div class="flex items-center mb-6 space-x-4">
-                        <img id="reviewUserImage" class="w-10 h-10 rounded-full" src="" alt="">
-                        <div class="space-y-1 font-medium dark:text-white">
-                            <p id="reviewUserName"></p>
-                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                
-                                <span id="reviewBadge" class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="space-y-4 text-sm text-gray-500 dark:text-gray-400">
-                        <li class="flex items-center"><i class="fa fa-comment mr-1"></i><span id="reviewContributions"></span></li>
-                    </ul>
-                </div>
-                <div class=" relative col-span-2 mt-6 md:mt-0">
-                    <div class="flex items-start mb-5">
-                        <div class="pr-4">
-                            <footer>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Reviewed: <time id="reviewCreatedAt"></time></p>
-                            </footer>
-                        </div>
-                       <!-- <p class="absolute right-0 bg-orange-400 text-white text-sm font-semibold inline-flex items-center p-1.5 rounded" id="reviewRating"></p> -->
-                       <div class="absolute right-0">
-                        <svg class="w-8 h-8 text-yellow-600 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                          <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                          <text x="49%" y="61%" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="white" id="reviewRating"></text>
-                      </svg>
-                       </div>
-                    </div>
-                    <p class="mb-2 text-gray-500 dark:text-gray-400" id="reviewContent"></p>
-                    <aside class="flex items-center mt-2 space-x-5">
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
-                            <i class=" fa fa-flag text-red-600 mr-1"></i>
-                            Report
-                        </a>
-                    </aside>
-                </div>
-                
-                <div id="reviewImagesContent" class="col-span-3">
-                    <div id="default-carousel" class="relative w-full" data-carousel="static">
-                        <!-- Carousel wrapper  -->
-                        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                            <div id="img0" class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="" >
-                            </div>
-                            <div  id="img1" class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                            </div>
-                            <div id="img2" class="hidden duration-700 ease-in-out" data-carousel-item>
-                                <img src="" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-                            </div>
-                        </div>
-                        <!-- Slider indicators -->
-                        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2"></div>
-                        <!-- Slider controls -->
-                        <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                </svg>
-                                <span class="sr-only">Previous</span>
-                            </span>
-                        </button>
-                        <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                <svg class="w-4 h-4 text-white dark:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                </svg>
-                                <span class="sr-only">Next</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </article>
-            </div>
-        </div>
-    </div>
-</div> 
-
-<!-- Available residences Details Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" id="avaResidenceDetails">
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-xl font-semibold">
-          Available Residence Details
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" onclick="toggleModalAvaResidences('avaResidenceDetails')">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-      </button>
-      </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
-        <!-- component -->
-<div class="relative mx-auto w-full max-w-md">
-    <div class="rounded-lg">
-
-      <!-- start images-->
-      <div id="imgDetails">
-      </div>
-      <!-- end images-->
-
-      <div class="">
-        <div class="mt-4 grid grid-cols-2">
-          <div class="flex items-center">
-            <div class="relative">
-              <h2 class="line-clamp-1 text-base font-medium text-gray-800 md:text-lg" id="resDetails"></h2>
-              <p class="mt-2 line-clamp-1 text-sm text-gray-800" id="locationDetails"></p>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-end">
-            <p class="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
-              <span class="text-sm uppercase"> €</span>
-              <span class="text-lg" id="rentPriceDetails"></span>/m
-            </p>
-          </div>
-        </div>
-
-        <div class="mt-2 border-t border-gray-200 pt-3 h-[250px] overflow-y-scroll">
-          <p id="noteDetails" class="whitespace-pre-line"></p>
-        </div>
-
-        <div class="mt-2 grid grid-cols-2 grid-rows-2 gap-4 border-t border-gray-200 pb-3 pt-3">
-          <p title="Number of bed rooms"  class="flex items-center font-medium text-gray-500" >
-            <svg class="mr-2 h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480,226.15V80a48,48,0,0,0-48-48H80A48,48,0,0,0,32,80V226.15C13.74,231,0,246.89,0,266.67V472a8,8,0,0,0,8,8H24a8,8,0,0,0,8-8V416H480v56a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V266.67C512,246.89,498.26,231,480,226.15ZM64,192a32,32,0,0,1,32-32H208a32,32,0,0,1,32,32v32H64Zm384,32H272V192a32,32,0,0,1,32-32H416a32,32,0,0,1,32,32ZM80,64H432a16,16,0,0,1,16,16v56.9a63.27,63.27,0,0,0-32-8.9H304a63.9,63.9,0,0,0-48,21.71A63.9,63.9,0,0,0,208,128H96a63.27,63.27,0,0,0-32,8.9V80A16,16,0,0,1,80,64ZM32,384V266.67A10.69,10.69,0,0,1,42.67,256H469.33A10.69,10.69,0,0,1,480,266.67V384Z"></path></svg>
-            <span id="bedroomDetails"></span>
-          </p>
-
-          <p title="Number of bath rooms"  class="flex items-center font-medium text-gray-500">
-            <svg class="mr-2 h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M504,256H64V61.25a29.26,29.26,0,0,1,49.94-20.69L139.18,65.8A71.49,71.49,0,0,0,128,104c0,20.3,8.8,38.21,22.34,51.26L138.58,167a8,8,0,0,0,0,11.31l11.31,11.32a8,8,0,0,0,11.32,0L285.66,65.21a8,8,0,0,0,0-11.32L274.34,42.58a8,8,0,0,0-11.31,0L251.26,54.34C238.21,40.8,220.3,32,200,32a71.44,71.44,0,0,0-38.2,11.18L136.56,18A61.24,61.24,0,0,0,32,61.25V256H8a8,8,0,0,0-8,8v16a8,8,0,0,0,8,8H32v96c0,41.74,26.8,76.9,64,90.12V504a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V480H384v24a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V474.12c37.2-13.22,64-48.38,64-90.12V288h24a8,8,0,0,0,8-8V264A8,8,0,0,0,504,256ZM228.71,76.9,172.9,132.71A38.67,38.67,0,0,1,160,104a40,40,0,0,1,40-40A38.67,38.67,0,0,1,228.71,76.9ZM448,384a64.07,64.07,0,0,1-64,64H128a64.07,64.07,0,0,1-64-64V288H448Z"></path></svg>
-            <span id="bathroomDetails"></span>
-          </p>
-          <p title="Elevator"  class="flex items-center text-gray-800 xl:flex-row xl:items-center">
-            <img class="mr-3 h-5 w-5" src="https://img.icons8.com/ios/50/elevator.png" alt="elevator"/>
-            <span class="xl:mt-0"> Elevator </span>
-          </p>
-          <p title="Parking lote" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
-            <img class="mr-3 h-5 w-5" src="https://img.icons8.com/ios/50/parking.png" alt="parking"/>
-            <span class="mt-0"> Parking Lote</span>
-          </p>
-          <p title="Flat size"  class="flex items-center text-gray-800 xl:flex-row xl:items-center">
-            <svg class="mr-3 inline-block h-5 w-5 fill-current text-gray-800 xl:h-4 xl:w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M399.959 170.585c-4.686 4.686-4.686 12.284 0 16.971L451.887 239H60.113l51.928-51.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-84.485 84c-4.686 4.686-4.686 12.284 0 16.971l84.485 84c4.686 4.686 12.284 4.686 16.97 0l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L60.113 273h391.773l-51.928 51.444c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l84.485-84c4.687-4.686 4.687-12.284 0-16.971l-84.485-84c-4.686-4.686-12.284-4.686-16.97 0l-7.07 7.071z"></path></svg>
-            <span class="mt-0" id="flatSizeDetails"></span> m
-          </p>
-          <p title="Building Age" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
-            <i class="mr-3 fa fa-calendar"> </i><span class="mt-0" id="buildingAgeDetails"></span>
-          </p>
-          
-        </div>
-      </div>
-    </div>
-</div>
-      </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-        <div class="flex justify-end">
-          <button onclick="toggleModalContactResOwner('contactResOwner')"><i class="fa fa-envelope mx-1 rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button>
-          <!-- <button><i class="fa fa-phone rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button> -->
+          </article>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="avaResidenceDetails-backdrop"></div>
 
-<!-- Contact Residence Owner Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none items-center" id="contactResOwner">
-  <div class="relative w-full my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-xl font-semibold">
-          Email to Owner
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" onclick="toggleModalContactResOwner('contactResOwner')">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-      </button>
-      </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
+  <!-- Available residences Details Modal -->
+  <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+    id="avaResidenceDetails">
+    <div class="relative w-auto my-6 mx-auto max-w-3xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-xl font-semibold">
+            Available Residence Details
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            onclick="toggleModalAvaResidences('avaResidenceDetails')">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <!-- component -->
+          <div class="relative mx-auto w-full max-w-md">
+            <div class="rounded-lg">
 
-        <form>
-          <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-              <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-                  <label for="comment" class="sr-only">Your comment</label>
-                  <textarea id="msgToOwner" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write your message ..." required></textarea>
+              <!-- start images-->
+              <div id="imgDetails">
               </div>
+              <!-- end images-->
+
+              <div class="">
+                <div class="mt-4 grid grid-cols-2">
+                  <div class="flex items-center">
+                    <div class="relative">
+                      <h2 class="line-clamp-1 text-base font-medium text-gray-800 md:text-lg" id="resDetails"></h2>
+                      <p class="mt-2 line-clamp-1 text-sm text-gray-800" id="locationDetails"></p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-end">
+                    <p class="text-primary inline-block whitespace-nowrap rounded-xl font-semibold leading-tight">
+                      <span class="text-sm uppercase"> €</span>
+                      <span class="text-lg" id="rentPriceDetails"></span>/m
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-2 border-t border-gray-200 pt-3 h-[250px] overflow-y-scroll">
+                  <p id="noteDetails" class="whitespace-pre-line"></p>
+                </div>
+
+                <div class="mt-2 grid grid-cols-2 grid-rows-2 gap-4 border-t border-gray-200 pb-3 pt-3">
+                  <p title="Number of bed rooms" class="flex items-center font-medium text-gray-500">
+                    <svg class="mr-2 h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path
+                        d="M480,226.15V80a48,48,0,0,0-48-48H80A48,48,0,0,0,32,80V226.15C13.74,231,0,246.89,0,266.67V472a8,8,0,0,0,8,8H24a8,8,0,0,0,8-8V416H480v56a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V266.67C512,246.89,498.26,231,480,226.15ZM64,192a32,32,0,0,1,32-32H208a32,32,0,0,1,32,32v32H64Zm384,32H272V192a32,32,0,0,1,32-32H416a32,32,0,0,1,32,32ZM80,64H432a16,16,0,0,1,16,16v56.9a63.27,63.27,0,0,0-32-8.9H304a63.9,63.9,0,0,0-48,21.71A63.9,63.9,0,0,0,208,128H96a63.27,63.27,0,0,0-32,8.9V80A16,16,0,0,1,80,64ZM32,384V266.67A10.69,10.69,0,0,1,42.67,256H469.33A10.69,10.69,0,0,1,480,266.67V384Z">
+                      </path>
+                    </svg>
+                    <span id="bedroomDetails"></span>
+                  </p>
+
+                  <p title="Number of bath rooms" class="flex items-center font-medium text-gray-500">
+                    <svg class="mr-2 h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path
+                        d="M504,256H64V61.25a29.26,29.26,0,0,1,49.94-20.69L139.18,65.8A71.49,71.49,0,0,0,128,104c0,20.3,8.8,38.21,22.34,51.26L138.58,167a8,8,0,0,0,0,11.31l11.31,11.32a8,8,0,0,0,11.32,0L285.66,65.21a8,8,0,0,0,0-11.32L274.34,42.58a8,8,0,0,0-11.31,0L251.26,54.34C238.21,40.8,220.3,32,200,32a71.44,71.44,0,0,0-38.2,11.18L136.56,18A61.24,61.24,0,0,0,32,61.25V256H8a8,8,0,0,0-8,8v16a8,8,0,0,0,8,8H32v96c0,41.74,26.8,76.9,64,90.12V504a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V480H384v24a8,8,0,0,0,8,8h16a8,8,0,0,0,8-8V474.12c37.2-13.22,64-48.38,64-90.12V288h24a8,8,0,0,0,8-8V264A8,8,0,0,0,504,256ZM228.71,76.9,172.9,132.71A38.67,38.67,0,0,1,160,104a40,40,0,0,1,40-40A38.67,38.67,0,0,1,228.71,76.9ZM448,384a64.07,64.07,0,0,1-64,64H128a64.07,64.07,0,0,1-64-64V288H448Z">
+                      </path>
+                    </svg>
+                    <span id="bathroomDetails"></span>
+                  </p>
+                  <p id="elevatorDetails" title="Elevator" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
+                    <img class="mr-3 h-5 w-5" src="https://img.icons8.com/ios/50/elevator.png" alt="elevator" />
+                    <span class="xl:mt-0"> Elevator </span>
+                  </p>
+                  <p id="parkingDetails" title="Parking lote" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
+                    <img class="mr-3 h-5 w-5" src="https://img.icons8.com/ios/50/parking.png" alt="parking" />
+                    <span class="mt-0"> Parking Lote</span>
+                  </p>
+                  <p id = "parkingDetails" title="Flat size" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
+                    <svg class="mr-3 inline-block h-5 w-5 fill-current text-gray-800 xl:h-4 xl:w-4"
+                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                      <path
+                        d="M399.959 170.585c-4.686 4.686-4.686 12.284 0 16.971L451.887 239H60.113l51.928-51.444c4.686-4.686 4.686-12.284 0-16.971l-7.071-7.07c-4.686-4.686-12.284-4.686-16.97 0l-84.485 84c-4.686 4.686-4.686 12.284 0 16.971l84.485 84c4.686 4.686 12.284 4.686 16.97 0l7.071-7.07c4.686-4.686 4.686-12.284 0-16.971L60.113 273h391.773l-51.928 51.444c-4.686 4.686-4.686 12.284 0 16.971l7.071 7.07c4.686 4.686 12.284 4.686 16.97 0l84.485-84c4.687-4.686 4.687-12.284 0-16.971l-84.485-84c-4.686-4.686-12.284-4.686-16.97 0l-7.07 7.071z">
+                      </path>
+                    </svg>
+                    <span class="mt-0" id="flatSizeDetails"></span> m
+                  </p>
+                  <p title="Building Age" class="flex items-center text-gray-800 xl:flex-row xl:items-center">
+                    <i class="mr-3 fa fa-calendar"> </i><span class="mt-0" id="buildingAgeDetails"></span>
+                  </p>
+
+                </div>
+              </div>
+            </div>
           </div>
-       </form>  
-       
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <div class="flex justify-end">
+            <button onclick="toggleModalContactResOwner('contactResOwner')"><i
+                class="fa fa-envelope mx-1 rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button>
+            <!-- <button><i class="fa fa-phone rounded-md bg-[#0174E1] py-1 px-3 text-white"></i></button> -->
+          </div>
+        </div>
       </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+    </div>
+  </div>
+  <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="avaResidenceDetails-backdrop"></div>
+
+  <!-- Contact Residence Owner Modal -->
+  <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none items-center"
+    id="contactResOwner">
+    <div class="relative w-full my-6 mx-auto max-w-3xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-xl font-semibold">
+            Email to Owner
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            onclick="toggleModalContactResOwner('contactResOwner')">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+
+          <form>
+            <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+              <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+                <label for="comment" class="sr-only">Your comment</label>
+                <textarea id="msgToOwner" rows="4"
+                  class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                  placeholder="Write your message ..." required></textarea>
+              </div>
+            </div>
+          </form>
+
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
 
           <input type="hidden" id="msgOwnerId" value="">
-          <button type="button" onclick="sendMessageToOwner()" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-              Send Message
+          <button type="button" onclick="sendMessageToOwner()"
+            class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+            Send Message
           </button>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="contactResOwner-backdrop"></div>
+  <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="contactResOwner-backdrop"></div>
 
-<script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq2YyQh70n_M6glKgr3U4a9vCmY5LU0xQ&callback=initMap"
-      defer
-    ></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq2YyQh70n_M6glKgr3U4a9vCmY5LU0xQ&callback=initMap"
+    defer></script>
+  <script src="../../common_js/dialog.js"></script>
 
-<script src="../../common_js/eva-functional-utils.js"></script>
-<script src="../../common_js/index.js"></script>
-<script src="../../common_js/load.js"></script>
+  <script src="../../common_js/eva-functional-utils.js"></script>
+  <script src="../../common_js/index.js"></script>
+  <script src="../../common_js/load.js"></script>
 
-<script src="common.js"></script>
-<script src="maps.js"></script>
-<script src="createReview.js"></script>
-<script src="reviews.js"></script>
-<script src="residences.js"></script>
-<script src="claimResidence.js"></script>
-<script src="resOwner.js"></script>
-<script src="main.js"></script>
+  <script src="common.js"></script>
+  <script src="maps.js"></script>
+  <script src="createReview.js"></script>
+  <script src="reviews.js"></script>
+  <script src="residences.js"></script>
+  <script src="claimResidence.js"></script>
+  <script src="resOwner.js"></script>
+  <script src="main.js"></script>
 
-<script src="../../common_js/main.js"></script>
+  <script src="../../common_js/main.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
 
 </body>
+
 </html>

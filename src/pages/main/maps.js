@@ -8,7 +8,7 @@ const search = async () => {
   const fromServer = async (sCity, sStreet, sNr) => {
     const location = await fetch(`${apis.geoLocation}/search?city=${sCity}&street=${sStreet}&buildingNr=${sNr}&onlyAppr=1`)
     const response = await location.json()
-  
+
     console.log(response)
     return response
   }
@@ -19,13 +19,13 @@ const search = async () => {
   const sStreet = urlParams.get("sStreet") || ""
   const sNr = urlParams.get("sNr") || ""
 
-  if(isEmpty(sCity) && isEmpty(sStreet) && isEmpty(sNr)){
-    const location = {lat: localStorage.getItem("rLat"), lng: localStorage.getItem("rLng")}
+  if (isEmpty(sCity) && isEmpty(sStreet) && isEmpty(sNr)) {
+    const location = { lat: localStorage.getItem("rLat"), lng: localStorage.getItem("rLng") }
 
-    if(location.lat && location.lng) return location
+    if (location.lat && location.lng) return location
     else return await fromServer(sCity, sStreet, sNr)
 
-  }else{
+  } else {
     return await fromServer(sCity, sStreet, sNr)
   }
 }
@@ -46,8 +46,9 @@ async function initMap() {
     localStorage.setItem("rLat", coords.lat)
     localStorage.setItem("rLng", coords.lng)
     localStorage.setItem("rFlag", "fromMapClick")
-    
-    newReviewForm()
+
+    if (token === undefined) dialog.info("Login required to perform this action!");
+    else newReviewForm();
   })
 
   map.addListener("dragend", (_) => {
@@ -63,29 +64,30 @@ async function initMap() {
     geocoder.geocode({
       location: coords
     }, (results, status) => {
-      if(status === 'OK') {
-        if(results && results.length > 0) {
-            var filtered_array = results.filter(result => result.types.includes("locality")); 
-            var addressResult = filtered_array.length ? filtered_array[0]: results[0];
+      if (status === 'OK') {
+        if (results && results.length > 0) {
+          var filtered_array = results.filter(result => result.types.includes("locality"));
+          var addressResult = filtered_array.length ? filtered_array[0] : results[0];
 
-            if(addressResult.address_components) {
-                addressResult.address_components.forEach( async (component) => {
+          if (addressResult.address_components) {
+            addressResult.address_components.forEach(async (component) => {
 
-                    if(component.types.includes('locality')) {
-                      console.log(`Checking for available residences on ${component.long_name} ...`)
-                      info.innerHTML = await listAvaResidences(component.long_name)
-                    }
-                    
-                });
-            }else console.log("something went wrong when filtering!")
-        }else console.log("No result found!")
-      }else console.log("didnt worked")
+              if (component.types.includes('locality')) {
+                console.log(`Checking for available residences on ${component.long_name} ...`)
+                const content = await listAvaResidences(component.long_name)
+                if(content != false) info.innerHTML = content 
+              }
+
+            });
+          } else console.log("something went wrong when filtering!")
+        } else console.log("No result found!")
+      } else console.log("didnt worked")
     })
   })
 
   //const iconBase =
   //  "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
-  
+
   const icons = {
     /*parking: {
       icon: iconBase + "parking_lot_maps.png",
@@ -102,24 +104,26 @@ async function initMap() {
   const data = await aggrData()
   console.log("data")
   console.log(data)
-  
-  for (let x in data.addrs){
-    console.log(data.addrs[x])
-    const revs = data.revs[x].filter(row => row.rev.approved)
-    console.log(revs)
 
-    const position = new google.maps.LatLng(data.addrs[x].addr.lat || 1, data.addrs[x].addr.lng || 1);
-    console.log(`CHEKCING IF POSITION EXISTS ${position}`)
-    const totalReviews = revs.length;
+  for (let x in data.addrs) {
 
-    const sum =revs.map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
-    const ratingAvg = (sum / totalReviews).toFixed(2);
-    
-    const type = "info";
-    const addrData = revs
+    if (data.revs[x]) {
+      const revs = data.revs[x].filter(row => row.rev.approved)
+      console.log(revs)
 
-    if(revs.length > 0)
-    markers.push({position, totalReviews, ratingAvg, addrData, type})
+      const position = new google.maps.LatLng(data.addrs[x].addr.lat || 1, data.addrs[x].addr.lng || 1);
+      console.log(`CHEKCING IF POSITION EXISTS ${position}`)
+      const totalReviews = revs.length;
+
+      const sum = revs.map(row => row.rev.rating).reduce((result, currentValue) => result + currentValue, 0)
+      const ratingAvg = (sum / totalReviews).toFixed(2);
+
+      const type = "info";
+      const addrData = revs
+
+      if (revs.length > 0)
+        markers.push({ position, totalReviews, ratingAvg, addrData, type })
+    }
   }
 
   console.log(`markers: `)
@@ -136,8 +140,8 @@ async function initMap() {
     });
 
     marker.addListener("click", async _ => {
-        //info.innerHTML = avaResidences
-        infoWindow.setContent(/*html*/`
+      //info.innerHTML = avaResidences
+      infoWindow.setContent(/*html*/`
         <div class="w-full max-w-md bg-white">
    <div class="flow-root">
         <ul role="list" class="divide-y divide-dashed divide-gray-200 dark:divide-gray-400">
@@ -179,10 +183,10 @@ ${buildStars(markers[i].ratingAvg)}
 </div>
         `)
 
-        infoWindow.open(map, marker)
+      infoWindow.open(map, marker)
 
-        const reviews = await buildHtml(markers[i].addrData) 
-        info.innerHTML = reviewsSearch + reviews
+      const reviews = await buildHtml(markers[i].addrData)
+      info.innerHTML = reviewsSearch + reviews
     })
 
   }

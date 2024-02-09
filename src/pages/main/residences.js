@@ -11,6 +11,8 @@ const noteDetails = document.getElementById("noteDetails")
 const flatSizeDetails = document.getElementById("flatSizeDetails")
 const buildingAgeDetails =document.getElementById("buildingAgeDetails")
 const imgDetails = document.getElementById("imgDetails")
+const elevator = document.getElementById("elevatorDetails")
+const parking = document.getElementById("parkingDetails")
 
 const singResHTML = (r, revsPerResidence) => {
 
@@ -117,7 +119,8 @@ async function listAvaResidences(city){
     const data = await response.json()
 
     console.log("Response from listAvaResidences")
-    console.log(data)
+    console.log(response)
+    
     if(response.ok){
       persistAvaResidences = groupBy(data, r => r.resData.id)
 
@@ -133,12 +136,13 @@ async function listAvaResidences(city){
     console.log(e)
   }
 
-  return "No available residences found for this location."
+  return false
 }
 
 function toggleModalAvaResidences(modalID, data = undefined){
 
   if(data){
+    console.log(data)
 
     bedroomDetails.innerHTML = data.resData.bedRooms
     bathroomDetails.innerHTML = data.resData.bathRooms
@@ -149,6 +153,8 @@ function toggleModalAvaResidences(modalID, data = undefined){
     flatSizeDetails.innerHTML = data.resData.flatSize
     buildingAgeDetails.innerHTML = data.resData.buildingAge
     msgOwnerId.value = data.resData.userId
+    elevator.style.display = (data.resData.elevator)? "" : "none";
+    parking.style.display = (data.resData.parking)? "" : "none";
 
     if(data.resData.imgs){
       imgDetails.innerHTML = /*html*/

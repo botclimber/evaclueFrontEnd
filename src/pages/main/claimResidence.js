@@ -8,7 +8,16 @@ const fileMaxSize = 5e6 // bytes
 function claimResidenceForm (){ info.innerHTML = claimResidence }
 
 async function submitClaim() {
+  var inputValidator = true
   console.log("Claim residence ...")
+
+  const city = document.getElementById("rCity").value
+  const street = document.getElementById("rStreet").value
+  const nr = document.getElementById("rNr").value
+
+  if (!city || city.trim() === ''){ dialog.err("City field is required!"); inputValidator = false; }
+  if (!street || street.trim() === ''){ dialog.err("Street field is required!"); inputValidator = false; }
+  if (!nr || nr.trim() === ''){ dialog.err("Number field is required!"); inputValidator = false; }
   
   const resImgs = document.getElementById(fileParams.residences.key).files
   const pFiles = document.getElementById(pFileKey).files
@@ -17,16 +26,16 @@ async function submitClaim() {
   const docFormData = await inputFilesValidator(pFiles, pFileKey, fileMaxSize, maxFiles, allowedDocExtensions)
   console.log(docFormData)
 
-  if( (resImgs.length == 0) || (resImgs.length > 0 && imgsFormData)) {
+  if( inputValidator && ((resImgs.length == 0) || (resImgs.length > 0 && imgsFormData))) {
     if(docFormData){
 
     const dataToSubmit = {
       flag: localStorage.getItem("rFlag") || undefined,
       lat : parseFloat(localStorage.getItem("rLat")) || 0,
       lng : parseFloat(localStorage.getItem("rLng")) || 0,
-      city: document.getElementById("rCity").value || undefined,
-      street: document.getElementById("rStreet").value || undefined,
-      nr : document.getElementById("rNr").value || undefined,
+      city: city || undefined,
+      street: street || undefined,
+      nr : nr || undefined,
       floor : document.getElementById("rFloor").value || "",
       direction : document.getElementById("rDirection").value || "",
     }
@@ -62,9 +71,11 @@ async function submitClaim() {
 
             const fileHandlerData = await fileHandlerResponse.json();
             console.log(fileHandlerData)
+            dialog.success(fileHandlerData.msg)
 
           }catch(e){
             console.log(e)
+            dialog.err(e)
             throw e
           }
         }
@@ -72,14 +83,16 @@ async function submitClaim() {
         Promise.all([submitFiles(imgsFormData, "addResImgs"), submitFiles(docFormData, "addResDoc")])
         .then( res => {
           console.log(res);
+          dialog.success(data.msg);
           //window.location.reload()
         })
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err); dialog.err(err.msg); })
 
       }else{
-        console.log(data.msg)
+        console.log(data.msg);
+        dialog.err(data.msg);
       }
-  }else console.log("Please ensure you attach a documentation to proof ownership!")
+  }else {console.log("Please ensure you attach a documentation to proof ownership!"); dialog.err("Please ensure you attach a documentation to proof ownership!")}
 }
 
 }

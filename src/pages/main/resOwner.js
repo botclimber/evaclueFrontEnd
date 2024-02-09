@@ -28,9 +28,12 @@ async function sendMessageToOwner(){
             })
             const json = await response.json()
 
-            if(response.ok) window.location.href = "index.html";
-            else console.log(json)
+            if(response.ok) dialog.success("Message sent! thank you.")//window.location.reload();
+            else{ 
+                console.log(json)
+                dialog.err(json.msg)
+            }
 
         }
-    }else console.log("Please write something ...") 
+    }else dialog.info("Please write something...") 
 }
