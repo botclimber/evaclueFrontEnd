@@ -1,11 +1,3 @@
-/*<div class="flex w-1/3 flex-wrap">
-                          <div class="w-full p-1 md:p-2">
-                            <img
-                              alt="gallery"
-                              class="block h-full w-full rounded-lg object-cover object-center"
-                              src="https://m.economictimes.com/thumb/msid-102650347,width-1200,height-900,resizemode-4,imgsize-85186/jujutsu-kaisen-season-2-is-the-popular-manga-available-on-netflix.jpg" />
-                          </div>
-                        </div>*/
 const totalReviews = document.getElementById("totalReviews")
 const modalReview = document.getElementById("modal-review")
 const modalRating = document.getElementById("modal-rating")
@@ -40,6 +32,29 @@ function toggleModalReviews(modalID, reviewData = undefined) {
 
 }
 
+async function delReview(revId) {
+  try{
+      if(confirm("Are you sure ?")){
+          const response = await fetch(`${apis.reviews}delete`, {
+              method: "DELETE",
+              headers: {
+                  'authorization': 'baer ' + token,
+                  'Content-Type': 'application/json'
+                  // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: JSON.stringify({revId: revId})
+          })
+          const data = await response.json()
+
+          console.log(data)
+          window.location.reload()
+      }
+  }catch(e){
+      console.log(e)
+      dialog.err(e.msg)
+  }
+}
+
 aggrData()
   .then(response => {
 
@@ -69,7 +84,7 @@ aggrData()
           `${takeLeft(r.rev.review, 15)} ...<a href="#" onclick="toggleModalReviews('reviewDetails', ${serialize(r)})"  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"> more</a>`,
           status,
           r.rev.createdOn,
-          `<button class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded" disabled>
+          `<button type="button" onclick="delReview(${r.rev.id})" class="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
          Delete
        </button>`]
 

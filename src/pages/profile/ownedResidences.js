@@ -80,7 +80,6 @@ async function removeImg(resId, imgNr) {
 
     }
 }
-async function releaseResidence() { }
 
 function owResDetails() {
 
@@ -300,3 +299,26 @@ async function refreshModal(id) {
     await toggleModal("modal-id", id, false);
 
 }
+
+async function releaseResidence(ownResId = currentResDetailsId.value) {
+    try{
+        if(confirm("Are you sure ?")){
+            const response = await fetch(`${apis.resowners}release`, {
+                method: "DELETE",
+                headers: {
+                    'authorization': 'baer ' + token,
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify({resOwnerId: ownResId})
+            })
+            const data = await response.json()
+
+            console.log(data)
+            window.location.reload()
+        }
+    }catch(e){
+        console.log(e)
+        dialog.err(e.msg)
+    }
+ }
