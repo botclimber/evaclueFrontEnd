@@ -27,7 +27,6 @@ async function getFilters() {
 }
 
 async function setFilters() {
-    console.log(enable.checked)
 
     const data = {
         byCities: byCities.value,

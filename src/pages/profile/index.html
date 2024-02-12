@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Evaclue</title>
+  <title>Evaclue</title>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" />
-<link rel="stylesheet" href="../../../assets/css/loadingScreen.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" />
+  <link rel="stylesheet" href="../../../assets/css/loadingScreen.css" />
 
-<script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-  .image-container {
-    position: relative;
-    display: inline-block;
-}
+  <style>
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
 
-.delete-button {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    cursor: pointer;
-    display: none;
-}
+    .delete-button {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      cursor: pointer;
+      display: none;
+    }
 
-.image-container:hover .delete-button {
-    display: block;
-}
-</style>
+    .image-container:hover .delete-button {
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
 
-  <div id="eva_loadingScreen" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
+  <div id="eva_loadingScreen" wire:loading
+    class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
 
     <div class="screen">
       <div class="loader">
@@ -42,516 +46,649 @@
 
   </div>
 
-    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a id="href_logo_navbar" href="#" class="flex items-center">
-            <img id="src_logo_navbar" src="#" class="h-8 mr-3" alt="Flowbite Logo">
-        </a>
-        <div class="flex md:order-2">
-            <button type="button" onclick="login()" id="eva_loginBtn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-            
-            <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
-              <span class="sr-only">Open user menu</span>
-              <img id = "userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/" alt="user photo">
-              <span id = "userMenuName"></span>
-              <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg>
-          </button>
-          
-          
-          <!-- Dropdown menu -->
-          <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-              <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+  <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a id="href_logo_navbar" href="#" class="flex items-center">
+        <img id="src_logo_navbar" src="#" class="h-5 mr-3" alt="Flowbite Logo">
+      </a>
+      <div class="flex md:order-2">
+        <button type="button" onclick="login()" id="eva_loginBtn"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName"
+          class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+          type="button">
+          <span class="sr-only">Open user menu</span>
+          <img id="userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/"
+            alt="user photo">
+          <span id="userMenuName"></span>
+          <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 4 4 4-4" />
+          </svg>
+        </button>
+
+
+        <!-- Dropdown menu -->
+        <div id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+          <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div class="font-medium ">Pro User</div>
                 <div class="truncate">name@flowbite.com</div>
               </div> -->
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                <li>
-                  <a id="href_profile" href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
-                </li>
-              </ul>
-              <div class="py-2">
-                <a href="#" onclick = "logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-              </div>
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+            <li>
+              <a id="href_profile" href="#"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+            </li>
+          </ul>
+          <div class="py-2">
+            <a href="#" onclick="logout()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+              out</a>
           </div>
-            
-          <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
-            <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="d"><g id="c"><g id="e"><g id="b"><path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#a" y="420"/><use xlink:href="#a" y="840"/><use xlink:href="#a" y="1260"/></g><use xlink:href="#a" y="1680"/></g><use xlink:href="#b" x="247" y="210"/></g><use xlink:href="#c" x="494"/></g><use xlink:href="#d" x="988"/><use xlink:href="#c" x="1976"/><use xlink:href="#e" x="2470"/></g></svg>
-            English (US)
-          </button>
-          <!-- Dropdown -->
-          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
-            <ul class="py-2 font-medium" role="none">
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/></svg>              
-                    English (US)
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de" viewBox="0 0 512 512"><path fill="#ffce00" d="M0 341.3h512V512H0z"/><path d="M0 0h512v170.7H0z"/><path fill="#d00" d="M0 170.7h512v170.6H0z"/></svg>
-                    Deutsch
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it" viewBox="0 0 512 512"><g fill-rule="evenodd" stroke-width="1pt"><path fill="#fff" d="M0 0h512v512H0z"/><path fill="#009246" d="M0 0h170.7v512H0z"/><path fill="#ce2b37" d="M341.3 0H512v512H341.3z"/></g></svg>              
-                    Italiano
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512"><defs><path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z"/></defs><path fill="#de2910" d="M0 0h512v512H0z"/><use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a"/><use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a"/></svg>
-                    中文 (繁體)
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+
+        <button type="button" data-dropdown-toggle="language-dropdown-menu"
+          class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
+          <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900">
+            <path fill="#b22234" d="M0 0h7410v3900H0z" />
+            <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300" />
+            <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+            <g fill="#fff">
+              <g id="d">
+                <g id="c">
+                  <g id="e">
+                    <g id="b">
+                      <path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                      <use xlink:href="#a" y="420" />
+                      <use xlink:href="#a" y="840" />
+                      <use xlink:href="#a" y="1260" />
+                    </g>
+                    <use xlink:href="#a" y="1680" />
+                  </g>
+                  <use xlink:href="#b" x="247" y="210" />
+                </g>
+                <use xlink:href="#c" x="494" />
+              </g>
+              <use xlink:href="#d" x="988" />
+              <use xlink:href="#c" x="1976" />
+              <use xlink:href="#e" x="2470" />
+            </g>
+          </svg>
+          English (US)
+        </button>
+        <!-- Dropdown -->
+        <div
+          class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+          id="language-dropdown-menu">
+          <ul class="py-2 font-medium" role="none">
             <li>
-              <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-us" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd">
+                      <g stroke-width="1pt">
+                        <path fill="#bd3d44"
+                          d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                        <path fill="#fff"
+                          d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                      </g>
+                      <path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)" />
+                  </svg>
+                  English (US)
+                </div>
+              </a>
             </li>
             <li>
-              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-de" viewBox="0 0 512 512">
+                    <path fill="#ffce00" d="M0 341.3h512V512H0z" />
+                    <path d="M0 0h512v170.7H0z" />
+                    <path fill="#d00" d="M0 170.7h512v170.6H0z" />
+                  </svg>
+                  Deutsch
+                </div>
+              </a>
             </li>
             <li>
-              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-it" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd" stroke-width="1pt">
+                      <path fill="#fff" d="M0 0h512v512H0z" />
+                      <path fill="#009246" d="M0 0h170.7v512H0z" />
+                      <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
+                    </g>
+                  </svg>
+                  Italiano
+                </div>
+              </a>
             </li>
             <li>
-              <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512">
+                    <defs>
+                      <path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                    </defs>
+                    <path fill="#de2910" d="M0 0h512v512H0z" />
+                    <use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a" />
+                    <use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a" />
+                  </svg>
+                  中文 (繁體)
+                </div>
+              </a>
             </li>
           </ul>
         </div>
-        </div>
-      </nav>
+      </div>
+    </div>
+  </nav>
 
-<div id="main" class="main mt-[70px] mb-[10px]">
-        <section>
-            <div class="bg-gray-100">
-                <div class="container mx-auto py-8">
-                    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
-                        <div class="col-span-4 sm:col-span-3">
+  <div id="main" class="main mt-[70px] mb-[10px]">
+    <section>
+      <div class="bg-gray-100">
+        <div class="container mx-auto py-8">
+          <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+            <div class="col-span-4 sm:col-span-3">
 
-                            <div class="bg-white shadow rounded-lg p-6">
-                                <div class="flex flex-col items-center">
-                                    <img id = "profileImg" src="#" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
-            
-                                    </img>
-                                    <h1 class="text-xl font-bold" id = "profileName"></h1>
-                                    <!-- <p class="text-gray-600"></p>-->
-                                    <div class="mt-6 flex flex-wrap gap-4 justify-center">
+              <div class="bg-white shadow rounded-lg p-6">
+                <div class="flex flex-col items-center">
+                  <img id="profileImg" src="#" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
 
-                                        <form>
-                                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                                            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="profileImgInput" type="file" onchange="changeProfileImg()">
-                                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-                                        </form>
+                  </img>
+                  <h1 class="text-xl font-bold" id="profileName"></h1>
+                  <!-- <p class="text-gray-600"></p>-->
+                  <div class="mt-6 flex flex-wrap gap-4 justify-center">
 
-                                        <a href="#" id="changePasswordBtn" data-modal-target="passwordForm" data-modal-toggle="passwordForm" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"> Change Password</a>
-                                    </div>
-                                </div>
-                                <hr class="my-6 border-t border-gray-300">
+                    <form>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        for="file_input">Upload file</label>
+                      <input
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        aria-describedby="file_input_help" id="profileImgInput" type="file"
+                        onchange="changeProfileImg()">
+                      <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF
+                        (MAX. 800x400px).</p>
+                    </form>
 
-                                <div class="flex flex-col">
-
-                                    <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
-                                        <div>
-                                            <div class="text-sm text-gray-400 ">Review Contributions</div>
-                                            <div class="flex items-center pt-1">
-                                                <div class="text-xl font-medium text-indigo-400 " id="totalReviews">0</div>
-                                            </div>
-                                        </div>
-                                        <div class="text-gray-300">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                                              </svg>
-                                              
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
-                                        <div>
-                                            <div class="text-sm text-gray-400 ">Claimed Residences</div>
-                                            <div class="flex items-center pt-1">
-                                                <div class="text-xl font-medium text-indigo-400 " id="totalResidences">0</div>
-                                            </div>
-                                        </div>
-                                        <div class="text-gray-300">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                                              </svg>
-                                              
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-4 sm:col-span-9">
-                                         
-
-                            <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-                                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-                                    <li class="mr-2" role="presentation">
-                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Reviews</button>
-                                    </li>
-                                    <li class="mr-2" role="presentation">
-                                        <button class="inline-block p-4 border-b-2 rounded-t-lg" id="residences-tab" data-tabs-target="#residences" type="button" role="tab" aria-controls="profile" aria-selected="false">Residences</button>
-                                    </li>
-                                    <li class="mr-2" role="presentation">
-                                        <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="filters-tab" data-tabs-target="#filters" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Filters</button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="myTabContent" class="bg-gray-800 text-white shadow rounded-lg p-6">
-                                
-                                <div class="hidden p-4 rounded-lg "  id="reviews" role="tabpanel" aria-labelledby="dashboard-tab">
-                                        <table id="reviewsDataTable" class="display responsive" style="width:100%;text-wrap: wrap;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Location</th>
-                                                    <th>Review</th>
-                                                    <th>Status</th>
-                                                    <th>Created At</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                </div>
-                                <div class="hidden p-4 rounded-lg" id="residences" role="tabpanel" aria-labelledby="profile-tab">
-                                    <table id="residencesDataTable" class="display" style="width:100%;text-wrap: wrap;">
-                                        <thead>
-                                            <tr>
-                                                <th>Location</th>
-                                                <th>RentPrice (euros/month)</th>
-                                                <th>Available</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="hidden p-4 rounded-lg" id="filters" role="tabpanel" aria-labelledby="dashboard-tab">
-                                    <p class="uppercase font-bold">Setup Filters and get notified</p>
-                                    <div class="mt-2">
-                                    <form>
-                                        <div class="col-md-12"><label class="labels">By Cities</label>
-                                          <input type="text" onchange="setFilters()" id="byCities" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value=""></div> <br>
-                                        <div class="col-md-12">
-                                          <label class="labels">By Rent Price</label><br>
-                                          <input type="number" class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Min" onchange="setFilters()" id="byRentPriceMin" value="">
-                                          <input type="number" class="mt-2 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Max" onchange="setFilters()" id="byRentPriceMax" value="">
-                                        </div><br>
-                                        <div class="col-md-12">
-                                          <label class="labels">Enable Filter</label><br>
-                                          <input type="checkbox" onclick="setFilters()" id="enable" lass="mr-2 leading-tight">
-                                        </div>
-                                        <br>
-                                        <div class="d-flex justify-content-between align-items-center experience"><span style="color:#b8410d" id="responseMsg"></span></div><br>
-                                      </form>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
+                    <a href="#" id="changePasswordBtn" data-modal-target="passwordForm" data-modal-toggle="passwordForm"
+                      class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded"> Change Password</a>
+                  </div>
                 </div>
-            </div>
-        </section>
-</div>
+                <hr class="my-6 border-t border-gray-300">
 
+                <div class="flex flex-col">
 
-<footer class="bg-white shadow dark:bg-gray-900">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a id="href_logo_footer" href="#" class="flex items-center mb-4 sm:mb-0">
-                <img id="src_logo_footer" src="#" class="h-8 mr-3" alt="Flowbite Logo" />
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
-    </div>
-</footer>
-
-<!-- Password Modal -->
-<div id="passwordForm" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Change Password
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="passwordForm">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6 text-white">
-                <form class="w-full max-w-lg">
-
-                    <div class="flex flex-wrap -mx-3 mb-2">
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
-                          Old Password
-                        </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="oldPassword" type="password" placeholder="*********">
-                      </div>
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
-                          New Password
-                        </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="newPassword" type="password" placeholder="*********">
-                      </div>
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
-                          Confirm Password
-                        </label>
-                        <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="confirmPassword" type="password" placeholder="*********">
+                  <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+                    <div>
+                      <div class="text-sm text-gray-400 ">Review Contributions</div>
+                      <div class="flex items-center pt-1">
+                        <div class="text-xl font-medium text-indigo-400 " id="totalReviews">0</div>
                       </div>
                     </div>
-                  </form>
-            </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button type="button" onclick="changePassword()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change</button>
-                <button data-modal-hide="passwordForm" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="text-gray-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                      </svg>
 
-<!-- Review Details Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" id="reviewDetails">
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-xl font-semibold">
-          Review Details
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" onclick="toggleModalReviews('reviewDetails')">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-      </button>
-      </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
-        <article>
-          <div >
-            <div class="flex items-start mb-5">
-              <div class="flex-grow pr-4">
-                  <footer>
-                      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Reviewed: <time datetime="2022-01-20 19:00" id="modal-createdOn"></time></p>
-                  </footer>
-                  <h4 class="text-xl font-bold text-gray-900 dark:text-white"></h4>
-              </div>
-              <div class="flex items-center">
-                  <svg class="w-8 h-8 text-yellow-600 ml-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                      <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
-                      <text x="48%" y="58%" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="white" id="modal-rating">0</text>
-                  </svg>
-              </div>
-          </div>
-              <p class="mb-2 text-gray-500 dark:text-gray-400" id="modal-review"></p>
-              <div>
-                  <div class="container mx-auto px-5 py-2">
-                      <div class="-m-1 flex flex-wrap md:-m-2" id="modal-imgs">
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between p-5 bg-white rounded shadow-sm">
+                    <div>
+                      <div class="text-sm text-gray-400 ">Claimed Residences</div>
+                      <div class="flex items-center pt-1">
+                        <div class="text-xl font-medium text-indigo-400 " id="totalResidences">0</div>
                       </div>
                     </div>
+                    <div class="text-gray-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                      </svg>
+
+                    </div>
+                  </div>
+
+                </div>
               </div>
+            </div>
+            <div class="col-span-4 sm:col-span-9">
+
+
+              <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab"
+                  data-tabs-toggle="#myTabContent" role="tablist">
+                  <li class="mr-2" role="presentation">
+                    <button
+                      class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                      id="reviews-tab" data-tabs-target="#reviews" type="button" role="tab" aria-controls="dashboard"
+                      aria-selected="false">Reviews</button>
+                  </li>
+                  <li class="mr-2" role="presentation">
+                    <button class="inline-block p-4 border-b-2 rounded-t-lg" id="residences-tab"
+                      data-tabs-target="#residences" type="button" role="tab" aria-controls="profile"
+                      aria-selected="false">Residences</button>
+                  </li>
+                  <li class="mr-2" role="presentation">
+                    <button
+                      class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                      id="filters-tab" data-tabs-target="#filters" type="button" role="tab" aria-controls="dashboard"
+                      aria-selected="false">Filters</button>
+                  </li>
+                </ul>
+              </div>
+              <div id="myTabContent" class="bg-gray-800 text-white shadow rounded-lg p-6">
+
+                <div class="hidden p-4 rounded-lg " id="reviews" role="tabpanel" aria-labelledby="dashboard-tab">
+                  <table id="reviewsDataTable" class="display responsive" style="width:100%;text-wrap: wrap;">
+                    <thead>
+                      <tr>
+                        <th>Location</th>
+                        <th>Review</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="hidden p-4 rounded-lg" id="residences" role="tabpanel" aria-labelledby="profile-tab">
+                  <table id="residencesDataTable" class="display" style="width:100%;text-wrap: wrap;">
+                    <thead>
+                      <tr>
+                        <th>Location</th>
+                        <th>RentPrice (euros/month)</th>
+                        <th>Available</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="hidden p-4 rounded-lg" id="filters" role="tabpanel" aria-labelledby="dashboard-tab">
+                  <p class="uppercase font-bold">Setup Filters and get notified</p>
+                  <div class="mt-2">
+                    <form>
+                      <div class="col-md-12"><label class="labels">By Cities</label>
+                        <input type="text" onchange="setFilters()" id="byCities"
+                          class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-first-name" placeholder="Braga, Porto, Viseu, etc ..." value="">
+                      </div> <br>
+                      <div class="col-md-12">
+                        <label class="labels">By Rent Price</label><br>
+                        <input type="number"
+                          class="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          placeholder="Min" onchange="setFilters()" id="byRentPriceMin" value="">
+                        <input type="number"
+                          class="mt-2 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          placeholder="Max" onchange="setFilters()" id="byRentPriceMax" value="">
+                      </div><br>
+                      <div class="col-md-12">
+                        <label class="labels">Enable Filter</label><br>
+                        <input type="checkbox" onclick="setFilters()" id="enable" lass="mr-2 leading-tight">
+                      </div>
+                      <br>
+                      <div class="d-flex justify-content-between align-items-center experience"><span
+                          style="color:#b8410d" id="responseMsg"></span></div><br>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
-      </article>
+        </div>
       </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-      </div>
-    </div>
+    </section>
   </div>
-</div>
-<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="reviewDetails-backdrop"></div>
 
-<!-- Residence Details Modal -->
-<div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" id="modal-id">
-  <div class="relative w-auto my-6 mx-auto max-w-3xl">
-    <!--content-->
-    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-      <!--header-->
-      <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-        <h3 class="text-xl font-semibold">
-          Residence Details
-        </h3>
-        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" onclick="toggleModal('modal-id')">
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-          <span class="sr-only">Close modal</span>
-      </button>
-      </div>
-      <div class="p-5">
-        <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-          <li class="mr-2">
-              <a href="#" id="owResDetailsTab" onclick="owResDetails()" class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">Details</a>
+
+  <footer class="bg-white shadow dark:bg-gray-900">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <a id="href_logo_footer" href="#" class="flex items-center mb-4 sm:mb-0">
+          <img id="src_logo_footer" src="#" class="h-5 mr-3" alt="Flowbite Logo" />
+        </a>
+        <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6 ">Contact</a>
           </li>
-          <li class="mr-2">
-              <a href="#" id="owResImgsTab" onclick="owResImgs()" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Images</a>
+          <li>
+            <a href="#" class="hover:underline">Terms</a>
           </li>
         </ul>
       </div>
-      <!--body-->
-      <div class="relative p-6 flex-auto">
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#"
+          class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
+    </div>
+  </footer>
 
-        <div id="owResDetails">
-        <form class="w-full max-w-lg">
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/3 px-3">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Flat Size (m2)
-              </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="flatSize" type="number">
-            </div>
-            <div class="w-full md:w-1/3 px-3">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Bedrooms
-              </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="bedRooms" type="number">
-            </div>
-            <div class="w-full md:w-1/3 px-3">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Bathrooms
-              </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="bathRooms" type="number">
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-              
-              <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Notes</label>
-              <textarea id="notes" rows="4" class="block p-2.5 w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Write your thoughts here..."></textarea>
+  <!-- Password Modal -->
+  <div id="passwordForm" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+            Change Password
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="passwordForm">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6 text-white">
+          <form class="w-full max-w-lg">
 
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Parking
-              </label>
-              <select id="parking" class="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                <option selected></option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-              </select>
-            </div>
-            <div class="w-full md:w-1/2 px-3">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Elevator
-              </label>
-              <select id="elevator" class="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                <option selected></option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-              </select>
-            </div>
-          </div>
-          <div class="flex flex-wrap -mx-3">
-            <div class="w-full md:w-1/3 px-3 mt-4">
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
-                Building Age
-              </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="buildingAge" type="number">
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div id="owResImgs" style="display:none">
-        <div>
-          <div class="container mx-auto px-5 py-2">
-              <div class="-m-1 flex flex-wrap md:-m-2" id="modal-owResImgs">
+            <div class="flex flex-wrap -mx-3 mb-2">
+              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                  Old Password
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="oldPassword" type="password" placeholder="*********">
+              </div>
+              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                  New Password
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="newPassword" type="password" placeholder="*********">
+              </div>
+              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-city">
+                  Confirm Password
+                </label>
+                <input
+                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  id="confirmPassword" type="password" placeholder="*********">
               </div>
             </div>
-      </div>
-      </div>
-      </div>
-      <!--footer-->
-      <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b" id="resFooter">
-        <input type="hidden" id="resDetailsId" value="0">
-        <button type="button" onclick="releaseResidence()" class="float-left focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Release</button>
-        <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" onclick="toggleModal('modal-id')">Close</button>
-        <button type="button" onclick="updateResidence('form')" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Save Changes</button>
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <button type="button" onclick="changePassword()"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Change</button>
+          <button data-modal-hide="passwordForm" type="button"
+            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <!-- Review Details Modal -->
+  <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+    id="reviewDetails">
+    <div class="relative w-auto my-6 mx-auto max-w-3xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-xl font-semibold">
+            Review Details
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            onclick="toggleModalReviews('reviewDetails')">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
+          <article>
+            <div>
+              <div class="flex items-start mb-5">
+                <div class="flex-grow pr-4">
+                  <footer>
+                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Reviewed: <time datetime="2022-01-20 19:00"
+                        id="modal-createdOn"></time></p>
+                  </footer>
+                  <h4 class="text-xl font-bold text-gray-900 dark:text-white"></h4>
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-8 h-8 text-yellow-600 ml-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 22 20">
+                    <path
+                      d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                    <text x="48%" y="58%" text-anchor="middle" dominant-baseline="middle" font-size="12" fill="white"
+                      id="modal-rating">0</text>
+                  </svg>
+                </div>
+              </div>
+              <p class="mb-2 text-gray-500 dark:text-gray-400" id="modal-review"></p>
+              <div>
+                <div class="container mx-auto px-5 py-2">
+                  <div class="-m-1 flex flex-wrap md:-m-2" id="modal-imgs">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="reviewDetails-backdrop"></div>
 
-<script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <!-- Residence Details Modal -->
+  <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+    id="modal-id">
+    <div class="relative w-auto my-6 mx-auto max-w-3xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-xl font-semibold">
+            Residence Details
+          </h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            onclick="toggleModal('modal-id')">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+        </div>
+        <div class="p-5">
+          <ul
+            class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+            <li class="mr-2">
+              <a href="#" id="owResDetailsTab" onclick="owResDetails()"
+                class="inline-block p-4 bg-gray-100 rounded-t-lg active dark:bg-gray-800">Details</a>
+            </li>
+            <li class="mr-2">
+              <a href="#" id="owResImgsTab" onclick="owResImgs()"
+                class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Images</a>
+            </li>
+          </ul>
+        </div>
+        <!--body-->
+        <div class="relative p-6 flex-auto">
 
-<script>
-  const resDataTable = new DataTable('#residencesDataTable', {
-    responsive: true
-  });
+          <div id="owResDetails">
+            <form class="w-full max-w-lg">
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/3 px-3">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Flat Size (m2)
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="flatSize" type="number">
+                </div>
+                <div class="w-full md:w-1/3 px-3">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Bedrooms
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="bedRooms" type="number">
+                </div>
+                <div class="w-full md:w-1/3 px-3">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Bathrooms
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="bathRooms" type="number">
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
 
-  const revDataTable = new DataTable('#reviewsDataTable', {
-    responsive: true
-  }); 
-  
-</script>
+                  <label for="message"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Notes</label>
+                  <textarea id="notes" rows="4"
+                    class="block p-2.5 w-full text-sm bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    placeholder="Write your thoughts here..."></textarea>
 
-<script src="../../common_js/eva-functional-utils.js"></script>
-<script src="../../common_js/dialog.js"></script>
-<script src="../../common_js/index.js"></script>
-<script src="../../common_js/load.js"></script>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3 mb-2">
+                <div class="w-full md:w-1/2 px-3">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Parking
+                  </label>
+                  <select id="parking"
+                    class="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option selected></option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Elevator
+                  </label>
+                  <select id="elevator"
+                    class="w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option selected></option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex flex-wrap -mx-3">
+                <div class="w-full md:w-1/3 px-3 mt-4">
+                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="grid-last-name">
+                    Building Age
+                  </label>
+                  <input
+                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="buildingAge" type="number">
+                </div>
+              </div>
+            </form>
+          </div>
 
-<script src="profile.js"></script>
-<script src="ownedResidences.js"></script>
-<script src="madeReviews.js"></script>
-<script src="filters.js"></script>
-<script src="main.js"></script>
+          <div id="owResImgs" style="display:none">
+            <div>
+              <div class="container mx-auto px-5 py-2">
+                <div class="-m-1 flex flex-wrap md:-m-2" id="modal-owResImgs">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b" id="resFooter">
+          <input type="hidden" id="resDetailsId" value="0">
+          <button type="button" onclick="releaseResidence()"
+            class="float-left focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Release</button>
+          <button type="button"
+            class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            onclick="toggleModal('modal-id')">Close</button>
+          <button type="button" onclick="updateResidence('form')"
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Save
+            Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
 
-<script src="../../common_js/main.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.tailwindcss.com"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+  <script>
+    const resDataTable = new DataTable('#residencesDataTable', {
+      responsive: true
+    });
+
+    const revDataTable = new DataTable('#reviewsDataTable', {
+      responsive: true
+    });
+
+  </script>
+
+  <script src="../../common_js/eva-functional-utils.js"></script>
+  <script src="../../common_js/dialog.js"></script>
+  <script src="../../common_js/index.js"></script>
+  <script src="../../common_js/load.js"></script>
+
+  <script src="profile.js"></script>
+  <script src="ownedResidences.js"></script>
+  <script src="madeReviews.js"></script>
+  <script src="filters.js"></script>
+  <script src="main.js"></script>
+
+  <script src="../../common_js/main.js"></script>
 
 </body>
+
 </html>

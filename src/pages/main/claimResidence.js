@@ -110,8 +110,7 @@ const claimResidence =
 
 <form class="mt-5">
   <div class="space-y-12">
-    <div class="border-b border-gray-900/10 pb-12">
-      <h2 class="text-base font-semibold leading-7 text-gray-900">Claim Residence</h2>
+    <div>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-2 sm:col-start-1">
@@ -198,9 +197,9 @@ const claimResidence =
     </div>
   </div>
 
-  <div class="mt-6 flex items-center justify-end gap-x-6">
+  <div class="mt-6 flex items-center justify-end">
     <button type="button" onclick="submitClaim()"
-      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Claim</button>
+    class="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700">Claim</button>
   </div>
 </form>
 `

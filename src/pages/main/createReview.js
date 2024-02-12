@@ -64,10 +64,10 @@ async function submitReview() {
   const nr = document.getElementById("rNr").value
   const review = document.getElementById("rReview").value
 
-  if (!city || city.trim() === ''){ dialog.err("City field is required!"); inputValidator = false; }
-  if (!street || street.trim() === ''){ dialog.err("Street field is required!"); inputValidator = false; }
-  if (!nr || nr.trim() === ''){ dialog.err("Number field is required!"); inputValidator = false; }
-  if (!review || review.trim() === ''){ dialog.err("Review field is required!"); inputValidator = false; }
+  if (!city || city.trim() === '') { dialog.err("City field is required!"); inputValidator = false; }
+  if (!street || street.trim() === '') { dialog.err("Street field is required!"); inputValidator = false; }
+  if (!nr || nr.trim() === '') { dialog.err("Number field is required!"); inputValidator = false; }
+  if (!review || review.trim() === '') { dialog.err("Review field is required!"); inputValidator = false; }
 
   const mulFiles = document.getElementById("reviewImgs").files
   const formData = await inputFilesValidator(mulFiles, fileParams.reviews.key, fileParams.reviews.maxSize, fileParams.reviews.maxFiles, fileParams.reviews.allowedExtensions)
@@ -85,7 +85,7 @@ async function submitReview() {
       direction: document.getElementById("rDirection").value || "",
       rating: document.getElementById("rRating").value || 0,
       review: review || undefined,
-      anonymous: parseInt(document.getElementById("rAnon").value) || 0  
+      anonymous: parseInt(document.getElementById("rAnon").value) || 0
     }
 
     console.log(dataToSubmit)
@@ -98,36 +98,36 @@ async function submitReview() {
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
     })
-    .then(response => response.json())
-    .then( async (data) => {
-      console.log(data)
-      window.location.reload()
-      dialog.success(data.msg)
+      .then(response => response.json())
+      .then(async (data) => {
+        console.log(data)
+        window.location.reload()
+        dialog.success(data.msg)
 
-      if (formData) {
-  
-        formData.append("reviewId", data.revId)
-  
-        try {
-          const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
-            method: "POST",
-            body: formData
-          });
-          const fileHandlerData = await fileHandlerResponse.json();
-  
-          console.log(fileHandlerData)
-          dialog.success(fileHandlerData.msg) // we may need to change this to a "review created!"
-          //window.location.reload()
-  
-        } catch (e) {
-          console.log(e)
-          dialog.err(e.msg)
+        if (formData) {
+
+          formData.append("reviewId", data.revId)
+
+          try {
+            const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
+              method: "POST",
+              body: formData
+            });
+            const fileHandlerData = await fileHandlerResponse.json();
+
+            console.log(fileHandlerData)
+            dialog.success(fileHandlerData.msg) // we may need to change this to a "review created!"
+            //window.location.reload()
+
+          } catch (e) {
+            console.log(e)
+            dialog.err(e.msg)
+          }
+
         }
-  
-      }
 
-    })
-    .catch(err =>{ console.log(err); dialog.err(err.msg)})
+      })
+      .catch(err => { console.log(err); dialog.err(err.msg) })
 
   }
 }
@@ -145,10 +145,7 @@ const newReview =
 
 <form class="mt-5">
   <div class="space-y-12">
-    <div class="border-b border-gray-900/10 pb-12">
-      <h2 class="text-base font-semibold leading-7 text-gray-900">New Review</h2>
-      <p class="mt-1 text-sm leading-6 text-amber-600">This information will be displayed publicly so be careful what
-        you share.</p>
+    <div>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-2 sm:col-start-1">
@@ -253,8 +250,18 @@ const newReview =
   </div>
 
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="button" onclick="submitReview()"
-      class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Send</button>
+  <button type="button" onclick="submitReview()"
+  class="rounded-md bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700">Send</button>
+      
   </div>
+  <div class="bg-blue-100 border-t-4 border-blue-500 rounded-b text-blue-900 px-4 py-3 shadow-md mt-5" role="alert">
+                <div class="flex">
+                  <div class="py-1"><svg class="fill-current h-6 w-6 text-blue-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                  <div>
+                    <p class="font-bold text-sm">Approval System!</p>
+                    <p class="text-xs">Some reviews may require approval before being displayed. However the review status can be followed on your profile.</p>
+                  </div>
+                </div>
+              </div>
 </form>
 `

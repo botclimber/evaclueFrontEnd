@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Evaclue</title>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
-<link rel="stylesheet" href="assets/css/loadingScreen.css" />
-<script src="https://cdn.tailwindcss.com"></script>
+<head>
+  <title>Evaclue</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+    integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+  <link rel="stylesheet" href="assets/css/loadingScreen.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
+
 <body>
-  <div id="eva_loadingScreen" wire:loading class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
+  <div id="eva_loadingScreen" wire:loading
+    class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-95 flex flex-col items-center justify-center">
 
     <div class="screen">
       <div class="loader">
@@ -21,83 +25,165 @@
 
   </div>
 
-    <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" class="flex items-center">
-            <img src="./assets/images/logo.png" class="h-8 mr-3" alt="Flowbite Logo">
-        </a>
-        <div class="flex md:order-2">
-            <button type="button" id="eva_loginBtn" onclick="login()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
-            
-            <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName" class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white" type="button">
-              <span class="sr-only">Open user menu</span>
-              <img id = "userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/" alt="user photo">
-              <span id = "userMenuName"></span>
-              <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-            </svg>
-          </button>
-          
-          <!-- Dropdown menu -->
-          <div id="dropdownAvatarName" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-              <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+  <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="#" class="flex items-center">
+        <img src="./assets/images/logo.png" class="h-5 mr-3" alt="Flowbite Logo">
+      </a>
+      <div class="flex md:order-2">
+        <button type="button" id="eva_loginBtn" onclick="login()"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login</button>
+
+        <button id="eva_profileBtn" data-dropdown-toggle="dropdownAvatarName"
+          class="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
+          type="button">
+          <span class="sr-only">Open user menu</span>
+          <img id="userMenuImg" class="w-8 h-8 mr-2 rounded-full" src="../../../assets/images/userImages/"
+            alt="user photo">
+          <span id="userMenuName"></span>
+          <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 4 4 4-4" />
+          </svg>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div id="dropdownAvatarName"
+          class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+          <!-- <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                 <div class="font-medium ">Pro User</div>
                 <div class="truncate">name@flowbite.com</div>
               </div> -->
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
-                <li>
-                  <a href="./src/pages/profile/index.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
-                </li>
-              </ul>
-              <div class="py-2">
-                <a href="#" onclick = "logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-              </div>
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+            aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+            <li>
+              <a href="./src/pages/profile/index.html"
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+            </li>
+          </ul>
+          <div class="py-2">
+            <a href="#" onclick="logout()"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+              out</a>
           </div>
-            
-          <button type="button" data-dropdown-toggle="language-dropdown-menu" class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
-            <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="d"><g id="c"><g id="e"><g id="b"><path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#a" y="420"/><use xlink:href="#a" y="840"/><use xlink:href="#a" y="1260"/></g><use xlink:href="#a" y="1680"/></g><use xlink:href="#b" x="247" y="210"/></g><use xlink:href="#c" x="494"/></g><use xlink:href="#d" x="988"/><use xlink:href="#c" x="1976"/><use xlink:href="#e" x="2470"/></g></svg>
-            English (US)
-          </button>
-          <!-- Dropdown -->
-          <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700" id="language-dropdown-menu">
-            <ul class="py-2 font-medium" role="none">
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-us" viewBox="0 0 512 512"><g fill-rule="evenodd"><g stroke-width="1pt"><path fill="#bd3d44" d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/><path fill="#fff" d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z" transform="scale(3.9385)"/></g><path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)"/></svg>              
-                    English (US)
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-de" viewBox="0 0 512 512"><path fill="#ffce00" d="M0 341.3h512V512H0z"/><path d="M0 0h512v170.7H0z"/><path fill="#d00" d="M0 170.7h512v170.6H0z"/></svg>
-                    Deutsch
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" id="flag-icon-css-it" viewBox="0 0 512 512"><g fill-rule="evenodd" stroke-width="1pt"><path fill="#fff" d="M0 0h512v512H0z"/><path fill="#009246" d="M0 0h170.7v512H0z"/><path fill="#ce2b37" d="M341.3 0H512v512H341.3z"/></g></svg>              
-                    Italiano
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                  <div class="inline-flex items-center">
-                    <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512"><defs><path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z"/></defs><path fill="#de2910" d="M0 0h512v512H0z"/><use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a"/><use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a"/><use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a"/></svg>
-                    中文 (繁體)
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-
         </div>
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+
+        <button type="button" data-dropdown-toggle="language-dropdown-menu"
+          class="inline-flex items-center font-medium justify-center px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white ml-4">
+          <svg class="w-5 h-5 mr-2 rounded-full" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3900 3900">
+            <path fill="#b22234" d="M0 0h7410v3900H0z" />
+            <path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300" />
+            <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
+            <g fill="#fff">
+              <g id="d">
+                <g id="c">
+                  <g id="e">
+                    <g id="b">
+                      <path id="a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z" />
+                      <use xlink:href="#a" y="420" />
+                      <use xlink:href="#a" y="840" />
+                      <use xlink:href="#a" y="1260" />
+                    </g>
+                    <use xlink:href="#a" y="1680" />
+                  </g>
+                  <use xlink:href="#b" x="247" y="210" />
+                </g>
+                <use xlink:href="#c" x="494" />
+              </g>
+              <use xlink:href="#d" x="988" />
+              <use xlink:href="#c" x="1976" />
+              <use xlink:href="#e" x="2470" />
+            </g>
+          </svg>
+          English (US)
+        </button>
+        <!-- Dropdown -->
+        <div
+          class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
+          id="language-dropdown-menu">
+          <ul class="py-2 font-medium" role="none">
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg aria-hidden="true" class="h-3.5 w-3.5 rounded-full mr-2" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-us" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd">
+                      <g stroke-width="1pt">
+                        <path fill="#bd3d44"
+                          d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                        <path fill="#fff"
+                          d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
+                          transform="scale(3.9385)" />
+                      </g>
+                      <path fill="#192f5d" d="M0 0h98.8v70H0z" transform="scale(3.9385)" />
+                  </svg>
+                  English (US)
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-de" viewBox="0 0 512 512">
+                    <path fill="#ffce00" d="M0 341.3h512V512H0z" />
+                    <path d="M0 0h512v170.7H0z" />
+                    <path fill="#d00" d="M0 170.7h512v170.6H0z" />
+                  </svg>
+                  Deutsch
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    id="flag-icon-css-it" viewBox="0 0 512 512">
+                    <g fill-rule="evenodd" stroke-width="1pt">
+                      <path fill="#fff" d="M0 0h512v512H0z" />
+                      <path fill="#009246" d="M0 0h170.7v512H0z" />
+                      <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
+                    </g>
+                  </svg>
+                  Italiano
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem">
+                <div class="inline-flex items-center">
+                  <svg class="h-3.5 w-3.5 rounded-full mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" id="flag-icon-css-cn" viewBox="0 0 512 512">
+                    <defs>
+                      <path id="a" fill="#ffde00" d="M1-.3L-.7.8 0-1 .6.8-1-.3z" />
+                    </defs>
+                    <path fill="#de2910" d="M0 0h512v512H0z" />
+                    <use width="30" height="20" transform="matrix(76.8 0 0 76.8 128 128)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-121 142.6 -47) scale(25.5827)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-98.1 198 -82) scale(25.6)" xlink:href="#a" />
+                    <use width="30" height="20" transform="rotate(-74 272.4 -114) scale(25.6137)" xlink:href="#a" />
+                    <use width="30" height="20" transform="matrix(16 -19.968 19.968 16 256 230.4)" xlink:href="#a" />
+                  </svg>
+                  中文 (繁體)
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
           <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
@@ -112,65 +198,151 @@
               <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
             </li>
           </ul>
-        </div>
-        </div>
-      </nav>
-
-<div id="main" class="main mt-[70px]">
-    <div class="px-4 mx-auto">
-        <div class="hero">
-            <div class="hero-headline flex flex-col items-center justify-center pt-5 text-center">
-                <h1 class=" font-bold text-3xl text-gray-900">Evaclue</h1>
-                <p class=" font-base text-base text-gray-600">Empowering your Feedback</p>
-            </div>
-
-            <div class="box pt-5 ">
-                <div class="box-wrapper ">
-                <form method="get" action="./src/pages/main/index.html">
-                    <div class=" bg-white rounded flex items-center w-[50%] p-3 shadow-sm border border-gray-200 ml-[25%]">
-                        
-                            <button type="submit" class="outline-none focus:outline-none"><svg class=" w-5 text-gray-600 h-5 cursor-pointer" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
-                            <input type="search" name="sCity" placeholder="City" x-model="q" class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent" required>
-                    </div>
-                </form> 
-                </div>
-            </div>
-
-        </div>
-    </div>    
-</div>
-
-
-<footer class="bg-white shadow dark:bg-gray-900 mt-[50px]">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="#" class="flex items-center mb-4 sm:mb-0">
-                <img src="./assets/images/logo.png" class="h-8 mr-3" alt="Flowbite Logo" />
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-                </li>
-                <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="#" class="hover:underline">Evaclue™</a>. All Rights Reserved.</span>
+        </div> -->
     </div>
-</footer>
+  </nav>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
-<script src="src/common_js/dialog.js"></script>
-<script src="src/common_js/index.js"></script>
-<script src="main.js"></script>
+  <div id="main" class="main mt-[70px]">
+    <div class="px-4 mx-auto">
+      <div class="hero">
+        <div class="hero-headline flex flex-col items-center justify-center pt-5 text-center">
+          <h1 class=" font-bold text-3xl text-gray-900">Evaclue</h1>
+          <p class=" font-base text-base text-gray-600">Empowering your Feedback</p>
+        </div>
+
+        <div class="box pt-5 ">
+          <div class="box-wrapper ">
+            <form method="get" action="./src/pages/main/index.html">
+              <div
+                class=" bg-white flex items-center w-[50%] p-3 shadow-sm border rounded-full border-gray-200 ml-[25%]">
+
+                <button type="submit" class="outline-none focus:outline-none"><svg
+                    class=" w-5 text-gray-600 h-5 cursor-pointer" fill="none" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg></button>
+                <input type="search" name="sCity" placeholder="City" x-model="q"
+                  class="w-full pl-4 text-sm outline-none focus:outline-none bg-transparent" required>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <section class="flex items-center mt-10 font-poppins">
+          <div class="justify-center flex-1 max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
+            <div class="flex flex-wrap items-center ">
+              <div class="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
+                <div class="lg:max-w-md">
+                  <span class="text-xl font-semibold text-blue-600 uppercase dark:text-blue-500">
+                    About Us</span>
+                  <h2 class="mt-4 mb-6 text-2xl font-bold">
+                    Unlocking Home Happiness: Elevating the Leasing Experience through Evaclue's Insightful Reviews</h2>
+                  <p class="mb-10 text-gray-600 dark:text-gray-400 ">
+                    At Evaclue, we believe that everyone deserves access to a safe, comfortable, and suitable home. We
+                    combine cutting-edge technology with a humanized approach to provide an exceptionally positive
+                    long-term leasing experience.</p>
+                </div>
+              </div>
+              <div class="w-full px-4 mb-10 lg:w-1/2 lg:mb-0">
+                <div class="flex mb-4">
+                  <span
+                    class="flex items-center justify-center flex-shrink-0 w-12 h-12 mr-6 bg-blue-500 rounded dark:bg-blue-500 dark:text-gray-100 text-gray-50">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      stroke="#ffffff">
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M11 6C13.7614 6 16 8.23858 16 11M16.6588 16.6549L21 21M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z"
+                          stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </span>
+                  <div>
+                    <h2 class="mb-4 text-xl font-bold leading-tight md:text-2xl">
+                      Advanced Search
+                    </h2>
+                    <p class="text-base leading-loose text-gray-500 dark:text-gray-400">
+                      Explore properties seamlessly, even without map registration. Our intuitive search lets you customize filters for location. Access verified properties and real tenant reviews effortlessly, making your home search hassle-free.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex mb-4">
+                  <span
+                    class="flex items-center justify-center flex-shrink-0 w-12 h-12 mr-6 bg-blue-500 rounded dark:bg-blue-500 dark:text-gray-100 text-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="w-5 h-5 bi bi-file-text" viewBox="0 0 16 16">
+                      <path
+                        d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z" />
+                      <path
+                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
+                    </svg>
+                  </span>
+                  <div>
+                    <h2 class="mb-4 text-xl font-bold leading-tight md:text-2xl">
+                      Authentic Reviews
+                    </h2>
+                    <p class="text-base leading-loose text-gray-500 dark:text-gray-400">
+                      Make informed leasing decisions by tapping into authentic reviews from previous tenants. Dive into firsthand experiences covering the property, owner, location, and more. These unbiased insights guarantee a positive long-term leasing experience tailored to your needs.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex mb-4">
+                  <span
+                    class="flex items-center justify-center flex-shrink-0 w-12 h-12 mr-6 bg-blue-500 rounded dark:bg-blue-500 dark:text-gray-100 text-gray-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="w-5 h-5 bi bi-bank2" viewBox="0 0 16 16">
+                      <path
+                        d="M8.277.084a.5.5 0 0 0-.554 0l-7.5 5A.5.5 0 0 0 .5 6h1.875v7H1.5a.5.5 0 0 0 0 1h13a.5.5 0 1 0 0-1h-.875V6H15.5a.5.5 0 0 0 .277-.916l-7.5-5zM12.375 6v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zm-2.5 0v7h-1.25V6h1.25zM8 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM.5 15a.5.5 0 0 0 0 1h15a.5.5 0 1 0 0-1H.5z">
+                      </path>
+                    </svg>
+                  </span>
+                  <div>
+                    <h2 class="mb-4 text-xl font-bold leading-tight md:text-2xl">
+                      Property Management
+                    </h2>
+                    <p class="text-base leading-loose text-gray-500 dark:text-gray-400">
+                      
+List your property effortlessly with our user-friendly interface. Add photos and details to boost visibility. Leverage tenant reviews for informed decision-making and find your ideal tenants swiftly.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white shadow dark:bg-gray-900 mt-[50px]">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <a href="#" class="flex items-center mb-4 sm:mb-0">
+          <img src="./assets/images/logo.png" class="h-5 mr-3" alt="Flowbite Logo" />
+        </a>
+        <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <li>
+            <a href="#" class="mr-4 hover:underline md:mr-6">Contact</a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline">Terms</a>
+          </li>
+        </ul>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#"
+          class="hover:underline">Evaclue</a>. All Rights Reserved.</span>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <script src="src/common_js/dialog.js"></script>
+  <script src="src/common_js/index.js"></script>
+  <script src="main.js"></script>
 
 </body>
+
 </html>

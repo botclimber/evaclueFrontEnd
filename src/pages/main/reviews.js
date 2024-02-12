@@ -23,7 +23,7 @@ const buildReviewsData = async (data) => {
             reviewRes: residence,
             reviewUserName: row.rev.userName,
             reviewUserImage: row.rev.userImg,
-            reviewBadge: "Legend",
+            //reviewBadge: "Badge",
             reviewContributions: userContributions(row.rev.userId),
             reviewCreatedAt: row.rev.createdOn,
             reviewRating: row.rev.rating,
