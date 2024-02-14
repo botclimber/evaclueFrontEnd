@@ -72,23 +72,63 @@ const buildArticle = (element) => {
 async function buildHtml(data) {
     const reviewsData = await buildReviewsData(data)
 
-    var html = `<div class="grid grid-cols-2">`
+    var html = `<div id = "initRevsDash" class="grid grid-cols-2">`
     await reviewsData.forEach(element => html += buildArticle(element));
     html += `</div>`
 
     return html
 }
 
-const reviewsSearch =
+const reviewsSearch =/*html*/
     `
-<label
-                  class="mb-5 relative bg-white  flex flex-col md:flex-row items-center justify-center border py-2 px-2 "
-                  for="search-bar">
-                  <input id="search-bar" placeholder="floor | direction"
-                      class="px-4 w-full rounded-md flex-1 outline-none bg-white">
-                  <i class="fa fa-search mr-2 text-blue-900"></i>
-                </label>
+<div>
+    <label class="mb-5 relative bg-white  flex flex-col md:flex-row items-center justify-center border py-2 px-2 " for="search-bar">
+        <input type="text" id="search-bar" onchange="reviewFilter(this.value)" placeholder="floor | direction"
+            class="px-4 w-full rounded-md flex-1 outline-none bg-white">
+            <i class="fa fa-search mr-2 text-blue-900"></i>
+    </label>
+</div>
 `
+
+async function reviewFilter(val) {
+    const reviewsToShow = async (reviews) => {
+        const reviewsData = await buildReviewsData(reviews)
+
+        var html = ""
+        await reviewsData.forEach(element => html += buildArticle(element));
+
+        reviewsSection.innerHTML = html
+
+    }
+    console.log("Review Filter Input")
+
+    const reviewsSection = document.getElementById("initRevsDash")
+
+    const splittedVal = val.split("|")
+    const floor = splittedVal[0]
+    const dir = splittedVal[1]
+
+    console.log("value for [floor,dir]")
+    console.log(floor)
+    console.log(dir)
+
+    console.log(currentSelectedReviews)
+
+    if (!isEmpty(floor) && !isEmpty(dir)) {
+        const filteredReviews = currentSelectedReviews.filter(r => (r.location.res.floor == floor.trim() && r.location.res.direction == dir.trim()))
+
+        if (!isEmpty(filteredReviews)) {
+            await reviewsToShow(filteredReviews)
+            return
+        }else{
+            dialog.info("No Reviews found for that specific residence!")
+            return
+        }
+    }
+
+    dialog.info("No Reviews found for that specific residence!")
+    reviewsToShow(currentSelectedReviews)
+}
 
 function updateModalContent(revInput) {
 

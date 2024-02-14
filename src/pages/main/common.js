@@ -1,3 +1,5 @@
+var currentSelectedReviews;
+
 function fromMarker (func, address) {
     if(token === undefined) dialog.info("Login required to perform this action!");
     else{

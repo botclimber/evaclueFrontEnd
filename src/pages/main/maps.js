@@ -185,6 +185,8 @@ ${buildStars(markers[i].ratingAvg)}
 
       infoWindow.open(map, marker)
 
+      currentSelectedReviews = markers[i].addrData
+
       const reviews = await buildHtml(markers[i].addrData)
       info.innerHTML = reviewsSearch + reviews
     })
