@@ -49,6 +49,8 @@ async function initMap() {
 
     if (token === undefined) dialog.info("Login required to perform this action!");
     else newReviewForm();
+
+    shakeInfoDiv()
   })
 
   map.addListener("dragend", (_) => {

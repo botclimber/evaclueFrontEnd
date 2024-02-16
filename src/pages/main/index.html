@@ -11,6 +11,24 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /* Define the shake animation */
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25%, 75% {
+        transform: translateX(-10px);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+    }
+
+    /* Add the shake animation only when the "shaking" class is present */
+    #info.shaking {
+      animation: shake 0.5s;
+    }
+
     #map {
       height: 700px;
     }
