@@ -3,6 +3,28 @@ const mapSection = document.getElementById("map")
 
 let map;
 
+//const iconBase =
+//  "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+
+const icons = {
+  /*parking: {
+    icon: iconBase + "parking_lot_maps.png",
+  },
+  library: {
+    icon: iconBase + "library_maps.png",
+  },*/
+  info: {
+    icon: "../../../assets/images/mapIcons/custom_pin.png",
+  },
+  selection: {
+    icon: "../../../assets/images/mapIcons/pin.png",
+    //icon: "https://c0.klipartz.com/pngpicture/652/32/gratis-png-mapa-de-google-maps-pin-bing-maps-mapquest.png"
+  },
+  avaRes: {
+    icon: "../../../assets/images/mapIcons/key.png"
+  }
+};
+
 const search = async () => {
 
   const fromServer = async (sCity, sStreet, sNr) => {
@@ -42,13 +64,18 @@ async function initMap() {
   const infoWindow = new google.maps.InfoWindow();
 
   map.addListener("dblclick", (event) => {
-    const coords = event.latLng.toJSON()
-    localStorage.setItem("rLat", coords.lat)
-    localStorage.setItem("rLng", coords.lng)
-    localStorage.setItem("rFlag", "fromMapClick")
 
-    if (token === undefined) dialog.info("Login required to perform this action!");
-    else newReviewForm();
+    if (token === undefined || token == "undefined") dialog.info("Login required to perform this action!");
+    else {
+      const coords = event.latLng.toJSON()
+      setTempMarker({ lat: coords.lat, lng: coords.lng }, 40000, icons.selection.icon)
+
+      localStorage.setItem("rLat", coords.lat)
+      localStorage.setItem("rLng", coords.lng)
+      localStorage.setItem("rFlag", "fromMapClick")
+
+      newReviewForm()
+    }
   })
 
   map.addListener("dragend", (_) => {
@@ -75,7 +102,9 @@ async function initMap() {
               if (component.types.includes('locality')) {
                 console.log(`Checking for available residences on ${component.long_name} ...`)
                 const content = await listAvaResidences(component.long_name)
-                if(content != false) info.innerHTML = content 
+                if (content != false){
+                  info.innerHTML = content 
+                }
               }
 
             });
@@ -84,21 +113,6 @@ async function initMap() {
       } else console.log("didnt worked")
     })
   })
-
-  //const iconBase =
-  //  "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
-
-  const icons = {
-    /*parking: {
-      icon: iconBase + "parking_lot_maps.png",
-    },
-    library: {
-      icon: iconBase + "library_maps.png",
-    },*/
-    info: {
-      icon: "../../../assets/images/mapIcons/custom_pin.png",
-    }
-  };
 
   const markers = []
   const data = await aggrData()

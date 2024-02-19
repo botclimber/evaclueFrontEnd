@@ -9,7 +9,7 @@ const locationDetails = document.getElementById("locationDetails")
 const rentPriceDetails = document.getElementById("rentPriceDetails")
 const noteDetails = document.getElementById("noteDetails")
 const flatSizeDetails = document.getElementById("flatSizeDetails")
-const buildingAgeDetails =document.getElementById("buildingAgeDetails")
+const buildingAgeDetails = document.getElementById("buildingAgeDetails")
 const imgDetails = document.getElementById("imgDetails")
 const elevator = document.getElementById("elevatorDetails")
 const parking = document.getElementById("parkingDetails")
@@ -21,7 +21,7 @@ const singResHTML = (r, revsPerResidence) => {
 
   return /*html*/`
   <div class="m-4 text-sm relative mx-auto w-full">
-                  <a href="#" onclick = "showResidenceDetails(${r.resData.id})" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                  <a href="#" onclick = "moveToResidence(${r.resData.id})" class="relative inline-block w-full transform transition-transform duration-300 ease-in-out hover:-translate-y-2">
                     <div class="rounded-lg bg-white p-4 shadow">
                       <div class="relative flex h-24 justify-center overflow-hidden rounded-lg">
                         <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
@@ -37,7 +37,7 @@ const singResHTML = (r, revsPerResidence) => {
                           </p>
                         </div>
               
-                        <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-green-600 px-2 py-1 text-xs font-semibold text-white"> Available </span>
+                        <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-blue-600 px-2 py-1 text-xs font-semibold text-white" onclick="showResidenceDetails(${r.resData.id})"> Details </span>
                       </div>
               
                       <div class="relative mt-1 grid grid-cols-2">
@@ -79,7 +79,18 @@ const singResHTML = (r, revsPerResidence) => {
   `
 }
 
-async function showResidenceDetails(resDataId){ 
+async function moveToResidence(resDataId) {
+  const input = persistAvaResidences[resDataId][0]
+
+  const pos = {lat: (input.addr.lat), lng: (input.addr.lng)}
+  //const pos = { lat: (input.addr.lat), lng: (input.addr.lng) }
+  map.setCenter(pos)
+  map.setZoom(20)
+
+  setTempMarker(pos, 60000, icons.avaRes.icon)
+}
+
+async function showResidenceDetails(resDataId) {
   var html = ""
 
   const input = persistAvaResidences[resDataId][0]
@@ -91,37 +102,39 @@ async function showResidenceDetails(resDataId){
   console.log("revsPerResidence")
   console.log(revsPerResidence)
 
-  html += singResHTML(input, revsPerResidence)
-  html += await buildHtml(revsPerResidence)
-  
   toggleModalAvaResidences("avaResidenceDetails", input)
-  info.innerHTML = html
+
+  if (revsPerResidence.length > 0) {
+    html += singResHTML(input, revsPerResidence)
+    html += await buildHtml(revsPerResidence)
+    info.innerHTML = html
+  }
 }
 
-async function buildResidencesHtml(avResidences){
+async function buildResidencesHtml(avResidences) {
 
 
   var html = ""
-  for(let r of avResidences){
+  for (let r of avResidences) {
     const revsPerResidence = await revsPerResidenceComp(r.res)
-    
+
     html += singResHTML(r, revsPerResidence)
   }
-  
+
   return html
 }
 
-async function listAvaResidences(city){
+async function listAvaResidences(city) {
   console.log(`Getting available residences for ${city}`)
 
-  try{
+  try {
     const response = await fetch(`${apis.resowners}/getByCity?city=${city}`)
     const data = await response.json()
 
     console.log("Response from listAvaResidences")
     console.log(response)
-    
-    if(response.ok){
+
+    if (response.ok) {
       persistAvaResidences = groupBy(data, r => r.resData.id)
 
       console.log("persistAvaResidences")
@@ -130,18 +143,18 @@ async function listAvaResidences(city){
       const bHtml = await buildResidencesHtml(data)
 
       return bHtml
-    }else console.log(data)
+    } else console.log(data)
 
-  }catch(e) {
+  } catch (e) {
     console.log(e)
   }
 
   return false
 }
 
-function toggleModalAvaResidences(modalID, data = undefined){
+function toggleModalAvaResidences(modalID, data = undefined) {
 
-  if(data){
+  if (data) {
     console.log(data)
 
     bedroomDetails.innerHTML = data.resData.bedRooms
@@ -153,12 +166,12 @@ function toggleModalAvaResidences(modalID, data = undefined){
     flatSizeDetails.innerHTML = data.resData.flatSize
     buildingAgeDetails.innerHTML = data.resData.buildingAge
     msgOwnerId.value = data.resData.userId
-    elevator.style.display = (data.resData.elevator)? "" : "none";
-    parking.style.display = (data.resData.parking)? "" : "none";
+    elevator.style.display = (data.resData.elevator) ? "" : "none";
+    parking.style.display = (data.resData.parking) ? "" : "none";
 
-    if(data.resData.imgs){
+    if (data.resData.imgs) {
       imgDetails.innerHTML = /*html*/
-      `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
+        `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
       <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
         <img style="cursor:pointer" onclick="nextImg(${data.resData.id}, 0, ${data.resData.imgs})" src="../../../assets/images/resImgs/residence-${data.resData.id}/img-0.gif" alt="" />
       </div>
@@ -167,22 +180,22 @@ function toggleModalAvaResidences(modalID, data = undefined){
     </div>
     `
     }
-      
+
   }
 
   document.getElementById(modalID).classList.toggle("hidden");
   document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
   document.getElementById(modalID).classList.toggle("flex");
   document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-      
+
 }
 
-function nextImg(id, currentImg, totalImgs){
+function nextImg(id, currentImg, totalImgs) {
 
-  const next = (currentImg < (totalImgs - 1))? parseInt(currentImg) + 1 : 0;
+  const next = (currentImg < (totalImgs - 1)) ? parseInt(currentImg) + 1 : 0;
 
   imgDetails.innerHTML = /*html*/
-      `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
+    `<div class="relative flex h-60 justify-center overflow-hidden rounded-lg">
       <div class="w-full transform transition-transform duration-500 ease-in-out hover:scale-110">
         <img style="cursor:pointer" onclick="nextImg(${id}, ${next}, ${totalImgs})" src="../../../assets/images/resImgs/residence-${id}/img-${next}.gif" alt="" />
       </div>

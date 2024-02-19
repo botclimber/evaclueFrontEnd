@@ -149,7 +149,7 @@ const newReview =
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-2 sm:col-start-1">
-          <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">City</label>
           <div class="mt-2">
             <input type="text" name="city" id="rCity" autocomplete="address-level2"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -157,7 +157,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-2">
-          <label for="region" class="block text-sm font-medium leading-6 text-gray-900">Street</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Street</label>
           <div class="mt-2">
             <input type="text" name="region" id="rStreet" autocomplete="address-level1"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -165,7 +165,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-2">
-          <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">Number</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Number</label>
           <div class="mt-2">
             <input type="text" name="postal-code" id="rNr" autocomplete="postal-code"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -173,7 +173,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-3">
-          <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">Floor</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Floor</label>
           <div class="mt-2">
             <input type="text" name="first-name" id="rFloor" placeholder=" (Optional)" autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -181,7 +181,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-3">
-          <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Direction</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Direction</label>
           <div class="mt-2">
             <input type="text" name="last-name" id="rDirection" placeholder=" (Optional) " autocomplete="family-name"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -189,7 +189,7 @@ const newReview =
         </div>
 
         <div class="sm:col-span-full">
-        <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Rating</label>
+        <label class="block text-sm font-medium leading-6 text-gray-900">Rating</label>
           <div class="mt-2 center-content">
             <span class="fa fa-star" id = "str1"></span>
             <span class="fa fa-star" id = "str2"></span>
@@ -201,7 +201,7 @@ const newReview =
         </div>
 
         <div class="col-span-full">
-          <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Review</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Review</label>
           <div class="mt-2">
             <textarea id="rReview" name="about" rows="3"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
@@ -210,7 +210,7 @@ const newReview =
         </div>
 
         <div class="col-span-full">
-          <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Images (optional)</label>
+          <label class="block text-sm font-medium leading-6 text-gray-900">Images (optional)</label>
           <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div class="text-center">
               <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -219,7 +219,7 @@ const newReview =
                   clip-rule="evenodd" />
               </svg>
               <div class="mt-4 flex text-sm leading-6 text-gray-600">
-                <label for="file-upload"
+                <label
                   class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                   <input type="file" id="reviewImgs" multiple>
                 </label>
@@ -238,7 +238,7 @@ const newReview =
                     class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                 </div>
                 <div class="text-sm leading-6">
-                  <label for="comments" class="font-medium text-gray-900">Anonymous</label>
+                  <label class="font-medium text-gray-900">Anonymous</label>
                   <p class="text-gray-500">in case you're shy person</p>
                 </div>
               </div>
