@@ -25,7 +25,7 @@ async function googleAuth() {
   const params = new URLSearchParams(window.location.hash.slice(1));
   const idToken = params.get('access_token') || undefined;
 
-  if (idToken !== undefined && token === undefined) {
+  if (idToken !== undefined && (token === undefined || token == "undefined")) {
     console.log("googleAuth: creating local token variable");
 
     try {
@@ -54,7 +54,7 @@ async function setToken() {
   const urlParams = new URLSearchParams(window.location.search);
   const tk = urlParams.get("token") || undefined;
 
-  if (tk !== undefined && token === undefined) { console.log("setToken: creating local token variable"); await getProfile(tk); localStorage.setItem("token", tk); }
+  if (tk !== undefined && (token === undefined || token == "undefined")) { console.log("setToken: creating local token variable"); await getProfile(tk); localStorage.setItem("token", tk); }
   else console.log("setToken: Nothing to be assigned!");
 }
 
@@ -117,9 +117,9 @@ const assignTokenValue = async () => {
 assignTokenValue()
 
 const pageMode = async () => {
-  if (token === undefined) await assignTokenValue();
+  if ((token === undefined || token == "undefined")) await assignTokenValue();
 
-  if (token) {
+  if ((token !== undefined && token != "undefined")) {
     console.log(userInfo)
 
     userMenuName.textContent = userInfo.userName
@@ -129,6 +129,7 @@ const pageMode = async () => {
     profileBtn.style.display = "";
 
   } else {
+    localStorage.clear();
 
     loginBtn.style.display = "";
     profileBtn.style.display = "none";

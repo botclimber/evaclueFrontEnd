@@ -56,7 +56,7 @@ async function initMap() {
 
   const location = await search()
 
-  map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(mapSection, {
     center: new google.maps.LatLng(location.lat, location.lng),
     zoom: 19,
   });
@@ -206,4 +206,17 @@ ${buildStars(markers[i].ratingAvg)}
     })
 
   }
+
+  const resizeMap = () => {
+    headerFooter = 375
+    const height = window.innerHeight
+    console.log(height)
+
+    mapSection.style.height =  `${height - headerFooter}px`;
+    mapSection.style.maxHeight =  `${height - headerFooter}px`;
+    info.style.maxHeight = `${height - headerFooter}px`;
+  
+    google.maps.event.trigger(map, 'resize');
+  }
+  resizeMap()
 }

@@ -1,7 +1,7 @@
 var currentSelectedReviews;
 
 function fromMarker(func, address) {
-    if (token === undefined) dialog.info("Login required to perform this action!");
+    if ((token === undefined || token == "undefined")) dialog.info("Login required to perform this action!");
     else {
         console.log(func)
         console.log(address)
