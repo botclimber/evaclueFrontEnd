@@ -16,7 +16,8 @@ var userInfo = {
   userEmail: undefined,
   userName: undefined,
   userImage: undefined,
-  userAuthType: undefined
+  userAuthType: undefined,
+  expiresIn: undefined
 }
 
 async function googleAuth() {
@@ -67,6 +68,7 @@ function setGlobalVars() {
   userInfo.userName = localStorage.getItem("userName") || undefined
   userInfo.userImage = localStorage.getItem("userImage") || undefined
   userInfo.userAuthType = localStorage.getItem("userAuthType") || undefined
+  userInfo.expiresIn = localStorage.getItem("expiresIn") || undefined
 }
 
 async function getProfile(freshToken) {
@@ -85,12 +87,14 @@ async function getProfile(freshToken) {
 
     const data = await res.json()
 
-    if(data.id != undefined){
+    if (data.id != undefined) {
+
       localStorage.setItem("userId", data.id)
       localStorage.setItem("userEmail", data.email)
       localStorage.setItem("userName", `${data.firstName} ${data.lastName}`)
       localStorage.setItem("userImage", data.image)
       localStorage.setItem("userAuthType", data.authType)
+      localStorage.setItem("expiresIn", data.expiresIn)
     }
 
   } catch (e) {
@@ -106,11 +110,15 @@ const userMenuImg = document.getElementById("userMenuImg")
 const userMenuName = document.getElementById("userMenuName")
 
 const assignTokenValue = async () => {
+
   console.log("Assign values to global variables ...")
   await googleAuth()
   await setToken()
 
   setGlobalVars()
+
+  console.log("Checking if token has not expired ...")
+  await isTokenExpired()
 
 }
 
@@ -153,7 +161,7 @@ const fileParams = {
     "maxFiles": 5,
     "allowedExtensions": ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   },
-  "profileImg":{
+  "profileImg": {
     "key": "profileImg",
     "maxSize": 5e6,
     "maxFiles": 1,
@@ -273,4 +281,31 @@ function logout() {
 
 function login() {
   window.location.href = `${domain}/login/user/login`
+}
+
+// @param msg - comes from cathced response exception
+async function isTokenExpired() {
+  const secBeforeLogout = 3
+  const currentTime = Math.floor(Date.now() / 1000)
+
+  const isTokenExpired = (time) => { return currentTime > time }
+
+  if (userInfo.expiresIn !== undefined) {
+    const expTimeToNumber = +userInfo.expiresIn
+
+    console.log(`Token expires at ${new Date(expTimeToNumber * 1000).toLocaleString()}`)
+
+    const isExpired = isTokenExpired(expTimeToNumber)
+
+    if (isExpired) {
+      // clean localStorage
+      window.localStorage.clear()
+
+      // inform user
+      dialog.info(`Token has expired, you will be logged out in ${secBeforeLogout} seconds ...!`)
+      
+      // redirect
+      setTimeout(() => { window.location.href = `${domain}/login/user/login` }, secBeforeLogout * 1000)
+    }
+  }
 }
