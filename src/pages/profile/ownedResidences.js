@@ -45,7 +45,10 @@ async function addNewImg(file, resId) {
             formData.append("resId", resId)
             const addNewImage = await fetch(`${apis.fileHandler}addResImgs`, {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    'authorization': 'baer ' + token,
+                }
             });
 
             const fileHandlerData = await addNewImage.json();
@@ -69,6 +72,9 @@ async function removeImg(resId, imgNr) {
 
         const request = await fetch(`${apis.fileHandler}delResFile/${resId}/${imgNr}`, {
             method: "DELETE",
+            headers: {
+                'authorization': 'baer ' + token,
+            }
         });
 
         const response = await request.json()
@@ -106,7 +112,7 @@ async function getOwnedResidences() {
         const response = await (await fetch(`${apis.resowners}getByUser`, {
             method: "GET",
             headers: {
-                'authorization': 'baer '+token,
+                'authorization': 'baer ' + token,
                 'Content-Type': 'application/json'
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             }
@@ -143,7 +149,7 @@ async function getOwnedResidences() {
 async function updateResidence(params, id = currentResDetailsId.value, ...others) {
     const submit = async (data) => {
 
-        try{
+        try {
             const response = await (await fetch(`${apis.resowners}update/${id}`, {
                 method: "PATCH",
                 headers: {
@@ -153,15 +159,15 @@ async function updateResidence(params, id = currentResDetailsId.value, ...others
                 },
                 body: JSON.stringify(data)
             })).json()
-    
+
             if (params === "form") window.location.reload();
-            else if(params === "free"){
+            else if (params === "free") {
                 if (data.free) dialog.success("Residence set to Available!");
                 else dialog.warn("Residence set to Unavailable!");
             }
             else if (params === "rentPrice") dialog.info("Rent Price updated!")
 
-        }catch(e){
+        } catch (e) {
             console.log(e)
             dialog.err(e.msg)
         }
@@ -301,8 +307,8 @@ async function refreshModal(id) {
 }
 
 async function releaseResidence(ownResId = currentResDetailsId.value) {
-    try{
-        if(confirm("Are you sure ?")){
+    try {
+        if (confirm("Are you sure ?")) {
             const response = await fetch(`${apis.resowners}release`, {
                 method: "DELETE",
                 headers: {
@@ -310,15 +316,15 @@ async function releaseResidence(ownResId = currentResDetailsId.value) {
                     'Content-Type': 'application/json'
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify({resOwnerId: ownResId})
+                body: JSON.stringify({ resOwnerId: ownResId })
             })
             const data = await response.json()
 
             console.log(data)
             window.location.reload()
         }
-    }catch(e){
+    } catch (e) {
         console.log(e)
         dialog.err(e.msg)
     }
- }
+}

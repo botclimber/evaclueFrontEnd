@@ -111,7 +111,10 @@ async function submitReview() {
           try {
             const fileHandlerResponse = await fetch(`${apis.fileHandler}addReviewImgs`, {
               method: "POST",
-              body: formData
+              body: formData,
+              headers: {
+                'authorization':'baer '+token,
+              }
             });
             const fileHandlerData = await fileHandlerResponse.json();
 

@@ -66,7 +66,10 @@ async function submitClaim() {
             paramFormData.append("resId", data.claimId)
             const fileHandlerResponse = await fetch(`${apis.fileHandler}${endpoint}`, {
               method: "POST",
-              body: paramFormData
+              body: paramFormData,
+              headers: {
+                'authorization':'baer '+token,
+              }
             });
 
             const fileHandlerData = await fileHandlerResponse.json();

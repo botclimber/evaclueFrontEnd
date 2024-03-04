@@ -5,7 +5,7 @@ const passwordBtn = document.getElementById("changePasswordBtn")
 
 profileImg.src = `../../../assets/images/userImages/${userInfo.userImage}`
 profileName.textContent = userInfo.userName
-passwordBtn.style.display = (userInfo.userAuthType != "google")? "" : "none";
+passwordBtn.style.display = (userInfo.userAuthType != "google") ? "" : "none";
 
 async function changeProfileImg() {
     console.log("Changing user profile img ...")
@@ -19,7 +19,10 @@ async function changeProfileImg() {
         try {
             const fileHandlerResponse = await fetch(`${apis.fileHandler}changeUserProfileImg`, {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    'authorization': 'baer ' + token,
+                }
             });
             const fileHandlerData = await fileHandlerResponse.json();
             localStorage.setItem("userImage", fileHandlerData.fileName)
@@ -53,7 +56,7 @@ async function changePassword() {
             body: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword }),
         })
             .then(res => res.json())
-            .then(data => {console.log(data); window.location.reload()})
+            .then(data => { console.log(data); window.location.reload() })
             .catch(err => console.log(err))
 
     }
